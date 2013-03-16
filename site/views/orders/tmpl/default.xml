@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+	<layout title="PIZZABOX_VIEW_ORDERS">
+		<message>
+			<![CDATA[PIZZABOX_VIEW_ORDERS_DESC]]>
+		</message>
+	</layout>
+	<state>
+		<name>PIZZABOX_VIEW_ORDERS</name>
+		<description>PIZZABOX_VIEW_ORDERS_DESC</description>
+	</state>
+</metadata>
