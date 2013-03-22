@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `#__pizzabox_flavours` (
 CREATE TABLE IF NOT EXISTS `#__pizzabox_orders` (
   `id`                INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id`           INT( 11 ),
+  `address_id`           INT( 11 ),
   `status_id`         INT( 11 ),
   `datetime`          DATETIME,
   `delivery`          DATETIME,
