@@ -31,19 +31,29 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
 	</fieldset>
 	<fieldset>
 		<legend><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS') ?></legend>
-		<label for="address[name]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_NAME') ?></label>
-		<input type="text" name="address[name]" value="" maxlength="50" />
-		<label for="address[street]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_STREET') ?></label>
-		<input type="text" name="address[street]" value="" />
-		<label for="address[zip]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_ZIP') ?></label>
-		<input type="text" name="address[zip]" value="" maxlength="6" />
-		<label for="address[city]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_CITY') ?></label>
-		<input type="text" name="address[city]" value="" />
-		<label for="address[state]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_STATE') ?></label>
-		<input type="text" name="address[state]" value="" />
-		<label for="address[country]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_COUNTRY') ?></label>
-		<input type="text" name="address[country]" value="" />
-		<input type="hidden" name="address[user_id]" value="<?php echo $this->user_id ?>" />
+		<div style="width: 45%; float: left;">
+			<label for="address[name]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_NAME') ?></label>
+			<input type="text" name="address[name]" value="" maxlength="50" />
+			<label for="address[street]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_STREET') ?></label>
+			<input type="text" name="address[street]" value="" />
+			<label for="address[zip]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_ZIP') ?></label>
+			<input type="text" name="address[zip]" value="" maxlength="6" />
+			<label for="address[city]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_CITY') ?></label>
+			<input type="text" name="address[city]" value="" />
+			<label for="address[state]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_STATE') ?></label>
+			<input type="text" name="address[state]" value="" />
+			<label for="address[country]"><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_COUNTRY') ?></label>
+			<input type="text" name="address[country]" value="" />
+			<input type="hidden" name="address[user_id]" value="<?php echo $this->user_id ?>" />
+		</div>
+		<div style="width: 45%; float: right;">
+			<input type="radio" name="old_address" value="0" checked="checked" /> <?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS_EMPTY') ?>
+			<?php foreach ($this->addresses as $address): ?>
+			<p>
+				<input type="radio" name="old_address" value="<?php echo $address->id ?>" />&nbsp;<?php echo $address->name ?> <?php echo $address->street ?>, <?php echo $address->zip ?> <?php echo $address->city ?> (<?php echo $address->state ?>) - <?php echo $address->country ?>
+			</p>
+			<?php endforeach; ?>
+		</div>
 	</fieldset>
 
 	<div class="buttons">

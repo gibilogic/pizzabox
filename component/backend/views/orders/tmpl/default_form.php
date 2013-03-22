@@ -29,7 +29,7 @@ function submitbutton( pressbutton, section ) {
 <form action="index.php?option=com_pizzabox&controller=orders" method="post" name="adminForm" id="adminForm">
 	<table class="adminForm">
 		<tr>
-			<td><?php echo JText::_('Id')?></td>
+			<td style="width: 150px;"><?php echo JText::_('Id')?></td>
 			<td><?php echo $this->row->id ?></td>
 		</tr>
 		<tr>
@@ -50,7 +50,7 @@ function submitbutton( pressbutton, section ) {
 		</tr>
 		<tr>
 			<td><?php echo JText::_('PIZZABOX_PRICE')?></td>
-			<td><?php echo $helper->formatPrice( $this->row->order_total ) ?></td>
+			<td><?php echo $helper->formatPrice( $this->row->order_total ) ?></th>
 		</tr>
     <tr>
 			<td><label for"status"><?php echo JText::_('PIZZABOX_STATUS')?></label></td>
@@ -62,7 +62,7 @@ function submitbutton( pressbutton, section ) {
 	<h3><?php echo JText::_('PIZZABOX_ADDRESS')?></h3>
 	<table class="adminForm">
 		<tr>
-			<td><?php echo JText::_('PIZZABOX_ADDRESS_NAME')?></td>
+			<td style="width: 150px;"><?php echo JText::_('PIZZABOX_ADDRESS_NAME')?></td>
 			<td><?php echo $this->address->name ?></td>
 		</tr>
 		<tr>

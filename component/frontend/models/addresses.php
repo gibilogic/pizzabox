@@ -44,8 +44,12 @@ class PizzaboxModelAddresses extends JModel
 	public function &getRow()
 	{
 		$table =& $this->getTable();
-		$table->load($this->getId());
-		return $table;
+		if ($table->load($this->getId())) {
+			return $table;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public function getAllByUser($user_id) {
@@ -98,14 +102,27 @@ class PizzaboxModelAddresses extends JModel
 		return true;
 	}
 
+	public function isAddressValid($address_id) {
+		$this->setId($address_id);
+		$address = $this->getRow();
+		if (false === $address) {
+			return false;
+		}
+
+		return $address->user_id == JFactory::getUser()->id;
+	}
+
 	public function createAndLink($order_id) {
 		if ($this->create()) {
-			$last_id = $this->_lastId;
-			$query = "UPDATE #__pizzabox_orders SET address_id = $last_id WHERE id = $order_id";
-
-			$db =& JFactory::getDBO();
-			$db->setQuery($query);
-			$db->execute();
+			return $this->linkTo($order_id, $this->_lastId);
 		}
+	}
+
+	public function linkTo($order_id, $address_id) {
+		$query = "UPDATE #__pizzabox_orders SET address_id = $address_id WHERE id = $order_id";
+
+		$db =& JFactory::getDBO();
+		$db->setQuery($query);
+		return $db->execute();
 	}
 }

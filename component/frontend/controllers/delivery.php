@@ -25,6 +25,7 @@ class PizzaboxControllerDelivery extends JController
 		parent::__construct( $default );
 
 		$this->_model =& $this->getModel('delivery');
+		$this->_model_address =& $this->getModel('addresses');
 		$this->_controllerUrl = 'index.php?option=com_pizzabox&controller=delivery';
 	}
 
@@ -71,6 +72,7 @@ class PizzaboxControllerDelivery extends JController
 
 		$view = & $this->getView('delivery', 'html');
 		$view->setModel($this->_model, true);
+		$view->setModel($this->_model_address);
 		$view->display($tpl);
 	}
 
@@ -82,8 +84,13 @@ class PizzaboxControllerDelivery extends JController
 		  	$msg = JText::_( 'PIZZABOX_SAVE_ERROR' );
 		    $this->setRedirect( $this->_controllerUrl, $msg, 'error' );
 		} else {
-				$addressModel = $this->getModel('addresses');
-				$addressModel->createAndLink($result);
+				$address_id = JRequest::getInt('old_address');
+				if ($address_id != 0 && $this->_model_address->isAddressValid($address_id)) {
+					$this->_model_address->linkTo($result, $address_id);
+				}
+				else {
+					$this->_model_address->createAndLink($result);
+				}
 
         $this->emailNotification();
 		  	$msg = JText::_( 'PIZZABOX_SAVE_SUCCESS' );
