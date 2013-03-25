@@ -76,8 +76,7 @@ class PizzaboxViewFlavours extends JView
 		$item =& $this->get('item');
 		$this->assign($item);
 
-		$partsModel = $this->getModel('parts');
-		$this->parts_list = $partsModel->getItems(false);
+		$this->parts_list = $this->getModel('parts')->getItems(false);
 		$this->selected_parts = $item['row']->parts ? json_decode($item['row']->parts) : array();
 
 		JToolBarHelper::title(JText::_('PIZZABOX_FLAVOUR'), 'pizzabox');

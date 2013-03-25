@@ -174,9 +174,11 @@ class PizzaboxModelAbstract extends JModel
 			return false;
 		}
 
-		if ($isNew) $row->ordering = $row->getNextOrder();
+		if ($isNew) {
+			$row->ordering = $row->getNextOrder();
+		}
 
-		if (!$row->check() || in_array(false, $result, true)) {
+		if (!$row->check()) {
 			JError::raiseWarning(200, $row->getError());
 			return false;
 		}

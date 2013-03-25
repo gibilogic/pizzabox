@@ -27,8 +27,10 @@ CREATE TABLE IF NOT EXISTS `#__pizzabox_containers_parts` (
 	`container_id`      INT(11) NOT NULL,
 	`part_id`           INT(11) NOT NULL,
 	`minimum`           TINYINT UNSIGNED DEFAULT '1',
-	`maxmimum`          TINYINT UNSIGNED DEFAULT '1'
+	`maximum`           TINYINT UNSIGNED DEFAULT '1'
 );
+
+ALTER TABLE `#__pizzabox_containers_parts` ADD UNIQUE (`container_id`, `part_id`);
 
 CREATE TABLE IF NOT EXISTS `#__pizzabox_flavours` (
   `id`                INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

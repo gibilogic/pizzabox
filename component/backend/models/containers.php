@@ -20,10 +20,9 @@ class PizzaboxModelContainers extends PizzaboxModelAbstract
 {
 	public function getHtmlList()
 	{
-		$db = & JFactory::getDBO();
 		$query = 'SELECT `id`, `name` FROM #__pizzabox_containers';
-		$db->setQuery($query);
-		$containers_list = $db->loadObjectList('id');
+		$this->_db->setQuery($query);
+		$containers_list = $this->_db->loadObjectList('id');
 		return $containers_list;
 	}
 
@@ -88,4 +87,37 @@ class PizzaboxModelContainers extends PizzaboxModelAbstract
 		return true;
 	}
 
+	public function getPartsByContainer($container_id)
+	{
+		$query = "
+			SELECT p.id, p.name, cp.minimum, cp.maximum
+			FROM #__pizzabox_parts p
+			LEFT JOIN #__pizzabox_containers_parts cp ON p.id = cp.part_id
+			WHERE cp.container_id = $container_id";
+
+		$this->_db->setQuery($query);
+		$list = $this->_db->loadObjectList('id');
+
+		return $list ? $list : array();
+	}
+
+	public function addParts($container_id, $parts_ids, $parts_minimums, $parts_maximums) {
+		$query = "INSERT INTO #__pizzabox_containers_parts (container_id, part_id, minimum, maximum) VALUES";
+		foreach ($parts_ids as $key => $value) {
+			$query .= sprintf(' (%d, %d, %d, %d),', $container_id, $value, $parts_minimums[$key], $parts_maximums[$key]);
+		}
+
+		$this->_db->setQuery(substr($query, 0, -1) . " ON DUPLICATE KEY UPDATE minimum = VALUES(minimum), maximum = VALUES(maximum)");
+
+		return $this->_db->execute();
+	}
+
+	public function cleanParts($container_id, $parts_ids) {
+		$string_ids = implode(',', $parts_ids);
+		$query = "DELETE FROM #__pizzabox_containers_parts WHERE container_id = $container_id AND part_id NOT IN ($string_ids)";
+
+		$this->_db->setQuery($query);
+
+		return $this->_db->execute();
+	}
 }
