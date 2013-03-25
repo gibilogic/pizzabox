@@ -2,7 +2,7 @@
 <install type="component" version="2.5.0" method="upgrade">
 	<name>PizzaBox</name>
 	<author>GiBiLogic</author>
-	<creationDate>2013-03-22</creationDate>
+	<creationDate>2013-03-25</creationDate>
 	<license>GNU/GPL v2 or later</license>
 	<authorEmail>info@gibilogic.com</authorEmail>
 	<authorUrl>http://www.gibilogic.com</authorUrl>
@@ -30,7 +30,6 @@
 		<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox">com_pizzabox</menu>
 		<submenu>
 			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=containers">com_pizzabox_containers</menu>
-			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=schemes">com_pizzabox_schemes</menu>
 			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=parts">com_pizzabox_parts</menu>
 			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=flavours">com_pizzabox_flavours</menu>
 			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=orders">com_pizzabox_orders</menu>
@@ -45,7 +44,6 @@
 			<filename>LICENSE.txt</filename>
 			<folder>controllers</folder>
 			<folder>models</folder>
-			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>views</folder>
 		</files>
@@ -73,11 +71,5 @@
 			<file driver="mysql" charset="utf8">uninstall.mysql.sql</file>
 		</sql>
 	</uninstall>
-
-	<update>
-		<schemas>
-			<schemapath type="mysql">sql</schemapath>
-		</schemas>
-	</update>
 
 </install>

@@ -32,9 +32,6 @@
 		<copy todir="${path.deploy.local}/components/${component.name}" overwrite="true">
 			<fileset dir="${dir.component}/frontend"></fileset>
 		</copy>
-		<copy todir="${path.deploy.local}/media/${component.name}/" overwrite="true">
-			<fileset dir="${dir.component}/media"></fileset>
-		</copy>
 	</target>
 
 	<target name="Update build date">
