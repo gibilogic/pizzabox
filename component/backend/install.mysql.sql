@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `#__pizzabox_orders` (
 CREATE TABLE IF NOT EXISTS `#__pizzabox_orders_parts` (
   `id`                INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `order_id`          INT(11) NOT NULL,
+	`container_number`  INT(11) NOT NULL,
   `container_id`      INT(11) NOT NULL,
   `part_id`           INT(11) NOT NULL,
   `flavour_id`        INT(11) NOT NULL

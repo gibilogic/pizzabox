@@ -17,11 +17,12 @@ defined('_JEXEC') or die('The way is shut!');
  */
 class TableOrdersParts extends JTable
 {
-	public $id = 0;	 /* @public int Unique identifier */
-	public $order_id = 0;	/* @public int ID of parent order  */
-	public $container_id = 0;	/* @public int ID of selected container  */
-	public $part_id = 0;	/* @public int ID of selected part  */
-	public $flavour_id = 0;	/* @public int ID of selected flavour  */
+	public $id = 0;
+	public $order_id = 0;
+	public $container_number = 0;
+	public $container_id = 0;
+	public $part_id = 0;
+	public $flavour_id = 0;
 	public $ordering = null;
 	public $checked_out = null;
 	public $checked_out_time = null;
