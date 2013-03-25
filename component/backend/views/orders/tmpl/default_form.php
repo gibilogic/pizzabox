@@ -98,7 +98,7 @@ function submitbutton( pressbutton, section ) {
 		</tr>
 		<?php $class = 'even' ?>
 		<?php foreach ( $this->parts as $item ) : ?>
-			<? $class = ( $class == 'odd' ? 'even' : 'odd' ) ?>
+			<?php $class = ( $class == 'odd' ? 'even' : 'odd' ) ?>
 			<tr class="<?php echo $class ?>">
 				<td><?php echo $item->container_name ?></td>
 				<td><?php echo $item->scheme_name ?></td>
