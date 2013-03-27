@@ -8,7 +8,7 @@
  * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
- 
+
 $document =& JFactory::getDocument();
 $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js" );
 ?>

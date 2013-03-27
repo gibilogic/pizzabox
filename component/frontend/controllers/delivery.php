@@ -1,4 +1,5 @@
-<?php defined('_JEXEC') or die('The way is shut!');
+<?php
+
 /**
  * @version		    $Id: controllers/delivery.php 2012-09-18 09:11:00Z zanardi $
  * @package		    GiBi PizzaBox
@@ -9,68 +10,72 @@
  * @license		    GNU/GPL v2 or later
  */
 
+defined('_JEXEC') or die('The way is shut!');
 jimport('joomla.application.component.controller');
 
+/**
+ * PizzaboxControllerDelivery
+ */
 class PizzaboxControllerDelivery extends JController
 {
 	var $_controllerUrl = '';
 	var $_model = NULL;
 
-	function __construct( $default = array() )
+	function __construct($default = array())
 	{
-		if ( ! JRequest::getCmd( 'view' ) ) {
-			JRequest::setVar('view', 'delivery' );
+		if (!JRequest::getCmd('view')) {
+			JRequest::setVar('view', 'delivery');
 		}
 
-		parent::__construct( $default );
+		parent::__construct($default);
 
-		$this->_model =& $this->getModel('delivery');
-		$this->_model_address =& $this->getModel('addresses');
+		$this->_model = & $this->getModel('delivery');
+		$this->_model_address = & $this->getModel('addresses');
 		$this->_controllerUrl = 'index.php?option=com_pizzabox&controller=delivery';
 	}
 
-	function display( $tpl='delivery_date' )
+	function display($tpl = 'delivery_date')
 	{
-    $params =& JComponentHelper::getParams('com_pizzabox');
-    if( $params->get('registered_users_only',1) == 1 ) {
-      $user = JFactory::getUser();
-      if ( $user->guest ) {
-        $msg = JText::_('PIZZABOX_REGISTERED_ONLY');
-        $link = JRoute::_('index.php?option=com_users&task=register', false);
-        $this->setRedirect ( $link, $msg, 'error' );
-      }
-    }
+		$params =& JComponentHelper::getParams('com_pizzabox');
+		if ($params->get('registered_users_only', 1) == 1) {
+			$user = JFactory::getUser();
+			if ($user->guest) {
+				$msg = JText::_('PIZZABOX_REGISTERED_ONLY');
+				$link = JRoute::_('index.php?option=com_users&task=register', false);
+				$this->setRedirect($link, $msg, 'error');
+			}
+		}
 
 		$session = JFactory::getSession();
 
-		if ( $tpl != 'confirmed' ) {
+		if ($tpl != 'confirmed') {
 			$order_id = $session->get('com_pizzabox.order.id');
-			if ( ! $order_id ) {
+			if (!$order_id) {
 				echo "No order selected, cannot proceed";
 				return false;
 			}
-      if( $params->get('time_enabled',1) == 0 ) {
-        $session->set( 'com_pizzabox.delivery.date', '' );
-        $session->set( 'com_pizzabox.delivery.time', '' );
-        $tpl = 'delivery_name';
-      }
-    }
+			if ($params->get('time_enabled', 1) == 0) {
+				$session->set('com_pizzabox.delivery.date', '');
+				$session->set('com_pizzabox.delivery.time', '');
+				$tpl = 'delivery_name';
+			}
+		}
 
 		$element = JRequest::getWord('element');
 		$delivery_date = JRequest::getVar('delivery_date', '');
 		$delivery_time = JRequest::getVar('delivery_time', '');
 
-		if ( ( $element == 'delivery_date' ) && $delivery_date ) {
-			$session->set( 'com_pizzabox.delivery.date', $delivery_date );
+		if (( $element == 'delivery_date' ) && $delivery_date) {
+			$session->set('com_pizzabox.delivery.date', $delivery_date);
 			$tpl = 'delivery_time';
 		}
 
-		if ( ( $element == 'delivery_time' ) && $delivery_time ) {
-			$session->set( 'com_pizzabox.delivery.time', $delivery_time );
+		if (( $element == 'delivery_time' ) && $delivery_time) {
+			$session->set('com_pizzabox.delivery.time', $delivery_time);
 			$tpl = 'delivery_name';
 		}
 
-		$view = & $this->getView('delivery', 'html');
+		$view =& $this->getView('delivery', 'html');
 		$view->setModel($this->_model, true);
 		$view->setModel($this->_model_address);
 		$view->display($tpl);
@@ -78,46 +83,48 @@ class PizzaboxControllerDelivery extends JController
 
 	function save()
 	{
-		JRequest::checkToken() or die( 'PIZZABOX_INVALID_TOKEN' );
+		JRequest::checkToken() or die('PIZZABOX_INVALID_TOKEN');
 		$result = $this->_model->save();
-		if ( false === $result ) {
-		  	$msg = JText::_( 'PIZZABOX_SAVE_ERROR' );
-		    $this->setRedirect( $this->_controllerUrl, $msg, 'error' );
-		} else {
-				$address_id = JRequest::getInt('old_address');
-				if ($address_id != 0 && $this->_model_address->isAddressValid($address_id)) {
-					$this->_model_address->linkTo($result, $address_id);
-				}
-				else {
-					$this->_model_address->createAndLink($result);
-				}
+		if (false === $result) {
+			$msg = JText::_('PIZZABOX_SAVE_ERROR');
+			$this->setRedirect($this->_controllerUrl, $msg, 'error');
+		}
+		else {
+			$address_id = JRequest::getInt('old_address');
+			if ($address_id != 0 && $this->_model_address->isAddressValid($address_id)) {
+				$this->_model_address->linkTo($result, $address_id);
+			}
+			else {
+				$this->_model_address->createAndLink($result);
+			}
 
-        $this->emailNotification();
-		  	$msg = JText::_( 'PIZZABOX_SAVE_SUCCESS' );
-		    $this->display( 'confirmed' );
+			$this->emailNotification();
+			$msg = JText::_('PIZZABOX_SAVE_SUCCESS');
+			$this->display('confirmed');
 		}
 	}
 
-  function emailNotification()
-  {
-    $params =& JComponentHelper::getParams('com_pizzabox');
-    if( $params->get('email_notification',0) == 1 ) {
-      $session =& JFactory::getSession();
-      $order_id = $session->get( 'com_pizzabox.order.id'  );
-      require_once( JPATH_COMPONENT.'/helpers/pizzabox.php');
-      $this->helper = new PizzaboxHelper();
-      $this->helper->emailNotification( $order_id  );
-    }
-  }
+	function emailNotification()
+	{
+		$params = & JComponentHelper::getParams('com_pizzabox');
+		if ($params->get('email_notification', 0) == 1) {
+			$session = & JFactory::getSession();
+			$order_id = $session->get('com_pizzabox.order.id');
+			require_once( JPATH_COMPONENT . '/helpers/pizzabox.php');
+			$this->helper = new PizzaboxHelper();
+			$this->helper->emailNotification($order_id);
+		}
+	}
 
 	function selectdate()
 	{
 		$session = JFactory::getSession();
 		$order_id = $session->get('com_pizzabox.order.id');
-		if ( ! $order_id ) {
+		if (!$order_id) {
 			echo "No order selected, cannot proceed";
 			return false;
-		} else {
+		}
+		else {
 			$this->display('delivery_date');
 		}
 	}
@@ -126,10 +133,11 @@ class PizzaboxControllerDelivery extends JController
 	{
 		$session = JFactory::getSession();
 		$order_id = $session->get('com_pizzabox.order.id');
-		if ( ! $order_id ) {
+		if (!$order_id) {
 			echo "No order selected, cannot proceed";
 			return false;
-		} else {
+		}
+		else {
 			$this->display('delivery_time');
 		}
 	}
@@ -137,14 +145,15 @@ class PizzaboxControllerDelivery extends JController
 	function leave()
 	{
 		$order_id = JRequest::getInt('id');
-		JRequest::setVar( 'cid', array( $order_id ) );
-		require_once ( JPATH_COMPONENT_ADMINISTRATOR.DS.'models'.DS.'orders.php' );
+		JRequest::setVar('cid', array($order_id));
+		require_once ( JPATH_COMPONENT_ADMINISTRATOR . DS . 'models' . DS . 'orders.php' );
 		$order_model = new PizzaboxModelOrders();
 		$order_model->remove();
 
 		$session = JFactory::getSession();
 		$session->clear('com_pizzabox.order.id');
 
-		$this->setRedirect( JRoute::_('index.php' ) );
+		$this->setRedirect(JRoute::_('index.php'));
 	}
+
 }

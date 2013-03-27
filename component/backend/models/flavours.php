@@ -104,4 +104,12 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
 
 		return parent::save();
 	}
+
+	public function getListbyPart($part_id) {
+		$like = '%"'.$part_id.'"%';
+		$this->_db->setQuery("SELECT * FROM `#__pizzabox_flavours` WHERE parts LIKE '$like' ");
+		$list = $this->_db->loadObjectList('id');
+
+		return $list ? $list : array();
+	}
 }

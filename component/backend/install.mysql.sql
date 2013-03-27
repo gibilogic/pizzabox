@@ -66,8 +66,11 @@ CREATE TABLE IF NOT EXISTS `#__pizzabox_orders_parts` (
   `order_id`          INT(11) NOT NULL,
 	`container_number`  INT(11) NOT NULL,
   `container_id`      INT(11) NOT NULL,
+	`container_name`    VARCHAR(50),
   `part_id`           INT(11) NOT NULL,
-  `flavour_id`        INT(11) NOT NULL
+	`part_name`         VARCHAR(50),
+  `flavour_id`        INT(11) NOT NULL,
+	`flavour_name`      VARCHAR(50)
 );
 
 -- -----------------------------------------------------------------------------

@@ -6,7 +6,7 @@
  * @authorEmail		info@gibilogic.com
  * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
- * @description		very, very basic styling for component. 
+ * @description		very, very basic styling for component.
  */
 
 @import url('css/bootstrap.css');
@@ -14,9 +14,9 @@
 .lead {margin-bottom: inherit !important}
 
 /* basic radiobox styling (applies to containers, schemes and parts page) */
-div.radiobox {float: left;border-width: 1%;border: solid lightgrey;width: 44%;padding: 1%;margin: 1%;border-radius: 5px;opacity: 0.8;text-align: center} 
+div.radiobox {float: left;border-width: 1%;border: solid lightgrey;width: 44%;padding: 1%;margin: 1%;border-radius: 5px;opacity: 0.8;text-align: center}
 div.radiobox.selected {border-color: #095197;opacity: 1}
-div.radiobox input {display: none}
+div.radiobox input {display: block; }
 div.radiobox span.name {display: block;font-weight: bold}
 div.radiobox span.image {display: block}
 div.radiobox span.desc {display: block}

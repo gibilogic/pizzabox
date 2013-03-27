@@ -7,7 +7,7 @@
 @copyright    Copyright (C) 2013 GiBiLogic. All rights reserved.
 @license      GNU/GPLv2
 @description  Ant build file for GiBi PizzaBox
- -->
+-->
 
 <project name="pizzabox" default="Build ZIP package" basedir=".">
 	<description>GiBi PizzaBox</description>

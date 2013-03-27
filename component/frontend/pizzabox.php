@@ -17,7 +17,7 @@ $controller = JRequest::getWord('controller');
 if (! $controller ) { $controller = JRequest::getWord('view'); }
 if (! $controller ) { $controller = 'containers'; }
 $path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
-if ( file_exists($path) ) 
+if ( file_exists($path) )
 {
   $params =& JComponentHelper::getParams('com_pizzabox');
   if( $params->get('include_basic_css',1) == 1 ) {
@@ -32,4 +32,4 @@ if ( file_exists($path) )
 } else {
 	echo "Controller not found";
 }
-		
+
