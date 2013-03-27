@@ -156,4 +156,17 @@ class PizzaboxControllerDelivery extends JController
 		$this->setRedirect(JRoute::_('index.php'));
 	}
 
+	public function removerow() {
+		$order_id = JFactory::getSession()->get('com_pizzabox.order.id');
+		$container_number = JRequest::getInt('container');
+
+		if ($this->_model->removeContainer($order_id, $container_number)) {
+			echo "Ok";
+			jexit();
+		}
+		else {
+			echo "Error";
+			jexit();
+		}
+	}
 }

@@ -10,6 +10,30 @@
 defined('_JEXEC') or die('Restricted access');
 
 ?>
+<script type="text/javascript">
+	var deleteContainerUrl = 'index.php?option=com_pizzabox&controller=delivery&task=removerow';
+
+	window.addEvent('domready', function() {
+		$$('.btn_delete_container').addEvent('click', function(event) {
+			var container = event.target.get('data-container');
+
+			if (confirm('<?php echo JText::_('PIZZABOX_CONFIRM_DELETE') ?>')) {
+				var req = new Request({
+					url: deleteContainerUrl,
+					method: 'get',
+					data: {
+						"container": container
+					},
+					onSuccess: function(response) {
+						if (response === 'Ok') {
+							$$('tr.row-container-' + container).dispose();
+						}
+					}
+				}).send();
+			}
+		});
+	});
+</script>
 <h3><?php echo JText::_('PIZZABOX_ORDER_DETAILS') ?></h3>
 <?php if ($this->tpl == 'confirmed') : ?>
 	<?php
@@ -34,6 +58,9 @@ defined('_JEXEC') or die('Restricted access');
 
 <table id="order_details" class="adminlist">
 	<tr>
+		<?php if ($this->tpl != 'confirmed'): ?>
+		<th></th>
+		<?php endif; ?>
 		<th><?php echo JText::_('PIZZABOX_CONTAINER') ?></th>
 		<th><?php echo JText::_('PIZZABOX_PART') ?></th>
 		<th><?php echo JText::_('PIZZABOX_FLAVOUR') ?></th>
@@ -51,7 +78,14 @@ defined('_JEXEC') or die('Restricted access');
 			$part->container_image = '';
 		}
 		?>
-		<tr class="<?php echo $class ?>">
+		<tr class="<?php echo $class ?> row-container-<?php echo $container_number ?>">
+			<?php if ($this->tpl != 'confirmed'): ?>
+			<td>
+				<?php if ($part->container_name != ''): ?>
+				<button class="btn_delete_container" data-container="<?php echo $container_number ?>"><?php echo JText::_('PIZZABOX_DELETE') ?></button>
+				<?php endif; ?>
+			</td>
+			<?php endif; ?>
 			<td class="container">
 				<?php if ($part->container_image) : ?>
 				<span class="image"><img src="<?php echo $part->container_image ?>" alt="Container image" /></span>
