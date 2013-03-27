@@ -30,12 +30,12 @@ window.addEvent('domready', function() {
 		var isValid = true;
 
 		Array.each(ranges, function(range) {
-			var selected_count = $$('input[name="flavours_' + range.part_id + '"]:checked').length;
+			var selected_count = $$('input[name*="flavours_' + range.part_id + '"]:checked').length;
 			if (selected_count >= parseInt(range.maximum)) {
-				$$('input[name="flavours_' + range.part_id + '"]:not(:checked)').set('disabled', 'disabled');
+				$$('input[name*="flavours_' + range.part_id + '"]:not(:checked)').set('disabled', 'disabled');
 			}
 			else {
-				$$('input[name="flavours_' + range.part_id + '"]:not(:checked)').set('disabled', '');
+				$$('input[name*="flavours_' + range.part_id + '"]:not(:checked)').set('disabled', '');
 			}
 
 			if (selected_count < parseInt(range.minimum)) {

@@ -196,10 +196,10 @@ class PizzaboxModelParts extends JModel
 		return $price;
 	}
 
-	public function getMinMaxByContainer($container_id) {
+	public function getMinMaxByContainer($container_id, $index = '') {
 		$query = "SELECT part_id, minimum, maximum FROM #__pizzabox_containers_parts WHERE container_id = $container_id";
 		$this->_db->setQuery($query);
 
-		return $this->_db->loadAssocList('part_id');
+		return $this->_db->loadAssocList($index);
 	}
 }
