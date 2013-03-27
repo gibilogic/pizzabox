@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 	}
 	?>
 	<p><?php echo JText::_('PIZZABOX_ORDER_TOTAL') ?>: <strong><?php echo $this->helper->formatPrice($this->order_total) ?></strong></p>
-	<?php if ($date && $time): ?>}
+	<?php if ($date && $time): ?>
 		<p><?php echo JText::sprintf('PIZZABOX_DELIVERY_DATETIME', $date, $time) ?></p>
 	<?php endif ?>
 	<p><?php echo JText::_('PIZZABOX_ORDER_NAME') ?>: <strong><?php echo $this->order['row']->name ?></strong></p>
