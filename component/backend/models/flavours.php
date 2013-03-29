@@ -92,7 +92,7 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
 	{
 		$results = parent::_getList($query, $limitstart, $limit);
 		foreach ($results as $result) {
-			$result->parts_list = json_decode($result->parts);
+			$result->parts_list = json_decode($result->parts ? $result->parts : '[]');
 		}
 
 		return $results;

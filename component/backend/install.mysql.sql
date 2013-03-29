@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `#__pizzabox_flavours` (
   `desc`              TEXT,
   `image`             VARCHAR(255),
   `price`             DECIMAL(8,2),
-  `parts`             TEXT DEFAULT '[]',
+  `parts`             TEXT,
   `ordering`          INT(11) DEFAULT '0',
   `checked_out`       INT(11) DEFAULT '0',
   `checked_out_time`  DATETIME DEFAULT '0000-00-00 00:00:00',
