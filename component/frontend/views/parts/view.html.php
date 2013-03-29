@@ -39,16 +39,24 @@ class PizzaboxViewParts extends JView
 		$app->setUserState($context . 'order', 'ordering');
 		$app->setUserState($context . 'order_dir', 'asc');
 
-		$session = JFactory::getSession();
-		$this->ranges = json_encode($this->getModel()->getMinMaxByContainer($session->get('com_pizzabox.container.id')));
+		$session =& JFactory::getSession();
+		$container_id = $session->get('com_pizzabox.container.id');
+		$this->ranges = json_encode($this->getModel()->getMinMaxByContainer($container_id));
 
 		$items = $this->get('items');
-		$ranges = $this->getModel()->getMinMaxByContainer($session->get('com_pizzabox.container.id'), 'part_id');
+		$ranges = $this->getModel()->getMinMaxByContainer($container_id, 'part_id');
 		foreach ($items['rows'] as &$part) {
-			$part->minimum = $ranges[$part->id]['minimum'];
-			$part->maximum = $ranges[$part->id]['maximum'];
+			if (isset($ranges[$part->id])) {
+				$part->minimum = $ranges[$part->id]['minimum'];
+				$part->maximum = $ranges[$part->id]['maximum'];
+			}
+			else {
+				$part->minimum = 0;
+				$part->maximum = 0;
+			}
 		}
 		$this->assign($items);
+		$this->container_id = $container_id;
 
 		$lists['flavours'] = $this->getList('flavours', false);
 

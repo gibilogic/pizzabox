@@ -61,6 +61,7 @@ window.addEvent('domready', function() {
 	</div>
 
 	<?php foreach ($this->rows as $part): ?>
+	<?php if ($part->minimum != 0 || $part->maximum != 0): ?>
 	<fieldset>
 		<legend><?php echo $part->name ?><?php echo $part->price > 0 ? ', +' . $helper->formatPrice($part->price) : '' ?> (da <?php echo $part->minimum ?> a <?php echo $part->maximum ?>)</legend>
 		<input type="hidden" name="parts[]" value="<?php echo $part->id ?>" />
@@ -73,6 +74,7 @@ window.addEvent('domready', function() {
 		<?php endif; ?>
 		<?php endforeach; ?>
 	</fieldset>
+	<?php endif; ?>
 	<?php endforeach; ?>
 
 	<input id="restart" type="hidden" name="restart" value="" />
