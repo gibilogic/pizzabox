@@ -82,7 +82,9 @@ defined('_JEXEC') or die('Restricted access');
 			<?php if ($this->tpl != 'confirmed'): ?>
 			<td>
 				<?php if ($part->container_name != ''): ?>
-				<button class="btn_delete_container" data-container="<?php echo $container_number ?>"><?php echo JText::_('PIZZABOX_DELETE') ?></button>
+				<button class="btn btn-danger btn_delete_container" data-container="<?php echo $container_number ?>">
+					<i class="icon-remove icon-white"></i>
+				</button>
 				<?php endif; ?>
 			</td>
 			<?php endif; ?>
