@@ -57,55 +57,59 @@ defined('_JEXEC') or die('Restricted access');
 <?php endif ?>
 
 <table id="order_details" class="adminlist">
-	<tr>
-		<?php if ($this->tpl != 'confirmed'): ?>
-		<th></th>
-		<?php endif; ?>
-		<th><?php echo JText::_('PIZZABOX_CONTAINER') ?></th>
-		<th><?php echo JText::_('PIZZABOX_PART') ?></th>
-		<th><?php echo JText::_('PIZZABOX_FLAVOUR') ?></th>
-	</tr>
-	<?php $container_number = 0 ?>
-	<?php $class = 'row1' ?>
-	<?php foreach ($this->parts as $part): ?>
-		<?php
-		if ($part->container_number != $container_number) {
-			$container_number = $part->container_number;
-			$class = ( $class == 'row1' ? '' : 'row1' );
-		}
-		else {
-			$part->container_name = '';
-			$part->container_image = '';
-		}
-		?>
-		<tr class="<?php echo $class ?> row-container-<?php echo $container_number ?>">
+	<thead>
+		<tr>
 			<?php if ($this->tpl != 'confirmed'): ?>
-			<td>
-				<?php if ($part->container_name != ''): ?>
-				<button class="btn btn-danger btn_delete_container" data-container="<?php echo $container_number ?>">
-					<i class="icon-remove icon-white"></i>
-				</button>
-				<?php endif; ?>
-			</td>
+			<th></th>
 			<?php endif; ?>
-			<td class="container">
-				<?php if ($part->container_image) : ?>
-				<span class="image"><img src="<?php echo $part->container_image ?>" alt="Container image" /></span>
-				<?php endif ?>
-				<?php echo $part->container_name ?>
-			</td>
-			<td class="part">
-				<?php if ($part->part_image) : ?>
-				<span class="image"><img src="<?php echo $part->part_image ?>" alt="Part image" /></span>
-				<?php endif ?>
-				<?php echo $part->part_name ?>
-			</td>
-			<td class="flavour">
-				<?php if ($part->flavour_image) : ?>
-				<span class="image"><img src="<?php echo $part->flavour_image ?>" alt="Flavour image" /></span>
-				<?php endif ?>
-				<?php echo $part->flavour_name ?>
-			</td>
+			<th><?php echo JText::_('PIZZABOX_CONTAINER') ?></th>
+			<th><?php echo JText::_('PIZZABOX_PART') ?></th>
+			<th><?php echo JText::_('PIZZABOX_FLAVOUR') ?></th>
 		</tr>
-	<?php endforeach ?>
+	</thead>
+	<tbody>
+		<?php $container_number = 0 ?>
+		<?php $class = 'row1' ?>
+		<?php foreach ($this->parts as $part): ?>
+			<?php
+			if ($part->container_number != $container_number) {
+				$container_number = $part->container_number;
+				$class = ( $class == 'row1' ? '' : 'row1' );
+			}
+			else {
+				$part->container_name = '';
+				$part->container_image = '';
+			}
+			?>
+			<tr class="<?php echo $class ?> row-container-<?php echo $container_number ?>">
+				<?php if ($this->tpl != 'confirmed'): ?>
+				<td>
+					<?php if ($part->container_name != ''): ?>
+					<button class="btn btn-danger btn_delete_container" data-container="<?php echo $container_number ?>">
+						<i class="icon-remove icon-white"></i>
+					</button>
+					<?php endif; ?>
+				</td>
+				<?php endif; ?>
+				<td class="">
+					<?php if ($part->container_image) : ?>
+					<span class="image"><img src="<?php echo $part->container_image ?>" alt="Container image" /></span>
+					<?php endif ?>
+					<?php echo $part->container_name ?>
+				</td>
+				<td class="">
+					<?php if ($part->part_image) : ?>
+					<span class="image"><img src="<?php echo $part->part_image ?>" alt="Part image" /></span>
+					<?php endif ?>
+					<?php echo $part->part_name ?>
+				</td>
+				<td class="">
+					<?php if ($part->flavour_image) : ?>
+					<span class="image"><img src="<?php echo $part->flavour_image ?>" alt="Flavour image" /></span>
+					<?php endif ?>
+					<?php echo $part->flavour_name ?>
+				</td>
+			</tr>
+		<?php endforeach ?>
+	</tbody>
 </table>

@@ -95,19 +95,17 @@ function submitbutton( pressbutton, section ) {
 			<th style="width: 25%;text-align: left"><?php echo JText::_('PIZZABOX_PART') ?></th>
 			<th style="width: 25%;text-align: left"><?php echo JText::_('PIZZABOX_FLAVOUR') ?></th>
 		</tr>
-		<?php $class = 'even'; $container_number = 1; ?>
+		<?php $container_number = 1; ?>
 		<?php foreach ( $this->parts as $item ) : ?>
 			<?php if ($container_number !== $item->container_number): ?>
 			<?php $container_number = $item->container_number; ?>
-			<?php $class = ( $class == 'odd' ? 'even' : 'odd' ) ?>
-			<tr class="<?php //echo $class ?>">
+			<tr><td colspan="4"><hr /></td></tr>
+			<?php endif; ?>
+			<tr>
 				<td><?php echo $item->container_name ?></td>
 				<td><?php echo $item->part_name ?></td>
 				<td><?php echo $item->flavour_name ?></td>
 			</tr>
-			<?php else: ?>
-			<tr><td colspan="4"><hr /></td></tr>
-			<?php endif; ?>
 		<?php endforeach ?>
 	</table>
 	<input type="hidden" name="task" value="" />
