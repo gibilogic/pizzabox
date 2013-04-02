@@ -9,7 +9,8 @@
  * @description		very, very basic styling for component.
  */
 
-@import url('css/bootstrap.css');
+@import url('css/bootstrap.min.css');
+@import url('css/bootstrap-responsive.min.css');
 
 .lead {margin-bottom: inherit !important}
 

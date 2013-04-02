@@ -24,12 +24,12 @@ var checkValidity = function() {
 	Array.each(ranges, function(range) {
 		var selected_count = $$('input[type="hidden"][name*="flavours_' + range.part_id + '"]').length;
 		if (selected_count >= parseInt(range.maximum)) {
-			$$('button.btn-select-flavour[data-part="' + range.part_id + '"]').set('disabled', 'disabled').removeClass('btn-info');
-			$$('button.btn-select-flavour[data-part="' + range.part_id + '"] i').removeClass('icon-white');
+			$$('.btn-select-flavour[data-part="' + range.part_id + '"]').set('disabled', 'disabled').removeClass('btn-info');
+			$$('.btn-select-flavour[data-part="' + range.part_id + '"] i').removeClass('icon-white');
 		}
 		else {
-			$$('button.btn-select-flavour[data-part="' + range.part_id + '"]').set('disabled', '').addClass('btn-info');
-			$$('button.btn-select-flavour[data-part="' + range.part_id + '"] i').addClass('icon-white');
+			$$('.btn-select-flavour[data-part="' + range.part_id + '"]').set('disabled', '').addClass('btn-info');
+			$$('.btn-select-flavour[data-part="' + range.part_id + '"] i').addClass('icon-white');
 		}
 
 		if (selected_count < parseInt(range.minimum)) {
@@ -47,7 +47,9 @@ window.addEvent('domready', function() {
 		$('restart').set('value','yes');
 	});
 
-	$$('.btn-select-flavour').addEvent('click', function() {
+	$$('.btn-select-flavour').addEvent('click', function(e) {
+		e.preventDefault();
+
 		var hiddenInput = new Element('input', {
 			type: 'hidden',
 			name: 'flavours_' + this.get('data-part') + '[]',
@@ -58,7 +60,7 @@ window.addEvent('domready', function() {
 		var selectedFlavourRemove = new Element('button', {
 			type: 'button',
 			name: this.get('name'),
-			class: 'btn btn-danger btn-remove-flavour',
+			class: 'btn btn-danger btn-small btn-remove-flavour',
 			html: '<i class="icon-remove icon-white"></i>',
 			'data-part': this.get('data-part'),
 			'data-flavour-id': this.get('data-flavour-id')
@@ -89,7 +91,7 @@ window.addEvent('domready', function() {
 <h1><?php echo JText::_('PIZZABOX_FLAVOURS_SELECT') ?></h1>
 <form action="index.php?option=com_pizzabox&controller=parts" method="post" name="partForm" id="partForm">
 	<div class="container-fluid">
-		<div class="row">
+		<div class="row row-fluid">
 			<div class="span12">
 				<div class="buttons">
 					<a class="btn back" href="index.php?option=com_pizzabox"><?php echo JText::_('JPREV') ?></a>
@@ -102,7 +104,7 @@ window.addEvent('domready', function() {
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row row-fluid">
 			<div class="span6">
 				<h3>Opzioni Disponibili</h3>
 				<?php foreach ($this->rows as $part): ?>
@@ -110,18 +112,28 @@ window.addEvent('domready', function() {
 				<fieldset>
 					<legend><?php echo $part->name ?><?php echo $part->price > 0 ? ', +' . $helper->formatPrice($part->price) : '' ?> (da <?php echo $part->minimum ?> a <?php echo $part->maximum ?>)</legend>
 					<input type="hidden" name="parts[]" value="<?php echo $part->id ?>" />
-					<ul class="unstyled">
-						<?php foreach ($this->lists['flavours'] as $flavour): ?>
-						<?php if (false !== strrpos($flavour->parts, '"' . $part->id . '"')): ?>
-						<li>
-							<button type="button" name="<?php echo $flavour->name ?>" class="btn btn-info btn-select-flavour" data-part="<?php echo $part->id ?>" data-flavour-id="<?php echo $flavour->id ?>">
-								<i class="icon-plus icon-white"></i>
-							</button>
-							&nbsp;<?php echo $flavour->name ?>&nbsp;<?php echo $flavour->price > 0 ? '(' . $helper->formatPrice($flavour->price) . ')' : '' ?>
-						</li>
-						<?php endif; ?>
-						<?php endforeach; ?>
-					</ul>
+					<?php foreach ($this->lists['flavours'] as $flavour): ?>
+					<?php if (false !== strrpos($flavour->parts, '"' . $part->id . '"')): ?>
+					<div class="media clearfix">
+						<a class="pull-left" href="#">
+							<?php if ($flavour->image): ?>
+							<img class="media-object" src="<?php echo $flavour->image ?>" alt="<?php echo $flavour->name ?>" width="80" />
+							<?php else: ?>
+							<img class="media-object" src="http://placehold.it/80&text=PizzaBox" alt="<?php echo $flavour->name ?>" />
+							<?php endif; ?>
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading">
+								<button class="btn btn-success btn-small btn-select-flavour" data-part="<?php echo $part->id ?>" data-flavour-id="<?php echo $flavour->id ?>" name="<?php echo $flavour->name ?>">
+									<i class="icon-plus icon-white"></i>
+								</button>
+								&nbsp;<?php echo $flavour->name ?>
+							</h4>
+							<?php echo $flavour->price > 0 ? $helper->formatPrice($flavour->price) : '' ?>
+						</div>
+					</div>
+					<?php endif; ?>
+					<?php endforeach; ?>
 				</fieldset>
 				<?php endif; ?>
 				<?php endforeach; ?>
