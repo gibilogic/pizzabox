@@ -100,7 +100,8 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
 
 	public function save()
 	{
-		JRequest::setVar('parts', json_encode(JRequest::getVar('parts_ids')));
+		$parts_ids = JRequest::getVar('parts_ids');
+		JRequest::setVar('parts', isset($parts_ids) ? json_encode($parts_ids) : '[]');
 
 		return parent::save();
 	}
