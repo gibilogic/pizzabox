@@ -80,30 +80,6 @@ window.addEvent('load',function(){
 //	});
 
 	// single click to next page
-  $$('#containerForm').addEvent('submit',function(){
-    var values = $$('div.radiobox input[type=radio]:checked').map(function(e){ return e.id });
-    if( values.length == 0 ) {
-      alertTranslatedString( "PIZZABOX_NO_SELECTION" );
-      return false;
-    }
-  });
-	$$('form#containerForm div.radiobox label').addEvent('click',function(e){
-		e.preventDefault();
-		$("#"+$(this.getProperty('for')).set('checked', true));
-		$('containerForm').submit();
-	});
-  $$('#schemeForm').addEvent('submit',function(){
-    var values = $$('div.radiobox input[type=radio]:checked').map(function(e){ return e.id });
-    if( values.length == 0 ) {
-      alertTranslatedString( "PIZZABOX_NO_SELECTION" );
-      return false;
-    }
-  });
-	$$('form#schemeForm div.radiobox label').addEvent('click',function(e){
-		e.preventDefault();
-		$("#"+$(this.getProperty('for')).set('checked', true));
-		$('schemeForm').submit();
-	});
 	$$('form#deliveryForm div.radiobox label').addEvent('click',function(e){
 		e.preventDefault();
 		$("#"+$(this.getProperty('for')).set('checked', true));

@@ -61,3 +61,59 @@ div.delivery_date span.date-year {display: none}
 div.buttons {clear: both;padding-top: 15px;text-align: center}
 p.info {font-size: 150%;color: red}
 div#paypal input {width: auto}
+
+.thumbnails-containers > li,
+.thumbnails-flavours > li
+{
+	cursor: pointer;
+}
+
+.thumbnails-containers > li:hover .thumbnail,
+.thumbnails-flavours > li:hover .thumbnail
+{
+	border-color: #095197;
+}
+
+/* --- Bootstrap Fixes ------------------------------------------------------ */
+
+#main ul.unstyled
+{
+	list-style: none;
+}
+
+#main ul.thumbnails-containers,
+#main ul.thumbnails-flavours
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+#main ul.thumbnails-containers li,
+#main ul.thumbnails-flavours li
+{
+	position: relative;
+	padding: 0;
+	line-height: 20px;
+	margin: 0 0 20px 0;
+	margin-left: 2.564102564102564%;
+}
+
+#main ul.thumbnails-containers li:first-child,
+#main ul.thumbnails-flavours li:first-child
+{
+	margin-left: 0;
+}
+
+#main ul.thumbnails-containers li span.label,
+#main ul.thumbnails-flavours li span.label
+{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.well
+{
+	background-color: #eee;
+}

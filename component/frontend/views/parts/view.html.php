@@ -67,6 +67,9 @@ class PizzaboxViewParts extends JView
 		$document = & JFactory::getDocument();
 		$document->addScript(JURI::base() . DS . 'components' . DS . 'com_pizzabox' . DS . 'assets' . DS . 'helper.js');
 
+		$this->loadHelper('pizzabox');
+		$this->helper = new PizzaboxHelper();
+
 		parent::display($tpl);
 	}
 
