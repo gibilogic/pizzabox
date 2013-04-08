@@ -30,12 +30,14 @@ JHTML::script('helper.js', JURI::base() . '/components/com_pizzabox/assets/');
 			<label for="radio_<?php echo $container->id ?>">
 				<?php if( $container->image ): ?>
 					<span class="image"><img src="<?php echo $container->image ?>" alt="<?php echo $container->desc ?>" /></span>
-				<?php endif ?>
+				<?php endif; ?>
 				<span class="name lead"><?php echo $container->name ?></span>
 				<?php if ($container->price > 0): ?>
 					<span class="price"><?php echo $this->helper->formatPrice($container->price) ?></span>
-				<?php endif ?>
+				<?php endif; ?>
+				<?php if ($container->desc): ?>
 				<span class="desc"><?php echo $container->desc ?></span>
+				<?php endif; ?>
 			</label>
 		</div>
     <?php endforeach ?>
