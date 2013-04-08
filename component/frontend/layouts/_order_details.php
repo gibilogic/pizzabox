@@ -93,19 +93,19 @@ defined('_JEXEC') or die('Restricted access');
 				<?php endif; ?>
 				<td class="">
 					<?php if ($part->container_image) : ?>
-					<span class="image"><img src="<?php echo $part->container_image ?>" alt="Container image" /></span>
+					<span class="image"><img src="<?php echo $part->container_image ?>" alt="Container image" width="100" /></span>
 					<?php endif ?>
 					<?php echo $part->container_name ?>
 				</td>
 				<td class="">
 					<?php if ($part->part_image) : ?>
-					<span class="image"><img src="<?php echo $part->part_image ?>" alt="Part image" /></span>
+					<span class="image"><img src="<?php echo $part->part_image ?>" alt="Part image" width="100" /></span>
 					<?php endif ?>
 					<?php echo $part->part_name ?>
 				</td>
 				<td class="">
 					<?php if ($part->flavour_image) : ?>
-					<span class="image"><img src="<?php echo $part->flavour_image ?>" alt="Flavour image" /></span>
+					<span class="image"><img src="<?php echo $part->flavour_image ?>" alt="Flavour image" width="100" /></span>
 					<?php endif ?>
 					<?php echo $part->flavour_name ?>
 				</td>

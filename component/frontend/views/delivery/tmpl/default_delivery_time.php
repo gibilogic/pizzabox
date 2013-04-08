@@ -8,7 +8,7 @@
  * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
- 
+
 $document =& JFactory::getDocument();
 $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js" );
 ?>
@@ -16,9 +16,9 @@ $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js"
 <h1><?php echo JText::_('PIZZABOX_DELIVERY_TIME_SELECT') ?></h1>
 
 <form action="index.php?option=com_pizzabox&controller=delivery" method="post" name="deliveryForm" id="deliveryForm">
-			
+
 	<div class="delivery_time">
-	
+
 		<div class="delivery_date">
 			<p class="info">
 				<span class="date-default lead"><?php echo strftime( "%d %b %Y", $this->datets ) ?></span>
@@ -33,7 +33,7 @@ $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js"
 		</div>
 
     <div class="buttons">
-      <a class="btn back" href="index.php?option=com_pizzabox&controller=delivery&task=selectdate"><?php echo JText::_('JPrev') ?></a>	
+      <a class="btn back" href="index.php?option=com_pizzabox&controller=delivery&task=selectdate"><?php echo JText::_('JPrev') ?></a>
       <input class="btn btn-primary" type="submit" value="<?php echo JText::_('JNEXT') ?>" />
       <input type="hidden" name="task" value="" />
       <input type="hidden" name="element" value="delivery_time" />
@@ -47,8 +47,10 @@ $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js"
 			<?php foreach ($this->times as $value ) :?>
 				<?php $i++ ?>
 				<div class="radiobox radio_<?php echo $i ?>">
-					<input type="radio" name="delivery_time" id="radio_<?php echo $i ?>" value="<?php echo $value ?>" />
-					<label class="lead" for="radio_<?php echo $i ?>"><?php echo $value ?></label>
+					<label class="lead" for="radio_<?php echo $i ?>">
+						<input type="radio" name="delivery_time" id="radio_<?php echo $i ?>" value="<?php echo $value ?>" />
+						<?php echo $value ?>
+					</label>
 				</div>
 			<?php endforeach ?>
 		<?php else : ?>
@@ -57,7 +59,7 @@ $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js"
 	</div>
 
 	<div class="buttons">
-		<a class="btn back" href="index.php?option=com_pizzabox&controller=delivery&task=selectdate"><?php echo JText::_('JPrev') ?></a>	
+		<a class="btn back" href="index.php?option=com_pizzabox&controller=delivery&task=selectdate"><?php echo JText::_('JPrev') ?></a>
 		<input class="btn btn-primary" type="submit" value="<?php echo JText::_('JNEXT') ?>" />
 	</div>
 </form>
