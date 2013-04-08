@@ -23,7 +23,7 @@ class PizzaboxViewOrders extends JView
 
 	public function display($tpl = null)
 	{
-		$this->user = & JFactory::getUser();
+		$this->user =& JFactory::getUser();
 
 		switch ($tpl) {
 			case 'form':
