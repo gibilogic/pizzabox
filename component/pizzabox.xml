@@ -39,13 +39,12 @@
 			<filename>config.xml</filename>
 			<filename>pizzabox.php</filename>
 			<filename>index.html</filename>
-			<filename>install.mysql.sql</filename>
-			<filename>uninstall.mysql.sql</filename>
 			<filename>LICENSE.txt</filename>
 			<folder>controllers</folder>
 			<folder>models</folder>
 			<folder>tables</folder>
 			<folder>views</folder>
+			<folder>sql</folder>
 		</files>
 		<languages folder="backend/language">
 			<language tag="en-GB">en-GB/en-GB.com_pizzabox.ini</language>
@@ -62,13 +61,13 @@
 
 	<install>
 		<sql>
-			<file driver="mysql" charset="utf8">install.mysql.sql</file>
+			<file driver="mysql" charset="utf8">sql/install.mysql.sql</file>
 		</sql>
 	</install>
 
 	<uninstall>
 		<sql>
-			<file driver="mysql" charset="utf8">uninstall.mysql.sql</file>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.sql</file>
 		</sql>
 	</uninstall>
 
