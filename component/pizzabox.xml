@@ -71,4 +71,10 @@
 		</sql>
 	</uninstall>
 
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates</schemapath>
+		</schemas>
+	</update>
+
 </install>
