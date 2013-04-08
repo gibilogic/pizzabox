@@ -15,12 +15,9 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
 {
 
 	function getHtmlList()
-    {
-		$db =& JFactory::getDBO();
-		$query = 'SELECT `id`, `name` FROM #__pizzabox_orders';
-		$db->setQuery( $query );
-		$schemes_list = $db->loadObjectList('id');
-		return $schemes_list;
+	{
+		$this->_db->setQuery('SELECT `id`, `name` FROM #__pizzabox_orders');
+		return $this->_db->loadObjectList('id');
 	}
 
   function getItems( $enable_limit = true )
