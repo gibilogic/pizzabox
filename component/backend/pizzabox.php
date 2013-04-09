@@ -18,7 +18,6 @@ $document->addStyleDeclaration( '.icon-48-pizzabox{ background-image: url("/comp
 $document->addStyleDeclaration( '#lock{ background: none !important;width: auto !important;height: auto !important }' );
 
 JSubMenuHelper::addEntry(JText::_('pizzabox_manage_containers'), 'index.php?option=com_pizzabox&amp;view=containers');
-JSubMenuHelper::addEntry(JText::_('pizzabox_manage_schemes'), 'index.php?option=com_pizzabox&amp;view=schemes');
 JSubMenuHelper::addEntry(JText::_('pizzabox_manage_parts'), 'index.php?option=com_pizzabox&amp;view=parts');
 JSubMenuHelper::addEntry(JText::_('pizzabox_manage_flavours'), 'index.php?option=com_pizzabox&amp;view=flavours');
 JSubMenuHelper::addEntry(JText::_('pizzabox_manage_orders'), 'index.php?option=com_pizzabox&amp;view=orders');

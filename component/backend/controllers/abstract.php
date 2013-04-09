@@ -1,4 +1,5 @@
-<?php defined('_JEXEC') or die('The way is shut!');
+<?php
+
 /**
  * @version		    $Id: controllers/abstract.php 2012-08-14 13:26:00Z zanardi $
  * @package		    GiBi PizzaBox
@@ -9,120 +10,128 @@
  * @license		    GNU/GPL v2 or later
  */
 
+defined('_JEXEC') or die('The way is shut!');
 jimport('joomla.application.component.controller');
 
+/**
+ * PizzaboxControllerAbstract
+ */
 class PizzaboxControllerAbstract extends JController
 {
-	var $_controllerName = '';
-  var $_controllerUrl = '';
-	var $_model = NULL;
+	protected $_controllerName = '';
+	protected $_controllerUrl = '';
+	protected $_model = NULL;
 
-	function __construct( $default = array() )
+	public function __construct($default = array())
 	{
-    $this->_controllerName = JRequest::getCmd('controller');
-		if ( ! JRequest::getCmd( 'view' ) ) {
-			JRequest::setVar('view', $this->_controllerName );
+		$this->_controllerName = JRequest::getCmd('controller');
+		if (!JRequest::getCmd('view')) {
+			JRequest::setVar('view', $this->_controllerName);
 		}
-		parent::__construct( $default );
-		$this->registerTask( 'apply', 'save' );
-		$this->registerTask( 'add', 'edit' );
-		$this->_model =& $this->getModel( $this->_controllerName );
+		parent::__construct($default);
+		$this->registerTask('apply', 'save');
+		$this->registerTask('add', 'edit');
+		$this->_model = & $this->getModel($this->_controllerName);
 		$this->_controllerUrl = 'index.php?option=com_pizzabox&controller=' . $this->_controllerName;
 	}
-		
-	function display()
+
+	public function display()
 	{
 		$this->_display();
 	}
-	
-	function edit()
+
+	public function edit()
 	{
-		if ( $this->_model->checkout() ){
+		if ($this->_model->checkout()) {
 			$this->_display('form');
-		} else {
+		}
+		else {
 			$this->_setDefaultRedirect();
 		}
 	}
-	
-	function save()
+
+	public function save()
 	{
-		JRequest::checkToken() or die( 'Invalid Token' );
-		if ( false ===  $this->_model->save() ) {
-		    $this->edit();
-		} else {
-			$row =& $this->_model->getRow();
-		  	if ( 'apply' == $this->getTask() ) {
-		  		$this->_controllerUrl .= '&task=edit&id=' . $row->id ;
-		  	}
-		  	$msg = JText::sprintf( 'PIZZABOX_SAVED', $row->ref ) ;
-		    $this->setRedirect( $this->_controllerUrl  , $msg );
+		JRequest::checkToken() or die('Invalid Token');
+		if (false === $this->_model->save()) {
+			$this->edit();
+		}
+		else {
+			$row = & $this->_model->getRow();
+			if ('apply' == $this->getTask()) {
+				$this->_controllerUrl .= '&task=edit&id=' . $row->id;
+			}
+			$msg = JText::sprintf('PIZZABOX_SAVED', $row->ref);
+			$this->setRedirect($this->_controllerUrl, $msg);
 		}
 	}
-	
-	function cancel()
+
+	public function cancel()
 	{
 		$this->_setDefaultRedirect();
 	}
-	
-	function remove()
+
+	public function remove()
 	{
-		JRequest::checkToken() or die( 'Invalid Token' );
-		
-		if ( $this->_model->remove() ) {
+		JRequest::checkToken() or die('Invalid Token');
+
+		if ($this->_model->remove()) {
 			$msg = JText::sprintf('Successfully removed ', count($this->_model->getCid()));
-			$this->setRedirect( $this->_controllerUrl, $msg );
-			
-		} else {
+			$this->setRedirect($this->_controllerUrl, $msg);
+		}
+		else {
 			$this->_setDefaultRedirect();
-		}	
+		}
 	}
-	
-	function unpublish()
+
+	public function unpublish()
 	{
 		$this->_publish(false);
 	}
-	
-	function publish()
+
+	public function publish()
 	{
 		$this->_publish(true);
 	}
 
-	function _publish($bool)
+	protected function _publish($bool)
 	{
-		if ( $this->_model->publish($bool) ) {
-			$state = $bool ? 'PIZZABOX_PUBLISHED' : 'PIZZABOX_UNPUBLISHED' ;
-			$msg = JText::sprintf('PIZZABOX_PUBLISH_SUCCESS', count($this->_model->getCid())) . " " . JText::_( $state );
-			$this->setRedirect( $this->_controllerUrl , $msg );
-		} else {
+		if ($this->_model->publish($bool)) {
+			$state = $bool ? 'PIZZABOX_PUBLISHED' : 'PIZZABOX_UNPUBLISHED';
+			$msg = JText::sprintf('PIZZABOX_PUBLISH_SUCCESS', count($this->_model->getCid())) . " " . JText::_($state);
+			$this->setRedirect($this->_controllerUrl, $msg);
+		}
+		else {
 			$this->_setDefaultRedirect();
 		}
 	}
-		
-	function orderdown()
+
+	public function orderdown()
 	{
 		$this->_order(1);
 	}
-	
-	function orderup()
+
+	public function orderup()
 	{
 		$this->_order(-1);
 	}
-	
-  function _order( $inc )
+
+	protected function _order($inc)
 	{
 		$this->_model->order($inc);
 		$this->_setDefaultRedirect();
 	}
-	
-	function _setDefaultRedirect()
+
+	protected function _setDefaultRedirect()
 	{
-		$this->setRedirect( $this->_controllerUrl );
+		$this->setRedirect($this->_controllerUrl);
 	}
 
-	function _display( $tpl=null )
+	protected function _display($tpl = null)
 	{
-		$view = & $this->getView( $this->_controllerName, 'html');
+		$view = & $this->getView($this->_controllerName, 'html');
 		$view->setModel($this->_model, true);
 		$view->display($tpl);
 	}
+
 }

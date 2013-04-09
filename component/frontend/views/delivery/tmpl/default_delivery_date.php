@@ -8,7 +8,7 @@
  * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
- 
+
 $document =& JFactory::getDocument();
 $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js" );
 ?>
@@ -27,8 +27,8 @@ $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js"
 		<?php foreach ($this->dates as $value => $date) :?>
 			<?php $i++ ?>
 			<div class="radiobox radio_<?php echo $i ?>">
-				<input type="radio" name="delivery_date" id="radio_<?php echo $i ?>" value="<?php echo $value ?>" />
 				<label for="radio_<?php echo $i ?>">
+					<input type="radio" name="delivery_date" id="radio_<?php echo $i ?>" value="<?php echo $value ?>" />
 					<span class="date-default lead"><?php echo strftime( "%d %b %Y", $date ) ?></span>
 					<span class="date-dayshort"><?php echo strftime( "%a", $date ) ?></span>
 					<span class="date-daylong"><?php echo strftime( "%A", $date ) ?></span>

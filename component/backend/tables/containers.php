@@ -1,4 +1,5 @@
-<?php defined('_JEXEC') or die('The way is shut!');
+<?php
+
 /**
  * @version		    $Id: tables/containers.php 2012-08-14 14:48:00Z zanardi $
  * @package		    GiBi PizzaBox
@@ -9,19 +10,30 @@
  * @license		    GNU/GPL v2 or later
  */
 
+defined('_JEXEC') or die('The way is shut!');
+
+/**
+ * TableContainers
+ */
 class TableContainers extends JTable
 {
-  var $id               = 0;	  /* @var int Unique identifier */
-	var $name             = '';		
-	var $desc             = null; 
-	var $image            = null;	/* @var string Full image path */
-	var $price            = null;	/* @var string Item price */
-	var $ordering         = null;
-	var $checked_out      = null;
-	var $checked_out_time = null;
-	var $published        = 1;
+	public $id = 0;
+	public $name = '';
+	public $desc = null;
+	public $image = null;
+	public $price = null;
+	public $ordering = null;
+	public $checked_out = null;
+	public $checked_out_time = null;
+	public $published = 1;
 
-  function __construct(& $db) {
-    parent::__construct('#__pizzabox_containers', 'id', $db);
-  }
+	/**
+	 * Class constructor.
+	 *
+	 * @param JDatabase $db
+	 */
+	public function __construct(&$db)
+	{
+		parent::__construct('#__pizzabox_containers', 'id', $db);
+	}
 }

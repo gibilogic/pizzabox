@@ -16,7 +16,6 @@ $altrow = 1;
 function resetFilter() {
 	$('search').set('value','');
 	$('filter_containers').set('value','');
-	$('filter_schemes').set('value','');
 	$('adminForm').submit();
 }
 </script>
@@ -26,12 +25,10 @@ function resetFilter() {
 <table class="adminheading">
 	<tr>
 		<td>
-			<label for="search" ><?php echo JText::_('JSEARCH_FILTER') ?></label> : 
-			<input type="text" id="search" name="search" size="8" value="<?php echo $this->search ?>" /> 
+			<label for="search" ><?php echo JText::_('JSEARCH_FILTER') ?></label> :
+			<input type="text" id="search" name="search" size="8" value="<?php echo $this->search ?>" />
 			<input type="submit" value="<?php echo JText::_('JSEARCH_FILTER_SUBMIT') ?>" />
-			<?php echo JText::_('JSEARCH_FILTER_LABEL') ?> 
-			<?php echo $this->filters['containers']; ?>
-			<?php echo $this->filters['schemes']; ?>
+			<?php echo JText::_('JSEARCH_FILTER_LABEL') ?>
 			<button onclick="resetFilter();"><?php echo JText::_('JSEARCH_RESET'); ?></button>
 		</td>
 	</tr>
@@ -45,7 +42,7 @@ function resetFilter() {
       </th>
 			<th nowrap="nowrap" style="width: 5%">
 				<?php echo JHTML::_('grid.sort', 'JGLOBAL_FIELD_ID_LABEL', 'id', $this->filters['order_Dir'] , $this->filters['order'] ) ?>
-			</th>     
+			</th>
       <th nowrap="nowrap" style="width: 5%">
 				<?php echo JHTML::_('grid.sort', 'JGRID_HEADING_ORDERING', 'ordering', $this->filters['order_Dir'] , $this->filters['order'] ) ?>
 			</th>
@@ -58,12 +55,6 @@ function resetFilter() {
 			<th nowrap="nowrap">
 				<?php echo JHTML::_('grid.sort', 'PIZZABOX_NAME', 'name', $this->filters['order_Dir'] , $this->filters['order'] ) ?>
 			</th>
-			<th nowrap="nowrap" style="width: 10%">
-        <?php echo JText::_('PIZZABOX_CONTAINER') ?>
-      </th>
-			<th nowrap="nowrap" style="width: 10%">
-        <?php echo JText::_('PIZZABOX_SCHEME') ?>
-      </th>
  			<th nowrap="nowrap" style="width: 5%">
         <?php echo JText::_('PIZZABOX_PRICE') ?>
       </th>
@@ -83,7 +74,7 @@ function resetFilter() {
 		<tr class="row<?php echo $altrow ?>">
 
 			<td><?php echo JHTML::_('grid.checkedout', $row, $k ) ?></td>
-      
+
       <td align="center"><?php echo $row->id ?></td>
 
 			<td class="order" align="center">
@@ -105,10 +96,6 @@ function resetFilter() {
           <?php echo $this->escape( $row->name ) ?>
         </a>
 			</td>
-
-			<td><?php echo $row->container_name ?></td>
-			
-			<td><?php echo $row->scheme_name ?></td>
 
 			<td><?php echo $row->price ?></td>
 
@@ -133,7 +120,7 @@ function resetFilter() {
 
 <div>
 	<input type="hidden" name="option" value="com_pizzabox" />
-	<input type="hidden" name="task" value="" /> 
+	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="ordering" value="ordering" />
 	<input type="hidden" name="filter_order" value="<?php echo $this->filters['order'] ?>" />

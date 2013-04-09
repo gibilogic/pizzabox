@@ -61,4 +61,11 @@ class PizzaboxModelDelivery extends JModel
 		}
 		return $orders;
 	}
+
+	public function removeContainer($order_id, $container_number) {
+		$query = "DELETE FROM #__pizzabox_orders_parts WHERE order_id = $order_id AND container_number = $container_number";
+		$this->_db->setQuery($query);
+
+		return $this->_db->execute();
+	}
 }

@@ -28,19 +28,19 @@ function setEqualHeight( elements )
   var maxHeight = 0;
 	elements.each( function(item) {
     if( item.isVisible() ) {
-      height = item.measure(function(){ 
-        return this.getDimensions().y; 
+      height = item.measure(function(){
+        return this.getDimensions().y;
       });
       if ( height > maxHeight ) {
         maxHeight = height;
       }
     }
 	});
-	elements.setStyle('height', maxHeight );	
+	elements.setStyle('height', maxHeight );
 }
 
 // request a translation via ajax and translate the string
-function alertTranslatedString( string ) 
+function alertTranslatedString( string )
 {
   var req = new Request({
     method: 'get',
@@ -52,64 +52,40 @@ function alertTranslatedString( string )
 }
 
 window.addEvent('load',function(){
-  
-	// add class for selected element in containers radio button group
-	$$('div.radiobox label').addEvent('click',function(e){
-    
-		// force radio button check (for IE7)
-		e.preventDefault();
-		$("#"+$(this.getProperty('for')).set('checked', true));
-		
-		var values = $$('div.radiobox input[type=radio]:checked').map(function(e){ return e.id });
-		$$('div.radiobox').removeClass('selected');
-		for( i=0; i<values.length; i++ ) {
-			var myDiv = $$('div.radiobox.' + values[i] )[0];
-			myDiv.addClass('selected');
 
-			// get flavour name and desc
-			var flavourname = $$('div.radiobox.' + values[i] + ' span.name').get('html');
-			var flavourdesc = $$('div.radiobox.' + values[i] + ' span.desc').get('html');
-			
-			// get part id
-			var parentClass = myDiv.getParent().get('class');
-			var partId = parentClass.replace(/flavours/g,'').replace(/hidden/g,'').replace(/clearfix/g,'').trim();
-      
-			$$('div.part' + partId + ' span.flavourname').set('html', flavourname );
-			$$('div.part' + partId + ' span.flavourdesc').set('html', flavourdesc );
-		}
-	});		
-	
-	// single click to next page 
-  $$('#containerForm').addEvent('submit',function(){
-    var values = $$('div.radiobox input[type=radio]:checked').map(function(e){ return e.id });
-    if( values.length == 0 ) {
-      alertTranslatedString( "PIZZABOX_NO_SELECTION" );
-      return false;
-    }
-  });
-	$$('form#containerForm div.radiobox label').addEvent('click',function(e){
-		e.preventDefault();
-		$("#"+$(this.getProperty('for')).set('checked', true)); 
-		$('containerForm').submit();
-	});
-  $$('#schemeForm').addEvent('submit',function(){
-    var values = $$('div.radiobox input[type=radio]:checked').map(function(e){ return e.id });
-    if( values.length == 0 ) {
-      alertTranslatedString( "PIZZABOX_NO_SELECTION" );
-      return false;
-    }
-  });  
-	$$('form#schemeForm div.radiobox label').addEvent('click',function(e){
-		e.preventDefault();
-		$("#"+$(this.getProperty('for')).set('checked', true)); 
-		$('schemeForm').submit();
-	});
+	// add class for selected element in containers radio button group
+//	$$('div.radiobox label').addEvent('click',function(e){
+//
+//		// force radio button check (for IE7)
+//		e.preventDefault();
+//		$("#"+$(this.getProperty('for')).set('checked', true));
+
+//		var values = $$('div.radiobox input[type=radio]:checked').map(function(e){ return e.id });
+//		$$('div.radiobox').removeClass('selected');
+//		for( i=0; i<values.length; i++ ) {
+//			var myDiv = $$('div.radiobox.' + values[i] )[0];
+//			myDiv.addClass('selected');
+//
+//			// get flavour name and desc
+//			var flavourname = $$('div.radiobox.' + values[i] + ' span.name').get('html');
+//			var flavourdesc = $$('div.radiobox.' + values[i] + ' span.desc').get('html');
+//
+//			// get part id
+//			var parentClass = myDiv.getParent().get('class');
+//			var partId = parentClass.replace(/flavours/g,'').replace(/hidden/g,'').replace(/clearfix/g,'').trim();
+//
+//			$$('div.part' + partId + ' span.flavourname').set('html', flavourname );
+//			$$('div.part' + partId + ' span.flavourdesc').set('html', flavourdesc );
+//		}
+//	});
+
+	// single click to next page
 	$$('form#deliveryForm div.radiobox label').addEvent('click',function(e){
 		e.preventDefault();
-		$("#"+$(this.getProperty('for')).set('checked', true)); 
+		$("#"+$(this.getProperty('for')).set('checked', true));
 		$('deliveryForm').submit();
-	}); 
-  
+	});
+
   // toggle part divs
   $$('div.part').addEvent('click',function(){
     part_id = this.get('class').replace(/part/g,'').replace(/btn-primary/g,'').replace(/btn/g,'').trim();
@@ -132,7 +108,7 @@ window.addEvent('load',function(){
 			$('showToolbar').setStyle('display','none');
 		});
 	}
-	
+
 	// toggle filters
 	if ( $('hideFilters') ) {
 		$('hideFilters').addEvent('click',function(){
@@ -148,9 +124,9 @@ window.addEvent('load',function(){
 			$('showFilters').setStyle('display','none');
 		});
 	}
-  
+
   // set equal height
   setEqualHeight( $$('#radiobox-wrapper label') );
-  
+
 });
 

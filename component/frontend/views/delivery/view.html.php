@@ -1,6 +1,5 @@
 <?php
 
-defined('_JEXEC') or die('The way is shut');
 /**
  * @version			  $Id: views/delivery/view.html.php 2012-09-18 09:11:00Z zanardi $
  * @package			  GiBi PizzaBox
@@ -10,8 +9,13 @@ defined('_JEXEC') or die('The way is shut');
  * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
+
+defined('_JEXEC') or die('The way is shut');
 jimport('joomla.application.component.view');
 
+/**
+ * PizzaboxViewDelivery
+ */
 class PizzaboxViewDelivery extends JView
 {
 	var $user = null;
@@ -20,15 +24,13 @@ class PizzaboxViewDelivery extends JView
 	{
 		jimport('joomla.html.pagination');
 		JHTML::_('behavior.tooltip');
-		$app = & JFactory::getApplication();
-		$this->user = & JFactory::getUser();
+		$this->user =& JFactory::getUser();
 
 		$this->loadHelper('pizzabox');
 		$this->helper = new PizzaboxHelper();
+		$this->params =& JComponentHelper::getParams('com_pizzabox');
 
-		$this->params = & JComponentHelper::getParams('com_pizzabox');
-
-		$session = & JFactory::getSession();
+		$session =& JFactory::getSession();
 		$date = $session->get('com_pizzabox.delivery.date');
 		$time = $session->get('com_pizzabox.delivery.time');
 		$order_id = $session->get('com_pizzabox.order.id');
@@ -41,7 +43,6 @@ class PizzaboxViewDelivery extends JView
 		$parts = $orderModel->getParts();
 		foreach ($parts as &$part) {
 			$part->container_image = $this->getElementImage('containers', $part->container_id);
-			$part->scheme_image = $this->getElementImage('schemes', $part->scheme_id);
 			$part->part_image = $this->getElementImage('parts', $part->part_id);
 			$part->flavour_image = $this->getElementImage('flavours', $part->flavour_id);
 		}
@@ -163,7 +164,7 @@ class PizzaboxViewDelivery extends JView
 			}
 		}
 		else {
-		// PREPARATION MODE
+			// PREPARATION MODE
 			$min_start_time = $this->getMinStartTime();
 			while ($start_time->format('H:i') < $end_time->format('H:i')) {
 				if ($delivery_date->format('Y-m-d') . ' ' . $start_time->format('H:i') >= $min_start_time->format('Y-m-d H:i')) { // preparation time check
