@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+@version      $Id: build.xml 2013-03-13 00:00:00Z matteo $
+@author       GiBiLogic
+@authorUrl    http://www.gibilogic.com
+@authorEmail  info@gibilogic.com
+@copyright    Copyright (C) 2013 GiBiLogic. All rights reserved.
+@license      GNU/GPLv2
+@description  Ant build file for GiBi PizzaBox
+-->
+
+<project name="pizzabox" default="Build ZIP package" basedir=".">
+	<description>GiBi PizzaBox</description>
+	<property file="build.properties" />
+
+	<property name="dir.component" location="../component" />
+	<property name="dir.plugin" location="../plugin" />
+	<property name="dir.release" location="../release" />
+
+	<target name="Build ZIP package" depends="Update build date">
+		<echo message="Building the ZIP package..." />
+		<zip destfile="${dir.release}/${component.name}.zip" basedir="${dir.component}" whenempty="fail" />
+	</target>
+
+	<target name="Deploy (Local)" depends="Update build date">
+		<echo message="Deploying locally..." />
+		<!-- Component -->
+		<copy file="${dir.component}/${project.name}.xml" tofile="${path.deploy.local}/administrator/components/${component.name}/${project.name}.xml" overwrite="true" />
+		<copy todir="${path.deploy.local}/administrator/components/${component.name}" overwrite="true">
+			<fileset dir="${dir.component}/backend"></fileset>
+		</copy>
+		<copy todir="${path.deploy.local}/components/${component.name}" overwrite="true">
+			<fileset dir="${dir.component}/frontend"></fileset>
+		</copy>
+	</target>
+
+	<target name="Update build date">
+		<echo message="Updating build date..." />
+		<tstamp>
+			<format property="build.date" pattern="yyyy-MM-dd" />
+		</tstamp>
+		<replaceregexp match="\&lt;creationDate&gt;(.*?)\&lt;\/creationDate&gt;" replace="\&lt;creationDate&gt;${build.date}\&lt;/creationDate&gt;" flags="gs">
+			<fileset dir="${dir.component}">
+				<include name="${project.name}.xml" />
+			</fileset>
+		</replaceregexp>
+	</target>
+
+	<target name="Clean releases">
+		<echo message="Cleaning the project..." />
+		<delete includeemptydirs="true">
+			<fileset dir="${dir.release}/">
+				<include name="*.zip" />
+			</fileset>
+		</delete>
+	</target>
+
+</project>

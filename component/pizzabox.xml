@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="2.5.0" method="upgrade">
+	<name>PizzaBox</name>
+	<author>GiBiLogic</author>
+	<creationDate>2013-04-09</creationDate>
+	<license>GNU/GPL v2 or later</license>
+	<authorEmail>info@gibilogic.com</authorEmail>
+	<authorUrl>http://www.gibilogic.com</authorUrl>
+	<version>3.0</version>
+	<description><![CDATA[
+    <img src="http://extensions.gibilogic.com/images/gibilogicextensions-150x150.png" alt="" style="float: left;margin: 0 10px 10px 0" />
+    <h1>GiBi PizzaBox</h1>
+    <h2>A Joomla extension by <a href="http://www.gibilogic.com">GiBiLogic</a></h2>
+    <p>This component manages online orders of multi-flavours products like pizzas, ice creams, burritos and so on.</p>
+    <p>Discover other extensions by <strong>GiBiLogic</strong> at <a href="http://extensions.gibilogic.com">extensions.gibilogic.com</a></p>
+  ]]></description>
+
+	<files folder="frontend">
+		<filename>pizzabox.php</filename>
+		<filename>index.html</filename>
+		<folder>assets</folder>
+		<folder>controllers</folder>
+		<folder>helpers</folder>
+		<folder>layouts</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+
+	<administration>
+		<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox">com_pizzabox</menu>
+		<submenu>
+			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=containers">com_pizzabox_containers</menu>
+			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=parts">com_pizzabox_parts</menu>
+			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=flavours">com_pizzabox_flavours</menu>
+			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=orders">com_pizzabox_orders</menu>
+			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=status">com_pizzabox_orderstatus</menu>
+		</submenu>
+		<files folder="backend">
+			<filename>config.xml</filename>
+			<filename>pizzabox.php</filename>
+			<filename>index.html</filename>
+			<filename>LICENSE.txt</filename>
+			<folder>controllers</folder>
+			<folder>models</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<folder>sql</folder>
+		</files>
+		<languages folder="backend/language">
+			<language tag="en-GB">en-GB/en-GB.com_pizzabox.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_pizzabox.sys.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_pizzabox.ini</language>
+			<language tag="it-IT">it-IT/it-IT.com_pizzabox.sys.ini</language>
+		</languages>
+	</administration>
+
+	<languages folder="frontend/language">
+		<language tag="en-GB">en-GB.com_pizzabox.ini</language>
+		<language tag="it-IT">it-IT.com_pizzabox.ini</language>
+	</languages>
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.sql</file>
+		</sql>
+	</install>
+
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.sql</file>
+		</sql>
+	</uninstall>
+
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates</schemapath>
+		</schemas>
+	</update>
+
+</install>
