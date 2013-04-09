@@ -29,7 +29,13 @@ defined('_JEXEC') or die('The way is shut!');
 		<div class="span8">
 			<?php foreach ($this->rows as $part): ?>
 			<?php if ($part->minimum != 0 || $part->maximum != 0): ?>
-			<h2><?php echo $part->name ?><?php echo $part->price > 0 ? ', +' . $helper->formatPrice($part->price) : '' ?> (da <?php echo $part->minimum ?> a <?php echo $part->maximum ?>)</h2>
+			<h2>
+				<?php echo $part->name ?><?php echo $part->price > 0 ? ', +' . $helper->formatPrice($part->price) : '' ?>
+				<?php if ($part->minimum == $part->maximum): ?>
+				&nbsp;(select <?php echo $part->minimum ?>)</h2>
+				<?php else: ?>
+				&nbsp;(select from <?php echo $part->minimum ?> to <?php echo $part->maximum ?>)</h2>
+				<?php endif; ?>
 			<ul class="thumbnails thumbnails-flavours">
 				<?php foreach ($this->lists['flavours'] as $flavour): ?>
 				<?php if (false !== strrpos($flavour->parts, '"' . $part->id . '"')): ?>
