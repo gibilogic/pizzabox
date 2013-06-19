@@ -54,17 +54,16 @@ JHTML::script('helper.js', JURI::base() . '/components/com_pizzabox/assets/');
 	</form>
 </div>
 <script type="text/javascript">
-
 window.addEvent('domready', function() {
 	$$('input[type=radio]').setStyle('display', 'none');
 
 	$$('.thumbnails > li').addEvent('click', function() {
 		var containerId = this.get('data-container-id');
-		$('radio_' + containerId).set('checked', 'checked');
-		$('containerForm').submit();
+		document.id('radio_' + containerId).set('checked', 'checked');
+		document.id('containerForm').submit();
 	});
 
-  $('containerForm').addEvent('submit', function() {
+  document.id('containerForm').addEvent('submit', function() {
     var values = $$('input[type=radio]:checked');
     if (!values.length) {
       alertTranslatedString('PIZZABOX_NO_SELECTION');
@@ -72,5 +71,4 @@ window.addEvent('domready', function() {
     }
   });
 });
-
 </script>
