@@ -1,16 +1,19 @@
-<?php defined('_JEXEC') or die('Restricted access');
+<?php
 /**
- * @version		$Id: pizzabox.php 2012-09-28 14:22:00Z zanardi $
- * @package		PizzaBox
- * @copyright	Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
- * @license		GNU/GPLv2
+ * @version     pizzabox.php 2013-07-02 20:25:00Z zanardi
+ * @package     PizzaBox
+ * @author      GiBiLogic <info@gibilogic.com>
+ * @authorUrl   http://www.gibilogic.com
+ * @copyright   (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @license     GNU/GPL v2 or later
  */
+defined('_JEXEC') or die('The way is shut!');
 
 jimport('joomla.application.component.helper');
 
 // load requested controller if exists
 $controller = JRequest::getWord('controller','default');
-$path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
+$path = JPATH_COMPONENT.'/controllers/'.$controller.'.php';
 
 $document =& JFactory::getDocument();
 $document->addStyleDeclaration( '.icon-16-pizzabox{ background-image: url("/components/com_pizzabox/assets/icon-16.png") }' );

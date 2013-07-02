@@ -1,22 +1,22 @@
-<?php defined('_JEXEC') or die('The way is shut!');
+<?php
 /**
- * @version			  $Id: views/parts/view.html.php 2012-08-13 14:27:00Z zanardi$
+ * @version			  views/parts/view.html.php 2013-07-02 20:52:00Z zanardi
  * @package			  GiBi PizzaBox
- * @author			  GiBiLogic
+ * @author			  GiBiLogic <info@gibilogic.com>
  * @authorUrl		  http://www.gibilogic.com
- * @authorEmail		info@gibilogic.com
- * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright		  (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
+ defined('_JEXEC') or die('The way is shut!');
 
 jimport( 'joomla.application.component.view');
 
 class PizzaboxViewParts extends JView
 {
-	var $pagination = null ;
-	var $user = null;
+	public $pagination = null ;
+	public $user = null;
 
-	function display( $tpl = null )
+	public function display( $tpl = null )
 	{
 		$this->user = & JFactory::getUser();
 
@@ -34,8 +34,7 @@ class PizzaboxViewParts extends JView
 		parent::display($tpl);
 	}
 
-
-	function listItems()
+	public function listItems()
 	{
 		jimport( 'joomla.html.pagination' );
 		JHTML::_('behavior.tooltip');
@@ -65,7 +64,7 @@ class PizzaboxViewParts extends JView
     JToolBarHelper::preferences('com_pizzabox', '600');
 	}
 
-	function editItem()
+	public function editItem()
 	{
 		JRequest::setVar( 'hidemainmenu', 1 );
 
@@ -79,17 +78,17 @@ class PizzaboxViewParts extends JView
 	}
 
 	// This function and the next one should be merged sooner or later
-	function getHtmlList( $elements_type )
+	public function getHtmlList( $elements_type )
 	{
-		require_once ( JPATH_COMPONENT.DS.'models'.DS.$elements_type.'.php' );
+		require_once ( JPATH_COMPONENT.'/models/'.$elements_type.'.php' );
 		$class_name = "PizzaboxModel" . $elements_type;
 		$model = new $class_name();
 		return ( $model->getHtmlList() );
 	}
 
-	function getList( $elements_type )
+	public function getList( $elements_type )
 	{
-		require_once ( JPATH_COMPONENT.DS.'models'.DS.$elements_type.'.php' );
+		require_once ( JPATH_COMPONENT.'/models/'.$elements_type.'.php' );
 		$class_name = "PizzaboxModel" . $elements_type;
 		$model = new $class_name();
 		$elements = $model->getItems();

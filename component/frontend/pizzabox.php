@@ -1,13 +1,13 @@
-<?php defined('_JEXEC') or die('The way is shut!');
+<?php
 /**
- * @version		    $Id: pizzabox.php 2012-09-09 16:20:00Z zanardi $
+ * @version		    pizzabox.php 2013-07-02 20:45:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    (C) 2011-2013 GiBiLogic snc. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
+ defined('_JEXEC') or die('The way is shut!');
 
 jimport('joomla.application.component.helper');
 jimport('joomla.filesystem.file');
@@ -16,7 +16,7 @@ jimport('joomla.filesystem.file');
 $controller = JRequest::getWord('controller');
 if (! $controller ) { $controller = JRequest::getWord('view'); }
 if (! $controller ) { $controller = 'containers'; }
-$path = JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php';
+$path = JPATH_COMPONENT.'/controllers/'.$controller.'.php';
 if ( file_exists($path) )
 {
   $params =& JComponentHelper::getParams('com_pizzabox');

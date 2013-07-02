@@ -1,16 +1,15 @@
 <?php
 
 /**
- * @version		    $Id: controllers/containers.php 2012-09-10 15:21:00Z zanardi $
+ * @version		    controllers/containers.php 2013-07-02 20:58:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
-
 defined('_JEXEC') or die('The way is shut!');
+
 jimport('joomla.application.component.controller');
 
 /**
@@ -18,10 +17,10 @@ jimport('joomla.application.component.controller');
  */
 class PizzaboxControllerContainers extends JController
 {
-	var $_controllerUrl = '';
-	var $_model = NULL;
+	public $_controllerUrl = '';
+	public $_model = NULL;
 
-	function __construct( $default = array() )
+	public function __construct( $default = array() )
 	{
 		if ( ! JRequest::getCmd( 'view' ) ) {
 			JRequest::setVar('view', 'containers' );
@@ -34,7 +33,7 @@ class PizzaboxControllerContainers extends JController
 		$this->_partsControllerUrl = 'index.php?option=com_pizzabox&controller=parts';
 	}
 
-	function display( $tpl=null )
+	public function display( $tpl=null )
 	{
     $params =& JComponentHelper::getParams('com_pizzabox');
     if( $params->get('registered_users_only',1) == 1 ) {
@@ -51,7 +50,7 @@ class PizzaboxControllerContainers extends JController
 		$view->display($tpl);
 	}
 
-	function save()
+	public function save()
 	{
 		JRequest::checkToken() or die( 'PIZZABOX_INVALID_TOKEN' );
 		$result = $this->_model->save();

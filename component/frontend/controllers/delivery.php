@@ -1,27 +1,26 @@
 <?php
 
 /**
- * @version		    $Id: controllers/delivery.php 2012-09-18 09:11:00Z zanardi $
+ * @version		    controllers/delivery.php 2013-07-02 20:58:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
-
 defined('_JEXEC') or die('The way is shut!');
+
 jimport('joomla.application.component.controller');
 
 /**
  * PizzaboxControllerDelivery
  */
-class PizzaboxControllerDelivery extends JController
+class PizzaboxControllerDelivery extends JControllerLegacy
 {
-	var $_controllerUrl = '';
-	var $_model = NULL;
+	public $_controllerUrl = '';
+	public $_model = NULL;
 
-	function __construct($default = array())
+	public function __construct($default = array())
 	{
 		if (!JRequest::getCmd('view')) {
 			JRequest::setVar('view', 'delivery');
@@ -34,7 +33,7 @@ class PizzaboxControllerDelivery extends JController
 		$this->_controllerUrl = 'index.php?option=com_pizzabox&controller=delivery';
 	}
 
-	function display($tpl = 'delivery_date')
+	public function display($tpl = 'delivery_date')
 	{
 		$params =& JComponentHelper::getParams('com_pizzabox');
 		if ($params->get('registered_users_only', 1) == 1) {
@@ -81,7 +80,7 @@ class PizzaboxControllerDelivery extends JController
 		$view->display($tpl);
 	}
 
-	function save()
+	public function save()
 	{
 		JRequest::checkToken() or die('PIZZABOX_INVALID_TOKEN');
 		$result = $this->_model->save();
@@ -104,7 +103,7 @@ class PizzaboxControllerDelivery extends JController
 		}
 	}
 
-	function emailNotification()
+	public function emailNotification()
 	{
 		$params = & JComponentHelper::getParams('com_pizzabox');
 		if ($params->get('email_notification', 0) == 1) {
@@ -116,7 +115,7 @@ class PizzaboxControllerDelivery extends JController
 		}
 	}
 
-	function selectdate()
+	public function selectdate()
 	{
 		$session = JFactory::getSession();
 		$order_id = $session->get('com_pizzabox.order.id');
@@ -129,7 +128,7 @@ class PizzaboxControllerDelivery extends JController
 		}
 	}
 
-	function selecttime()
+	public function selecttime()
 	{
 		$session = JFactory::getSession();
 		$order_id = $session->get('com_pizzabox.order.id');
@@ -142,11 +141,11 @@ class PizzaboxControllerDelivery extends JController
 		}
 	}
 
-	function leave()
+	public function leave()
 	{
 		$order_id = JRequest::getInt('id');
 		JRequest::setVar('cid', array($order_id));
-		require_once ( JPATH_COMPONENT_ADMINISTRATOR . DS . 'models' . DS . 'orders.php' );
+		require_once ( JPATH_COMPONENT_ADMINISTRATOR.'/models/orders.php' );
 		$order_model = new PizzaboxModelOrders();
 		$order_model->remove();
 

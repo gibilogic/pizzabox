@@ -1,22 +1,19 @@
 <?php
-
 /**
- * @version		    $Id: controllers/abstract.php 2012-08-14 13:26:00Z zanardi $
+ * @version		    controllers/abstract.php 2013-07-02 20:32:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
-
 defined('_JEXEC') or die('The way is shut!');
 jimport('joomla.application.component.controller');
 
 /**
  * PizzaboxControllerAbstract
  */
-class PizzaboxControllerAbstract extends JController
+class PizzaboxControllerAbstract extends JControllerLegacy
 {
 	protected $_controllerName = '';
 	protected $_controllerUrl = '';
