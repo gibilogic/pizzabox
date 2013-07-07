@@ -9,7 +9,7 @@
  */
 defined('_JEXEC') or die('The way is shut');
 
-require_once( JPATH_COMPONENT . '/helpers/pizzabox.php');
+require_once( JPATH_COMPONENT_SITE . '/helpers/pizzabox.php');
 $helper = new PizzaboxHelper();
 ?>
 

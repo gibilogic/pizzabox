@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version		    views/orders/view.html.php 2013-07-02 20:58:00Z zanardi
+ * @version		    backend/views/orders/view.html.php 2013-07-07 20:16:00Z zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
@@ -15,7 +15,7 @@ jimport('joomla.application.component.view');
 /**
  *
  */
-class PizzaboxViewOrders extends JView
+class PizzaboxViewOrders extends JViewLegacy
 {
 
     public $pagination = null;
@@ -116,7 +116,7 @@ class PizzaboxViewOrders extends JView
         JToolBarHelper::title(JText::_('PIZZABOX_ORDERS'), 'pizzabox');
         JToolBarHelper::publish();
         JToolBarHelper::unpublish();
-        JToolBarHelper::customX('changestatus', 'edit', '', 'PIZZABOX_STATUS_CHANGE');
+        JToolBarHelper::custom('changestatus', 'edit', '', 'PIZZABOX_STATUS_CHANGE');
         JToolBarHelper::editList();
         JToolBarHelper::deleteList(JText::_('PIZZABOX_CONFIRM_DELETE'));
         JToolBarHelper::preferences('com_pizzabox', '600');

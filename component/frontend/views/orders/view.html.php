@@ -1,18 +1,20 @@
 <?php
 
 /**
- * @version			  views/orders/view.html.php 2013-07-02 20:37:00Z zanardi
- * @package			  GiBi PizzaBox
- * @author			  GiBiLogic <info@gibilogic.com>
- * @authorUrl		  http://www.gibilogic.com
- * @copyright		  (C) 2011-2013 GiBiLogic snc. All rights reserved.
- * @license			  GNU/GPL v2 or later
+ * @version		    frontend/views/orders/view.html.php 2013-07-07 20:01:00Z zanardi
+ * @package		    GiBi PizzaBox
+ * @author        GiBiLogic <info@gibilogic.com>
+ * @authorUrl     http://www.gibilogic.com
+ * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @license		    GNU/GPLv2
  */
 defined('_JEXEC') or die('The way is shut');
-
 jimport('joomla.application.component.view');
 
-class PizzaboxViewOrders extends JView
+/**
+ * PizzaboxViewOrders
+ */
+class PizzaboxViewOrders extends JViewLegacy
 {
 
     public $pagination = null;

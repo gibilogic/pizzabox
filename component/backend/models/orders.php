@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version		    models/orders.php 2013-07-02 20:55:00Z zanardi
+ * @version		    backend/models/orders.php 2013-07-02 20:55:00Z zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
@@ -9,9 +9,11 @@
  * @license		    GNU/GPL v2 or later
  */
 defined('_JEXEC') or die('The way is shut!');
-
 require_once('abstract.php');
 
+/**
+ * PizzaboxModelOrders
+ */
 class PizzaboxModelOrders extends PizzaboxModelAbstract
 {
 
@@ -56,8 +58,8 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
             $limitstart = 0;
         }
 
-        $order = $this->_db->getEscaped($app->getUserStateFromRequest($context . 'order', 'filter_order', 'id', 'cmd'));
-        $order_dir = $this->_db->getEscaped($app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'desc', 'cmd'));
+        $order = $this->_db->quote($app->getUserStateFromRequest($context . 'order', 'filter_order', 'id', 'cmd'));
+        $order_dir = $this->_db->quote($app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'desc', 'cmd'));
 
         $query = 'SELECT * FROM `#__pizzabox_orders` ';
         $where = array();
@@ -197,13 +199,13 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
         $total = 0;
 
         if (!class_exists('PizzaboxModelContainers'))
-            require_once( JPATH_COMPONENT.'/models/containers.php' );
+            require_once( JPATH_COMPONENT_SITE . '/models/containers.php' );
         $containers_model = new PizzaboxModelContainers;
         if (!class_exists('PizzaboxModelParts'))
-            require_once( JPATH_COMPONENT.'/models/parts.php' );
+            require_once( JPATH_COMPONENT_SITE . '/models/parts.php' );
         $parts_model = new PizzaboxModelParts;
         if (!class_exists('PizzaboxModelFlavours'))
-            require_once( JPATH_COMPONENT_ADMINISTRATOR.'/models/flavours.php' );
+            require_once( JPATH_COMPONENT_ADMINISTRATOR . '/models/flavours.php' );
         $flavours_model = new PizzaboxModelFlavours;
 
         $container_number = 0;

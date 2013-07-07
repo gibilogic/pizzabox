@@ -1,21 +1,20 @@
 <?php
 
 /**
- * @version		    views/delivery/view.html.php 2013-07-02 20:58:00Z zanardi
+ * @version		    frontend/views/delivery/view.html.php 2013-07-07 20:01:00Z zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
- * @license		    GNU/GPL v2 or later
+ * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @license		    GNU/GPLv2
  */
-defined('_JEXEC') or die('The way is shut!');
-
+defined('_JEXEC') or die('The way is shut');
 jimport('joomla.application.component.view');
 
 /**
  * PizzaboxViewDelivery
  */
-class PizzaboxViewDelivery extends JView
+class PizzaboxViewDelivery extends JViewLegacy
 {
 
     public $user = null;
@@ -74,7 +73,7 @@ class PizzaboxViewDelivery extends JView
         }
 
         // Load order template from common folder
-        $this->addTemplatePath(JPATH_COMPONENT . '/layouts');
+        $this->addTemplatePath(JPATH_COMPONENT_SITE . '/layouts');
         $this->setLayout('');
         $sublayout['order_details'] = $this->loadTemplate('order_details');
         $this->assignRef('sublayout', $sublayout);

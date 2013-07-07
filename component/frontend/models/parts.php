@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version		    models/parts.php 2013-07-02 20:58:00Z zanardi
+ * @version		    frontend/models/parts.php 2013-07-07 19:58:00Z zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
@@ -12,7 +12,10 @@ defined('_JEXEC') or die('The way is shut!');
 
 jimport('joomla.application.component.model');
 
-class PizzaboxModelParts extends JModel
+/**
+ * PizzaBoxModelParts
+ */
+class PizzaboxModelParts extends JModelLegacy
 {
 	public $_error = '';
 	public $_lastId = 0;
@@ -72,15 +75,15 @@ class PizzaboxModelParts extends JModel
 		$limitstart = $app->getUserStateFromRequest($context . 'limitstart', 'limitstart', 0, 'int');
 		$filter_containers = $session->get('com_pizzabox.container.id');
 		$search = $app->getUserStateFromRequest($context . 'search', 'search', '', 'string');
-		$order = $this->_db->getEscaped($app->getUserStateFromRequest($context . 'order', 'filter_order', 'ordering', 'cmd'));
-		$order_dir = $this->_db->getEscaped($app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'asc', 'cmd'));
+		$order = $this->_db->quote($app->getUserStateFromRequest($context . 'order', 'filter_order', 'ordering', 'cmd'));
+		$order_dir = $this->_db->quote($app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'asc', 'cmd'));
 
 		$query = 'SELECT * FROM `#__pizzabox_parts` ';
 
 		$where = array();
 		$where[] = "`published` = '1'";
 		if ($search) {
-			$search = $this->_db->getEscaped(trim(strtolower($search)));
+			$search = $this->_db->quote(trim(strtolower($search)));
 			$where [] = " `name` LIKE '%$search%' ";
 		}
 		if (count($where)) {

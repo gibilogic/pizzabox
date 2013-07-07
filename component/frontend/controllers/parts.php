@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version		    controllers/parts.php 2013-07-02 20:58:00Z zanardi
+ * @version		    frontend/controllers/parts.php 2013-07-07 1954:00Z zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
@@ -17,63 +17,64 @@ jimport('joomla.application.component.controller');
  */
 class PizzaboxControllerParts extends JControllerLegacy
 {
-	public $_controllerUrl = '';
-	public $_model = NULL;
 
-	public function __construct($default = array())
-	{
-		if (!JRequest::getCmd('view')) {
-			JRequest::setVar('view', 'parts');
-		}
+    public $_controllerUrl = '';
+    public $_model = NULL;
 
-		parent::__construct($default);
+    public function __construct($default = array())
+    {
+        if (!JRequest::getCmd('view')) {
+            JRequest::setVar('view', 'parts');
+        }
 
-		$this->_model = & $this->getModel('parts');
-		$this->_PizzaboxControllerUrl = 'index.php?option=com_pizzabox&controller=containers';
-		$this->_controllerUrl = 'index.php?option=com_pizzabox&controller=parts';
-		$this->_deliveryControllerUrl = 'index.php?option=com_pizzabox&controller=delivery';
-	}
+        parent::__construct($default);
 
-	public function display($tpl = null)
-	{
-		$params = & JComponentHelper::getParams('com_pizzabox');
-		if ($params->get('registered_users_only', 1) == 1) {
-			$user = JFactory::getUser();
-			if ($user->guest) {
-				$msg = JText::_('PIZZABOX_REGISTERED_ONLY');
-				$link = JRoute::_('index.php?option=com_users&task=register', false);
-				$this->setRedirect($link, $msg, 'error');
-			}
-		}
+        $this->_model = & $this->getModel('parts');
+        $this->_PizzaboxControllerUrl = 'index.php?option=com_pizzabox&controller=containers';
+        $this->_controllerUrl = 'index.php?option=com_pizzabox&controller=parts';
+        $this->_deliveryControllerUrl = 'index.php?option=com_pizzabox&controller=delivery';
+    }
 
-		$session = JFactory::getSession();
-		$container_id = $session->get('com_pizzabox.container.id');
-		if (!$container_id) {
-			$this->setRedirect($this->_PizzaboxControllerUrl);
-			return false;
-		}
+    public function display($tpl = null)
+    {
+        $params = & JComponentHelper::getParams('com_pizzabox');
+        if ($params->get('registered_users_only', 1) == 1) {
+            $user = JFactory::getUser();
+            if ($user->guest) {
+                $msg = JText::_('PIZZABOX_REGISTERED_ONLY');
+                $link = JRoute::_('index.php?option=com_users&task=register', false);
+                $this->setRedirect($link, $msg, 'error');
+            }
+        }
 
-		$view =& $this->getView('parts', 'html');
-		$view->setModel($this->_model, true);
-		$view->display($tpl);
-	}
+        $session = JFactory::getSession();
+        $container_id = $session->get('com_pizzabox.container.id');
+        if (!$container_id) {
+            $this->setRedirect($this->_PizzaboxControllerUrl);
+            return false;
+        }
 
-	public function save()
-	{
-		JRequest::checkToken() or die('PIZZABOX_INVALID_TOKEN');
-		$result = $this->_model->save();
-		if (false === $result) {
-			$msg = JText::_('PIZZABOX_SAVE_ERROR');
-			$this->setRedirect($this->_controllerUrl, $msg, 'error');
-		}
-		else {
-			if (JRequest::getWord('restart') == 'yes') {
-				$this->setRedirect($this->_PizzaboxControllerUrl);
-			}
-			else {
-				$this->setRedirect($this->_deliveryControllerUrl);
-			}
-		}
-	}
+        $view = & $this->getView('parts', 'html');
+        $view->setModel($this->_model, true);
+        $view->display($tpl);
+    }
+
+    public function save()
+    {
+        JRequest::checkToken() or die('PIZZABOX_INVALID_TOKEN');
+        $result = $this->_model->save();
+        if (false === $result) {
+            $msg = JText::_('PIZZABOX_SAVE_ERROR');
+            $this->setRedirect($this->_controllerUrl, $msg, 'error');
+        }
+        else {
+            if (JRequest::getWord('restart') == 'yes') {
+                $this->setRedirect($this->_PizzaboxControllerUrl);
+            }
+            else {
+                $this->setRedirect($this->_deliveryControllerUrl);
+            }
+        }
+    }
 
 }

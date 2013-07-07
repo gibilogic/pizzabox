@@ -1,128 +1,136 @@
 <?php
 
 /**
- * @version			  $Id: models/addresses.php 2013-03-22 09:00:00Z matteo $
- * @package			  GiBi PizzaBox
- * @author			  GiBiLogic
- * @authorUrl		  http://www.gibilogic.com
- * @authorEmail		info@gibilogic.com
- * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
- * @license			  GNU/GPL v2 or later
+ * @version		    frontend/models/addresses.php 2013-07-07 19:58:00Z zanardi
+ * @package		    GiBi PizzaBox
+ * @author        GiBiLogic <info@gibilogic.com>
+ * @authorUrl     http://www.gibilogic.com
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @license		    GNU/GPL v2 or later
  */
-defined('_JEXEC') or die('The way is shut');
+defined('_JEXEC') or die('The way is shut!');
 jimport('joomla.application.component.model');
 
-class PizzaboxModelAddresses extends JModel
+/**
+ * PizzaBoxModelAddresses
+ */
+class PizzaboxModelAddresses extends JModelLegacy
 {
-	private $_error = '';
-	private $_lastId = 0;
 
-	public function getId()
-	{
-		if ($this->_lastId > 0) {
-			return $this->_lastId;
-		}
-		$cid = $this->getCid();
-		if (empty($cid[0])) {
-			return JRequest::getInt('id', 0);
-		}
-		return $cid[0];
-	}
+    private $_error = '';
+    private $_lastId = 0;
 
-	public function setId($id)
-	{
-		$this->_lastId = $id;
-	}
+    public function getId()
+    {
+        if ($this->_lastId > 0) {
+            return $this->_lastId;
+        }
+        $cid = $this->getCid();
+        if (empty($cid[0])) {
+            return JRequest::getInt('id', 0);
+        }
+        return $cid[0];
+    }
 
-	public function getCid()
-	{
-		$cid = JRequest::getVar('cid', array(0), '', 'array');
-		JArrayHelper::toInteger($cid, array(0));
-		return $cid;
-	}
+    public function setId($id)
+    {
+        $this->_lastId = $id;
+    }
 
-	public function &getRow()
-	{
-		$table =& $this->getTable();
-		if ($table->load($this->getId())) {
-			return $table;
-		}
-		else {
-			return false;
-		}
-	}
+    public function getCid()
+    {
+        $cid = JRequest::getVar('cid', array(0), '', 'array');
+        JArrayHelper::toInteger($cid, array(0));
+        return $cid;
+    }
 
-	public function getAllByUser($user_id) {
-		$query = "SELECT * FROM #__pizzabox_addresses WHERE published = 1 AND user_id = $user_id";
+    public function &getRow()
+    {
+        $table = & $this->getTable();
+        if ($table->load($this->getId())) {
+            return $table;
+        }
+        else {
+            return false;
+        }
+    }
 
-		$db =& JFactory::getDBO();
-		$db->setQuery($query);
-		$results = $db->loadObjectList('id');
+    public function getAllByUser($user_id)
+    {
+        $query = "SELECT * FROM #__pizzabox_addresses WHERE published = 1 AND user_id = $user_id";
 
-		return $results ? $results : array();
-	}
+        $db = & JFactory::getDBO();
+        $db->setQuery($query);
+        $results = $db->loadObjectList('id');
 
-  public function create()
-	{
-		$row =& $this->getRow();
+        return $results ? $results : array();
+    }
 
-		if (!empty($row->id)) {
-			$isNew = false;
-		}
-		else {
-			$isNew = true;
-		}
+    public function create()
+    {
+        $row = & $this->getRow();
 
-		$address_data = JRequest::getVar('address');
-		if (!$address_data || count($address_data) == 0) {
-			return false;
-		}
-		foreach ($address_data as $key => $value) {
-			if (!is_string($value) || $value == '') {
-				return false;
-			}
-		}
+        if (!empty($row->id)) {
+            $isNew = false;
+        }
+        else {
+            $isNew = true;
+        }
 
-		if (!$row->bind($address_data)) {
-			JError::raiseWarning(200, $row->getError());
-			return false;
-		}
+        $address_data = JRequest::getVar('address');
+        if (!$address_data || count($address_data) == 0) {
+            return false;
+        }
+        foreach ($address_data as $key => $value) {
+            if (!is_string($value) || $value == '') {
+                return false;
+            }
+        }
 
-		if ($isNew) {
-			$row->ordering = $row->getNextOrder();
-		}
+        if (!$row->bind($address_data)) {
+            JError::raiseWarning(200, $row->getError());
+            return false;
+        }
 
-		if (!$row->store()) {
-			JError::raiseWarning(200, $row->getError());
-			return false;
-		}
+        if ($isNew) {
+            $row->ordering = $row->getNextOrder();
+        }
 
-		$row->checkin();
-		$this->_lastId = $row->id;
-		return true;
-	}
+        if (!$row->store()) {
+            JError::raiseWarning(200, $row->getError());
+            return false;
+        }
 
-	public function isAddressValid($address_id) {
-		$this->setId($address_id);
-		$address = $this->getRow();
-		if (false === $address) {
-			return false;
-		}
+        $row->checkin();
+        $this->_lastId = $row->id;
+        return true;
+    }
 
-		return $address->user_id == JFactory::getUser()->id;
-	}
+    public function isAddressValid($address_id)
+    {
+        $this->setId($address_id);
+        $address = $this->getRow();
+        if (false === $address) {
+            return false;
+        }
 
-	public function createAndLink($order_id) {
-		if ($this->create()) {
-			return $this->linkTo($order_id, $this->_lastId);
-		}
-	}
+        return $address->user_id == JFactory::getUser()->id;
+    }
 
-	public function linkTo($order_id, $address_id) {
-		$query = "UPDATE #__pizzabox_orders SET address_id = $address_id WHERE id = $order_id";
+    public function createAndLink($order_id)
+    {
+        if ($this->create()) {
+            return $this->linkTo($order_id, $this->_lastId);
+        }
+    }
 
-		$db =& JFactory::getDBO();
-		$db->setQuery($query);
-		return $db->execute();
-	}
+    public function linkTo($order_id, $address_id)
+    {
+        $query = "UPDATE #__pizzabox_orders SET address_id = $address_id WHERE id = $order_id";
+
+        $db = & JFactory::getDBO();
+        $db->setQuery($query);
+        return $db->execute();
+    }
+
 }

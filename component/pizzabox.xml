@@ -2,7 +2,7 @@
 <extension type="component" version="2.5.0" method="upgrade">
 	<name>PizzaBox</name>
 	<author>GiBiLogic</author>
-	<creationDate>2013-07-02</creationDate>
+	<creationDate>2013-07-07</creationDate>
 	<license>GNU/GPL v2 or later</license>
 	<authorEmail>info@gibilogic.com</authorEmail>
 	<authorUrl>http://www.gibilogic.com</authorUrl>
@@ -17,7 +17,6 @@
 
 	<files folder="frontend">
 		<filename>pizzabox.php</filename>
-		<filename>index.html</filename>
 		<folder>assets</folder>
 		<folder>controllers</folder>
 		<folder>helpers</folder>
@@ -38,7 +37,6 @@
 		<files folder="backend">
 			<filename>config.xml</filename>
 			<filename>pizzabox.php</filename>
-			<filename>index.html</filename>
 			<filename>LICENSE.txt</filename>
 			<folder>controllers</folder>
 			<folder>models</folder>
