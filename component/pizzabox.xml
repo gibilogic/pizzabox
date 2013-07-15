@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install type="component" version="2.5.0" method="upgrade">
+<extension type="component" version="2.5.0" method="upgrade">
 	<name>PizzaBox</name>
 	<author>GiBiLogic</author>
-	<creationDate>2013-03-22</creationDate>
+	<creationDate>2013-07-10</creationDate>
 	<license>GNU/GPL v2 or later</license>
 	<authorEmail>info@gibilogic.com</authorEmail>
 	<authorUrl>http://www.gibilogic.com</authorUrl>
-	<version>2.4</version>
+	<version>3.1.0</version>
 	<description><![CDATA[
     <img src="http://extensions.gibilogic.com/images/gibilogicextensions-150x150.png" alt="" style="float: left;margin: 0 10px 10px 0" />
     <h1>GiBi PizzaBox</h1>
     <h2>A Joomla extension by <a href="http://www.gibilogic.com">GiBiLogic</a></h2>
-    <p>This component manages online orders of multi-flavours products like pizzas, ice creams, burritos, and so on</p>
+    <p>This component manages online orders of multi-flavours products like pizzas, ice creams, burritos and so on.</p>
     <p>Discover other extensions by <strong>GiBiLogic</strong> at <a href="http://extensions.gibilogic.com">extensions.gibilogic.com</a></p>
   ]]></description>
 
