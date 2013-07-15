@@ -1,27 +1,39 @@
-<?php defined('_JEXEC') or die('The way is shut!');
+<?php
+
 /**
- * @version		    $Id: tables/status.php 2012-08-13 13:49:00Z zanardi $
+ * @version		    tables/status.php 2013-07-07 19:49:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
+defined('_JEXEC') or die('The way is shut!');
 
+/**
+ * TableStatus
+ */
 class TableStatus extends JTable
 {
-    var $id               = 0;	    /* @var int Unique identifier */
-    var $name             = '';		  /* @var string Status name */
-    var $desc             = null;	  /* @var string Status description */
-    var $lock             = 0;		  /* @var bool If true, orders in this status are locked */
-    var $image            = null;	  /* @var string Full path of an image for the status */
-    var $ordering         = null;
-    var $checked_out      = null;
-    var $checked_out_time = null;
-    var $published        = 1;
 
-    function __construct(& $db) {
+    public $id = 0;
+    public $name = '';
+    public $desc = null;
+    public $lock = 0;
+    public $image = null;
+    public $ordering = null;
+    public $checked_out = null;
+    public $checked_out_time = null;
+    public $published = 1;
+
+    /**
+     * Class constructor.
+     *
+     * @param JDatabase $db
+     */
+    public function __construct(& $db)
+    {
         parent::__construct('#__pizzabox_status', 'id', $db);
     }
+
 }

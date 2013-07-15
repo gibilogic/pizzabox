@@ -1,73 +1,92 @@
-<?php defined('_JEXEC') or die('The way is shut!');
+<?php
+
 /**
- * @version	      $Id: views/parts/view.html.php 2012-09-02 14:56:00Z zanardi $
+ * @version		    frontend/views/parts/view.html.php 2013-07-07 20:01:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @authorEmail   info@gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPLv2
  */
+defined('_JEXEC') or die('The way is shut');
+jimport('joomla.application.component.view');
 
-jimport( 'joomla.application.component.view');
-
-class PizzaboxViewParts extends JView
-
+/**
+ * PizzaboxViewParts
+ */
+class PizzaboxViewParts extends JViewLegacy
 {
-	var $pagination = null ;
-	var $user = null;
 
-	function display( $tpl = null )
-	{
-		jimport( 'joomla.html.pagination' );
-		JHTML::_('behavior.tooltip');
-		$app 		=& JFactory::getApplication();
-		$this->user	=& JFactory::getUser();
-		$context 	= 'com_pizzabox.parts.';
-		
-		// get filter and search status
-		$filters['order']		= $app->getUserStateFromRequest( $context.'filter_order', 'filter_order', 'ordering', 'cmd' );
-		$filters['order_Dir']	= $app->getUserStateFromRequest( $context.'filter_order_Dir', 'filter_order_Dir', '', 'word' );
-		$search					= $app->getUserStateFromRequest( $context.'search', 'search', '', 'string' );
-		$search 				= JString::strtolower($search);
-		
-		// sanitize $filter_order
-		if (!in_array($filters['order'], array('ordering', 'id'))) {
-			$filters['order'] = 'ordering';
-		}
-		
-		$model = $this->getModel();
-		$app->setUserState( $context.'order', 'ordering' );
-		$app->setUserState( $context.'order_dir', 'asc' );
-		$items = $this->get('items');
-		$this->assign( $items );
-		//$this->pagination = new JPagination($items['total'], $items['limitstart'], $items['limit']);
-		
-		$lists['flavours'] = $this->getList( 'flavours', false );
+    var $pagination = null;
+    var $user = null;
 
-		$params =& JComponentHelper::getParams('com_pizzabox');
-		$this->assignRef('params' , $params );
-		$this->assignRef('lists' , $lists );
-				
-		$document =& JFactory::getDocument();
-		$document->addScript( JURI::base() . DS . 'components' . DS . 'com_pizzabox' . DS . 'assets' . DS . 'helper.js' );
+    function display($tpl = null)
+    {
+        jimport('joomla.html.pagination');
+        JHTML::_('behavior.tooltip');
+        $app = & JFactory::getApplication();
+        $this->user = & JFactory::getUser();
+        $context = 'com_pizzabox.parts.';
 
-		parent::display($tpl);
-	}
-	
-	function getHtmlList( $elements_type ) {
-		require_once ( JPATH_COMPONENT_ADMINISTRATOR.DS.'models'.DS.$elements_type.'.php' );
-		$class_name = "PizzaboxModel" . $elements_type;
-		$model = new $class_name();
-		return ( $model->getHtmlList() );
-	}
-	
-	function getList( $elements_type, $enable_limit = true ) 
-	{
-		require_once ( JPATH_COMPONENT_ADMINISTRATOR.DS.'models'.DS.$elements_type.'.php' );
-		$class_name = "PizzaboxModel" . $elements_type;
-		$model = new $class_name();
-		$elements = $model->getItems( $enable_limit );
-		return ( $elements['rows'] );
-	}
+        // get filter and search status
+        $filters['order'] = $app->getUserStateFromRequest($context . 'filter_order', 'filter_order', 'ordering', 'cmd');
+        $filters['order_Dir'] = $app->getUserStateFromRequest($context . 'filter_order_Dir', 'filter_order_Dir', '', 'word');
+
+        if (!in_array($filters['order'], array('ordering', 'id'))) {
+            $filters['order'] = 'ordering';
+        }
+        $app->setUserState($context . 'order', 'ordering');
+        $app->setUserState($context . 'order_dir', 'asc');
+
+        $session = & JFactory::getSession();
+        $container_id = $session->get('com_pizzabox.container.id');
+        $this->ranges = json_encode($this->getModel()->getMinMaxByContainer($container_id));
+
+        $items = $this->get('items');
+        $ranges = $this->getModel()->getMinMaxByContainer($container_id, 'part_id');
+        foreach ($items['rows'] as &$part) {
+            if (isset($ranges[$part->id])) {
+                $part->minimum = $ranges[$part->id]['minimum'];
+                $part->maximum = $ranges[$part->id]['maximum'];
+            }
+            else {
+                $part->minimum = 0;
+                $part->maximum = 0;
+            }
+        }
+        $this->assign($items);
+        $this->container_id = $container_id;
+
+        $lists['flavours'] = $this->getList('flavours', false);
+
+        $params = & JComponentHelper::getParams('com_pizzabox');
+        $this->assignRef('params', $params);
+        $this->assignRef('lists', $lists);
+
+        $document = & JFactory::getDocument();
+        $document->addScript(JURI::base() . '/components/com_pizzabox/assets/helper.js');
+
+        $this->loadHelper('pizzabox');
+        $this->helper = new PizzaboxHelper();
+
+        parent::display($tpl);
+    }
+
+    function getHtmlList($elements_type)
+    {
+        require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/' . $elements_type . '.php' );
+        $class_name = "PizzaboxModel" . $elements_type;
+        $model = new $class_name();
+        return ( $model->getHtmlList() );
+    }
+
+    function getList($elements_type, $enable_limit = true)
+    {
+        require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/' . $elements_type . '.php' );
+        $class_name = "PizzaboxModel" . $elements_type;
+        $model = new $class_name();
+        $elements = $model->getItems($enable_limit);
+        return ( $elements['rows'] );
+    }
+
 }

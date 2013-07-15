@@ -17,7 +17,6 @@
 
 	<files folder="frontend">
 		<filename>pizzabox.php</filename>
-		<filename>index.html</filename>
 		<folder>assets</folder>
 		<folder>controllers</folder>
 		<folder>helpers</folder>
@@ -30,7 +29,6 @@
 		<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox">com_pizzabox</menu>
 		<submenu>
 			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=containers">com_pizzabox_containers</menu>
-			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=schemes">com_pizzabox_schemes</menu>
 			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=parts">com_pizzabox_parts</menu>
 			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=flavours">com_pizzabox_flavours</menu>
 			<menu img="../components/com_pizzabox/assets/pizzabox-16.png" link="option=com_pizzabox&amp;view=orders">com_pizzabox_orders</menu>
@@ -39,15 +37,12 @@
 		<files folder="backend">
 			<filename>config.xml</filename>
 			<filename>pizzabox.php</filename>
-			<filename>index.html</filename>
-			<filename>install.mysql.sql</filename>
-			<filename>uninstall.mysql.sql</filename>
 			<filename>LICENSE.txt</filename>
 			<folder>controllers</folder>
 			<folder>models</folder>
-			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>views</folder>
+			<folder>sql</folder>
 		</files>
 		<languages folder="backend/language">
 			<language tag="en-GB">en-GB/en-GB.com_pizzabox.ini</language>
@@ -64,20 +59,20 @@
 
 	<install>
 		<sql>
-			<file driver="mysql" charset="utf8">install.mysql.sql</file>
+			<file driver="mysql" charset="utf8">sql/install.mysql.sql</file>
 		</sql>
 	</install>
 
 	<uninstall>
 		<sql>
-			<file driver="mysql" charset="utf8">uninstall.mysql.sql</file>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.sql</file>
 		</sql>
 	</uninstall>
 
 	<update>
 		<schemas>
-			<schemapath type="mysql">sql</schemapath>
+			<schemapath type="mysql">sql/updates</schemapath>
 		</schemas>
 	</update>
 
-</install>
+</extension>

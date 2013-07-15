@@ -32,35 +32,35 @@ $altrow = 1;
 	</fieldset>
 	<?php endif ?>
 	<fieldset class="filters">
-		<?php echo JText::_('Filter') ?> 
+		<?php echo JText::_('Filter') ?>
 		<?php if ( $this->is_admin ) { echo $this->filters['user']; } ?>
 		<?php echo $this->filters['status']; ?>
 	</fieldset>
 	<fieldset class="filters">
-		
+
 		<label for="filter_order_date_from"><?php echo JText::_('PIZZABOX_ORDER_DATE_FROM')?>: </label>
 		<?php echo JHTML::_('calendar', $this->filters['order_date_from'], 'filter_order_date_from', 'filter_order_date_from') ?>
-		
+
 		<label for="filter_order_date_to"><?php echo JText::_('To')?>: </label>
 		<?php echo JHTML::_('calendar', $this->filters['order_date_to'], 'filter_order_date_to', 'filter_order_date_to') ?>
-		
+
 		<input type="submit" value="<?php echo JText::_('Filter')?>" />
 	</fieldset>
 	<fieldset class="filters">
-		
+
 		<label for="filter_delivery_date_from"><?php echo JText::_('PIZZABOX_DELIVERY_DATE_FROM')?>: </label>
 		<?php echo JHTML::_('calendar', $this->filters['delivery_date_from'], 'filter_delivery_date_from', 'filter_delivery_date_from') ?>
-		
+
 		<label for="filter_delivery_date_to"><?php echo JText::_('To')?>: </label>
 		<?php echo JHTML::_('calendar', $this->filters['delivery_date_to'], 'filter_delivery_date_to', 'filter_delivery_date_to') ?>
-		
+
 		<input type="submit" value="<?php echo JText::_('Filter')?>" />
 	</fieldset>
 	<?php if ( $this->is_admin ) : ?>
 		<fieldset class="filters">
 			<input type="checkbox" name="change_status">
-			<?php echo JText::_('PIZZABOX_STATUS_CHANGE') ?> 
-			<?php echo $this->lists['status'] ?> 
+			<?php echo JText::_('PIZZABOX_STATUS_CHANGE') ?>
+			<?php echo $this->lists['status'] ?>
 			<input type="submit" value="<?php echo JText::_('PIZZABOX_SUBMIT')?>" />
 		</fieldset>
 	<?php endif ?>
@@ -119,13 +119,13 @@ $altrow = 1;
 			</td>
 
 			<td><?php echo $row->user ?></td>
-			
+
 			<td><?php echo $row->status ?></td>
-			
+
 			<td><?php if( $row->delivery ) echo strftime( "%d %b %Y %H:%M", strtotime( $row->delivery ) ) ?></td>
 
 			<td><?php if( $row->datetime ) echo strftime( "%d %b %Y %H:%M", strtotime( $row->datetime ) ) ?></td>
-      
+
       <td><?php echo $helper->formatPrice( $row->order_total ) ?></td>
 
       <td align="center">
@@ -133,7 +133,7 @@ $altrow = 1;
           <img src="/components/com_pizzabox/assets/repeat.png" alt="<?php echo JText::_('PIZZABOX_REPEAT') ?>" />
 				</a>
 			</td>
-      
+
       <td align="center">
 				<?php if ( ! $row->lock ) : ?>
 					<a href="#delete" onclick="if(confirm('<?php echo JText::_('PIZZABOX_CONFIRM_DELETE') ?>')){return listItemTask('cb<?php echo $k ?>','remove')}">
@@ -142,7 +142,7 @@ $altrow = 1;
 				<?php endif ?>
 			</td>
 		</tr>
-		
+
 		<?php if ( $this->is_admin ) : ?>
 		<!-- order details -->
 		<tr class="row<?php echo $altrow ?>">
@@ -152,14 +152,13 @@ $altrow = 1;
 					<tr>
 						<th><?php echo JText::_('PIZZABOX_CONTAINER_NUMBER') ?></th>
 						<th><?php echo JText::_('PIZZABOX_CONTAINER') ?></th>
-						<th><?php echo JText::_('PIZZABOX_SCHEME') ?></th>
 						<th><?php echo JText::_('PIZZABOX_PART') ?></th>
 						<th><?php echo JText::_('PIZZABOX_FLAVOUR') ?></th>
 					</tr>
 					<?php $container_number = 0 ?>
 					<?php $class = 'detail-row1' ?>
 					<?php foreach ( $row->parts as $part ) : ?>
-					<?php 
+					<?php
 					if ( $part->container_number != $container_number ) {
 						?><tr><td colspan="5"><hr /></td></tr><?php
 						$container_number = $part->container_number;
@@ -167,13 +166,11 @@ $altrow = 1;
 					} else {
 						$part->container_number = '';
 						$part->container_name = '';
-						$part->scheme_name = '';
-					} 
+					}
 					?>
 					<tr class="<?php echo $class ?>">
 						<td><?php echo $part->container_number ?></td>
 						<td><?php echo $part->container_name ?></td>
-						<td><?php echo $part->scheme_name ?></td>
 						<td><?php echo $part->part_name ?></td>
 						<td><?php echo $part->flavour_name ?></td>
 					</tr>
@@ -195,7 +192,7 @@ $altrow = 1;
 
 <div>
 	<input type="hidden" name="option" value="com_pizzabox" />
-	<input type="hidden" name="task" value="" /> 
+	<input type="hidden" name="task" value="" />
 	<input type="hidden" name="boxchecked" value="0" />
 	<input type="hidden" name="ordering" value="ordering" />
 	<input type="hidden" name="filter_order" value="<?php echo $this->filters['order'] ?>" />

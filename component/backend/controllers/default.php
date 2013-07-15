@@ -1,20 +1,26 @@
-<?php defined('_JEXEC') or die('Restricted access');
+<?php
+
 /**
- * @version		$Id: controllers/default.php 2011-10-13 09:31:00Z zanardi $
- * @package		PizzaBox
- * @copyright	Copyright (C) 2011 GiBiLogic. All rights reserved.
- * @license		GNU/GPLv2
+ * @version     backend/controllers/default.php 2013-07-07 19:39:00Z zanardi
+ * @package     GiBi PizzaBox
+ * @author      GiBiLogic <info@gibilogic.com>
+ * @authorUrl   http://www.gibilogic.com
+ * @copyright   (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @license     GNU/GPL v2
  */
+defined('_JEXEC') or die('The way is shut!');
 
 jimport('joomla.application.component.controller');
 
-class PizzaboxControllerDefault extends JController
+class PizzaboxControllerDefault extends JControllerLegacy
 {
-	function __construct( $default = array() )
-	{
-		if ( ! JRequest::getCmd( 'view' ) ) {
-			JRequest::setVar('view', 'default' );
-		}
-		parent::__construct( $default );
-	}
+
+    public function __construct($default = array())
+    {
+        if (!JRequest::getCmd('view')) {
+            JRequest::setVar('view', 'default');
+        }
+        parent::__construct($default);
+    }
+
 }

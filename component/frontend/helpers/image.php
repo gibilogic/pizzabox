@@ -1,45 +1,51 @@
-<?php defined('_JEXEC') or die('Restricted access');
+<?php
+
 /**
- * @version		$Id: helpers/helper.php 2012-01-12 13:57:00Z zanardi $
- * @Package		Containers
- * @copyright	Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
- * @license		GNU/GPLv2
+ * @version     frontend/helpers/image.php 2013-07-07 19:56:00Z zanardi
+ * @package     GiBi PizzaBox
+ * @author      GiBiLogic <info@gibilogic.com>
+ * @authorUrl   http://www.gibilogic.com
+ * @copyright   (C) 2011-2013 GiBiLogic snc. All rights reserved.
+ * @license     GNU/GPL v2 or later
  */
+defined('_JEXEC') or die('Restricted access');;
 
-// Component Helper
-jimport('joomla.application.component.helper');
+/**
+ * ContainersHelperImage
+ */
+class ContainersHelperImage
+{
 
-class ContainersHelperImage {
+    public function makeThumbImage($image, $height, $width)
+    {
+        jimport('joomla.filesystem.file');
 
-	function makeThumbImage( $image, $height, $width )
-	{
-		jimport( 'joomla.filesystem.file' );
+        // check if folder exists (or create it if not)
+        $thumb_folder = JPATH_SITE . '/images/containers';
 
-		// check if folder exists (or create it if not)
-		$thumb_folder = JPATH_SITE.DS.'images'.DS.'containers';
-	
-		// get full image name
-		$ext = JFile::getExt( $image );
-		$name = JFile::stripExt( $image );
-		
-		// build resized image path and url
-		$resized_image_path = $thumb_folder.DS."${name}_${width}x${height}.${ext}";
-		$resized_image_url = JRoute::_( '/images/containers/' . "${name}_${width}x${height}.${ext}" );
+        // get full image name
+        $ext = JFile::getExt($image);
+        $name = JFile::stripExt($image);
 
-		if ( ! JFile::exists( $resized_image_path ) ) {
-		// create thumb if it does not already exist
-			$maxsize = false;
-			$bgred = 255;
-			$bggreen = 255;
-			$bgblue = 255;
+        // build resized image path and url
+        $resized_image_path = $thumb_folder . "/${name}_${width}x${height}.${ext}";
+        $resized_image_url = JRoute::_('/images/containers/' . "${name}_${width}x${height}.${ext}");
 
-			//require_once( CLASSPATH .DS. "class.img2thumb.php");
-			//$imageResize = new Img2Thumb( $full_image_path, $width, $height,
-             //                 $resized_image_path, $maxsize,
-              //                $bgred, $bggreen, $bgblue);
-		}
-	
-		// return url
-		return ( $resized_image_url );
-	}
+        if (!JFile::exists($resized_image_path)) {
+            // create thumb if it does not already exist
+            $maxsize = false;
+            $bgred = 255;
+            $bggreen = 255;
+            $bgblue = 255;
+
+            //require_once( CLASSPATH .DS. "class.img2thumb.php");
+            //$imageResize = new Img2Thumb( $full_image_path, $width, $height,
+            //                 $resized_image_path, $maxsize,
+            //                $bgred, $bggreen, $bgblue);
+        }
+
+        // return url
+        return ( $resized_image_url );
+    }
+
 }

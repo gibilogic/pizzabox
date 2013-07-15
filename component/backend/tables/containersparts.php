@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version		    tables/flavours.php 2013-07-07 19:49:00Z zanardi
+ * @version		    tables/containersparts.php 2013-07-07 19:49:00Z zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
@@ -11,20 +11,15 @@
 defined('_JEXEC') or die('The way is shut!');
 
 /**
- * TableFlavours
+ * TableContainersParts
  */
-class TableFlavours extends JTable
+class TableContainersParts extends JTable
 {
 	public $id = 0;
-	public $name = '';
-	public $desc = null;
-	public $image = null;
-	public $price = null;
-	public $parts = '[]';
-	public $ordering = null;
-	public $checked_out = null;
-	public $checked_out_time = null;
-	public $published = 1;
+	public $container_id = 0;
+	public $part_id = 0;
+	public $minimum = 1;
+	public $maxmimum = 1;
 
 	/**
 	 * Class constructor.
@@ -33,6 +28,6 @@ class TableFlavours extends JTable
 	 */
 	public function __construct(&$db)
 	{
-		parent::__construct('#__pizzabox_flavours', 'id', $db);
+		parent::__construct('#__pizzabox_containers_parts', 'id', $db);
 	}
 }

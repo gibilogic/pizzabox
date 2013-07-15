@@ -1,28 +1,38 @@
-<?php defined('_JEXEC') or die('The way is shut!');
+<?php
+
 /**
- * @version		    $Id: tables/orders.php 2012-09-18 09:54:00Z zanardi $
+ * @version		    tables/orders.php 2013-07-07 19:49:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
+defined('_JEXEC') or die('The way is shut!');
 
+/**
+ * TableOrders
+ */
 class TableOrders extends JTable
 {
-    var $id               = 0;	  /* @var int Unique identifier */
-    var $user_id          = 0;		/* @var int ID of user who placed the order */
-    var $status_id        = 0;		/* @var string Status of the order */
-    var $datetime         = null;	/* @var datetime Date / time in which the order was placed */
-    var $delivery         = null;	/* @var datetime Requested delivery date */
-    var $name             = null;	/* @var name Name associated with order */
-    var $ordering         = null;
-    var $checked_out      = null;
-    var $checked_out_time = null;
-    var $published        = 1;
+	public $id = 0;
+	public $user_id = 0;
+	public $status_id = 0;
+	public $datetime = null;
+	public $delivery = null;
+	public $name = null;
+	public $ordering = null;
+	public $checked_out = null;
+	public $checked_out_time = null;
+	public $published = 1;
 
-    function __construct(& $db) {
-        parent::__construct('#__pizzabox_orders', 'id', $db);
-    }
+	/**
+	 * Class constructor.
+	 *
+	 * @param JDatabase $db
+	 */
+	public function __construct(& $db)
+	{
+		parent::__construct('#__pizzabox_orders', 'id', $db);
+	}
 }

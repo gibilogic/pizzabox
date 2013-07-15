@@ -6,17 +6,18 @@
  * @authorEmail		info@gibilogic.com
  * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
- * @description		very, very basic styling for component. 
+ * @description		very, very basic styling for component.
  */
 
-@import url('css/bootstrap.css');
+@import url('css/bootstrap.min.css');
+@import url('css/bootstrap-responsive.min.css');
 
 .lead {margin-bottom: inherit !important}
 
 /* basic radiobox styling (applies to containers, schemes and parts page) */
-div.radiobox {float: left;border-width: 1%;border: solid lightgrey;width: 44%;padding: 1%;margin: 1%;border-radius: 5px;opacity: 0.8;text-align: center} 
+div.radiobox {float: left;border-width: 1%;border: solid lightgrey;width: 44%;padding: 1%;margin: 1%;border-radius: 5px;opacity: 0.8;text-align: center}
 div.radiobox.selected {border-color: #095197;opacity: 1}
-div.radiobox input {display: none}
+div.radiobox input {display: block; }
 div.radiobox span.name {display: block;font-weight: bold}
 div.radiobox span.image {display: block}
 div.radiobox span.desc {display: block}
@@ -60,3 +61,59 @@ div.delivery_date span.date-year {display: none}
 div.buttons {clear: both;padding-top: 15px;text-align: center}
 p.info {font-size: 150%;color: red}
 div#paypal input {width: auto}
+
+.thumbnails-containers > li,
+.thumbnails-flavours > li
+{
+	cursor: pointer;
+}
+
+.thumbnails-containers > li:hover .thumbnail,
+.thumbnails-flavours > li:hover .thumbnail
+{
+	border-color: #095197;
+}
+
+/* --- Bootstrap Fixes ------------------------------------------------------ */
+
+#main ul.unstyled
+{
+	list-style: none;
+}
+
+#main ul.thumbnails-containers,
+#main ul.thumbnails-flavours
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+#main ul.thumbnails-containers li,
+#main ul.thumbnails-flavours li
+{
+	position: relative;
+	padding: 0;
+	line-height: 20px;
+	margin: 0 0 20px 0;
+	margin-left: 2.564102564102564%;
+}
+
+#main ul.thumbnails-containers li:first-child,
+#main ul.thumbnails-flavours li:first-child
+{
+	margin-left: 0;
+}
+
+#main ul.thumbnails-containers li span.label,
+#main ul.thumbnails-flavours li span.label
+{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.well
+{
+	background-color: #eee;
+}
