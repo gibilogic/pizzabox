@@ -1,15 +1,13 @@
 <?php
 
 /**
- * @version		    $Id: tables/parts.php 2012-08-14 14:48:00Z zanardi $
+ * @version		    tables/parts.php 2013-07-07 19:49:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
-
 defined('_JEXEC') or die('The way is shut!');
 
 /**

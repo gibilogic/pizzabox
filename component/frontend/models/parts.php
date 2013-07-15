@@ -1,23 +1,26 @@
 <?php
 
-defined('_JEXEC') or die('The way is shut!');
 /**
- * @version		    $Id: models/parts.php 2012-08-19 12:30:00Z zanardi $
+ * @version		    frontend/models/parts.php 2013-07-07 19:58:00Z zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
+defined('_JEXEC') or die('The way is shut!');
+
 jimport('joomla.application.component.model');
 
-class PizzaboxModelParts extends JModel
+/**
+ * PizzaBoxModelParts
+ */
+class PizzaboxModelParts extends JModelLegacy
 {
-	var $_error = '';
-	var $_lastId = 0;
+	public $_error = '';
+	public $_lastId = 0;
 
-	function getId()
+	public function getId()
 	{
 		if ($this->_lastId > 0) {
 			return $this->_lastId;
@@ -32,26 +35,26 @@ class PizzaboxModelParts extends JModel
 		return $cid[0];
 	}
 
-	function setId($id)
+	public function setId($id)
 	{
 		$this->_lastId = $id;
 	}
 
-	function getCid()
+	public function getCid()
 	{
 		$cid = JRequest::getVar('cid', array(0), '', 'array');
 		JArrayHelper::toInteger($cid, array(0));
 		return $cid;
 	}
 
-	function &getRow()
+	public function &getRow()
 	{
 		$table = & $this->getTable();
 		$table->load($this->getId());
 		return $table;
 	}
 
-	function getHtmlList()
+	public function getHtmlList()
 	{
 		$db = & JFactory::getDBO();
 		$query = 'SELECT `id`, `name` FROM #__pizzabox_parts';
@@ -60,7 +63,7 @@ class PizzaboxModelParts extends JModel
 		return $html_list;
 	}
 
-	function getItems()
+	public function getItems()
 	{
 		$result = array();
 		$app = & JFactory::getApplication();
@@ -72,15 +75,15 @@ class PizzaboxModelParts extends JModel
 		$limitstart = $app->getUserStateFromRequest($context . 'limitstart', 'limitstart', 0, 'int');
 		$filter_containers = $session->get('com_pizzabox.container.id');
 		$search = $app->getUserStateFromRequest($context . 'search', 'search', '', 'string');
-		$order = $this->_db->getEscaped($app->getUserStateFromRequest($context . 'order', 'filter_order', 'ordering', 'cmd'));
-		$order_dir = $this->_db->getEscaped($app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'asc', 'cmd'));
+		$order = $this->_db->quote($app->getUserStateFromRequest($context . 'order', 'filter_order', 'ordering', 'cmd'));
+		$order_dir = $this->_db->quote($app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'asc', 'cmd'));
 
 		$query = 'SELECT * FROM `#__pizzabox_parts` ';
 
 		$where = array();
 		$where[] = "`published` = '1'";
 		if ($search) {
-			$search = $this->_db->getEscaped(trim(strtolower($search)));
+			$search = $this->_db->quote(trim(strtolower($search)));
 			$where [] = " `name` LIKE '%$search%' ";
 		}
 		if (count($where)) {
@@ -108,7 +111,7 @@ class PizzaboxModelParts extends JModel
 		return $result;
 	}
 
-	function getItem()
+	public function getItem()
 	{
 		$result = array();
 		$row = & $this->getRow();
@@ -116,7 +119,7 @@ class PizzaboxModelParts extends JModel
 		return $result;
 	}
 
-	function save()
+	public function save()
 	{
 		$user = JFactory::getUser();
 		$session =& JFactory::getSession();
@@ -166,7 +169,7 @@ class PizzaboxModelParts extends JModel
 		$session->set('com_pizzabox.container.number', $container_number);
 	}
 
-	function getElementName($element_type, $id)
+	public function getElementName($element_type, $id)
 	{
 		if ($element_type == 'parts') {
 			$this->setId($id);
@@ -174,7 +177,7 @@ class PizzaboxModelParts extends JModel
 			$element_name = $element['row']->name;
 		}
 		else {
-			require_once ( JPATH_COMPONENT_ADMINISTRATOR . DS . 'models' . DS . $element_type . '.php' );
+			require_once ( JPATH_COMPONENT_ADMINISTRATOR .  '/models/'  . $element_type . '.php' );
 			$class_name = 'PizzaboxModel' . $element_type;
 			$model = new $class_name();
 			$model->setId($id);
@@ -184,7 +187,7 @@ class PizzaboxModelParts extends JModel
 		return ( $element_name );
 	}
 
-	function getPrice()
+	public function getPrice()
 	{
 		$price = null;
 		$table = $this->getTable();

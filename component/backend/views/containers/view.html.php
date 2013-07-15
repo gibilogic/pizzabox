@@ -11,7 +11,7 @@
 
 jimport( 'joomla.application.component.view');
 
-class PizzaboxViewContainers extends JView
+class PizzaboxViewContainers extends JViewLegacy
 {
 	var $pagination = null ;
 	var $user = null;

@@ -1,17 +1,16 @@
 <?php
 
 /**
- * @version			  $Id: views/orders/tmpl/default.php 2012-09-18 09:30:00Z zanardi $
- * @package			  GiBi PizzaBox
- * @author			  GiBiLogic
- * @authorUrl		  http://www.gibilogic.com
- * @authorEmail		info@gibilogic.com
- * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
- * @license			  GNU/GPL v2 or later
+ * @version		    views/orders/tmpl/default.php 2013-07-02 20:58:00Z zanardi
+ * @package		    GiBi PizzaBox
+ * @author        GiBiLogic <info@gibilogic.com>
+ * @authorUrl     http://www.gibilogic.com
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @license		    GNU/GPL v2 or later
  */
+defined('_JEXEC') or die('The way is shut!');
 
-defined('_JEXEC') or die('The way is shut');
-require_once( JPATH_ROOT . DS . 'components' . DS . 'com_pizzabox' . DS . 'helpers' . DS . 'pizzabox.php');
+require_once( JPATH_COMPONENT_SITE . '/helpers/pizzabox.php');
 $helper = new PizzaboxHelper();
 $rowsCount = count($this->rows);
 $altrow = 1;
