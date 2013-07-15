@@ -18,13 +18,13 @@ JHTML::_('behavior.modal', 'a.modal-button');
 function jInsertEditorText( tag, target )
 {
 	var image = tag.replace(/<img src="([^"]+)" alt="" \/>/, '$1' );
-	$( target ).set('value', image );
+	document.id(target).set('value', image);
 
   if( $$('div#elementimage img').length > 0 ) {
 		$$('div#elementimage img').set('src', '/' + image);
 	} else {
 		var imageTag = new Element ( 'img' , { 'src' : '/' + image });
-		$('elementimage').grab( imageTag );
+		document.id('elementimage').grab( imageTag );
 	};
 }
 

@@ -14,10 +14,18 @@ if (!JVersion::isCompatible('3.0')) {
 JHTML::_('behavior.modal', 'a.modal-button');
 ?>
 <script language="javascript" type="text/javascript">
-    function jInsertEditorText(tag, target)
-    {
-        var image = tag.replace(/<img src="([^"]+)" alt="" \/>/, '$1');
-        $(target).set('value', image);
+function jInsertEditorText( tag, target ) 
+{
+	var image = tag.replace(/<img src="([^"]+)" alt="" \/>/, '$1' );
+	document.id(target).set('value', image);
+	
+  if( $$('div#elementimage img').length > 0 ) {
+		$$('div#elementimage img').set('src', '/' + image);
+	} else {
+		var imageTag = new Element ( 'img' , { 'src' : '/' + image });
+		document.id('elementimage').grab( imageTag );
+	};  
+}
 
         if ($$('div#elementimage img').length > 0) {
             $$('div#elementimage img').set('src', '/' + image);
