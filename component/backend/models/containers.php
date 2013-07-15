@@ -114,6 +114,11 @@ class PizzaboxModelContainers extends PizzaboxModelAbstract
 
     public function cleanParts($container_id, $parts_ids)
     {
+        if (count($parts_ids) == 0)
+        {
+            return true;
+        }
+
         $string_ids = implode(',', $parts_ids);
         $query = "DELETE FROM #__pizzabox_containers_parts WHERE container_id = $container_id AND part_id NOT IN ($string_ids)";
 
@@ -121,5 +126,4 @@ class PizzaboxModelContainers extends PizzaboxModelAbstract
 
         return $this->_db->execute();
     }
-
 }
