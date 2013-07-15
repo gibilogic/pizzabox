@@ -14,8 +14,8 @@ $altrow = 1;
 
 <script type="text/javascript">
 function resetFilter() {
-	$('search').set('value','');
-	$('adminForm').submit();
+	document.id('search').set('value','');
+	document.id('adminForm').submit();
 }
 </script>
 

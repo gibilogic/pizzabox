@@ -115,7 +115,7 @@ window.addEvent('domready', function() {
 	$$('input[type="submit"]').set('disabled', 'disabled');
 
 	$$('.submitrestart').addEvent('click', function(){
-		$('restart').set('value','yes');
+		document.id('restart').set('value','yes');
 	});
 
 	$$('.thumbnails-flavours > li').addEvent('click', function() {
@@ -128,7 +128,7 @@ window.addEvent('domready', function() {
 			name: 'flavours_' + this.get('data-part-id') + '[]',
 			value: this.get('data-flavour-id')
 		});
-		hiddenInput.inject($('partForm'));
+		hiddenInput.inject(document.id('partForm'));
 
 		var selectedFlavourRemove = new Element('button', {
 			type: 'button',
@@ -154,7 +154,7 @@ window.addEvent('domready', function() {
 			this.getParent().dispose();
 			checkValidity();
 		}).inject(selectedFlavourContainer, 'top');
-		selectedFlavourContainer.inject($('selected_part_' + this.get('data-part-id')));
+		selectedFlavourContainer.inject(document.id('selected_part_' + this.get('data-part-id')));
 
 		$$('#selected_part_' + this.get('data-part-id') + ' .empty').setStyle('display', 'none');
 
