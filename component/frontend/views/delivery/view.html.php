@@ -45,9 +45,10 @@ class PizzaboxViewDelivery extends JViewLegacy
             $part->part_image = $this->getElementImage('parts', $part->part_id);
             $part->flavour_image = $this->getElementImage('flavours', $part->flavour_id);
         }
-        $this->assignRef('parts', $parts);
 
+        $this->assignRef('parts', $parts);
         $this->assignRef('tpl', $tpl);
+        $this->order_total = $orderModel->getTotal();
 
         if ($tpl == 'delivery_name') {
             $user_id = JFactory::getUser()->id;
@@ -68,9 +69,9 @@ class PizzaboxViewDelivery extends JViewLegacy
             $dates = $this->getDatesList();
             $this->assignRef('dates', $dates);
         }
-        else {
-            $this->order_total = $orderModel->getTotal();
-        }
+//        else {
+//            $this->order_total = $orderModel->getTotal();
+//        }
 
         // Load order template from common folder
         $this->addTemplatePath(JPATH_COMPONENT_SITE . '/layouts');

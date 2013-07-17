@@ -8,6 +8,7 @@
  * @copyright		  Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
+
 defined('_JEXEC') or die('The way is shut');
 
 /**
@@ -15,7 +16,6 @@ defined('_JEXEC') or die('The way is shut');
  */
 class PizzaboxHelper
 {
-
     public function __construct()
     {
         $this->params = & JComponentHelper::getParams('com_pizzabox');
@@ -23,13 +23,17 @@ class PizzaboxHelper
 
     public function formatPrice($price)
     {
-        if (!$price)
-            return;
+        if (!is_numeric($price))
+        {
+            return '';
+        }
 
-        if ($this->params->get('currency_symbol_position', 'before') == 'before') {
+        if ($this->params->get('currency_symbol_position', 'before') == 'before')
+        {
             return $this->params->get('currency_symbol') . " " . sprintf("%.2f", $price);
         }
-        else {
+        else
+        {
             return sprintf("%.2f", $price) . " " . $this->params->get('currency_symbol');
         }
     }
@@ -49,11 +53,14 @@ class PizzaboxHelper
 
         // Recipient(s)
         $recipient_email = $this->params->get('email_address', '');
-        if ($recipient_email) {
+        if ($recipient_email)
+        {
             $mailer->addRecipient($recipient_email);
         }
-        else {
-            foreach ($this->_getSystemEmailAddresses() as $recipient) {
+        else
+        {
+            foreach ($this->_getSystemEmailAddresses() as $recipient)
+            {
                 $mailer->addRecipient($recipient->email, $recipient->name);
             }
         }
@@ -72,13 +79,13 @@ class PizzaboxHelper
     {
         $recipients = array();
         $query = "SELECT `name`, `email` " .
-                "FROM `#__users` " .
-                "WHERE `sendEmail` = '1'";
+          "FROM `#__users` " .
+          "WHERE `sendEmail` = '1'";
         $db = & JFactory::getDBO();
         $db->setQuery($query);
-        if ($result = $db->loadObjectList()) {
+        if ($result = $db->loadObjectList())
+        {
             $recipients = $result;
         }
     }
-
 }
