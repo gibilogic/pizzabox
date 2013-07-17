@@ -53,6 +53,7 @@ JHTML::script('helper.js', JURI::base() . '/components/com_pizzabox/assets/');
 		<?php echo JHTML::_('form.token') ?>
 	</form>
 </div>
+<?php echo $this->sublayout['order_details']; ?>
 <script type="text/javascript">
 window.addEvent('domready', function() {
 	$$('input[type=radio]').setStyle('display', 'none');

@@ -118,5 +118,10 @@ window.addEvent('domready', function() {
                 </td>
             </tr>
         <?php endforeach ?>
+        <?php if (count($this->parts) == 0): ?>
+            <tr>
+                <td colspan="4" style="text-align:center;"><em><?php echo JText::_('PIZZABOX_EMPTY_ORDER') ?></em></td>
+            </tr>
+        <?php endif; ?>
     </tbody>
 </table>

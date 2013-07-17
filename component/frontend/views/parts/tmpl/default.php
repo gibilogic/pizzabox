@@ -85,6 +85,7 @@ defined('_JEXEC') or die('The way is shut!');
 	<input type="hidden" name="limitstart" value="<?php echo $this->limitstart ?>" />
 	<?php echo JHTML::_( 'form.token' ) ?>
 </form>
+<?php echo $this->sublayout['order_details']; ?>
 <script type="text/javascript">
 
 window.addEvent('domready', function() {
