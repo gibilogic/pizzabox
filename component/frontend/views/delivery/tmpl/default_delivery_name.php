@@ -29,6 +29,8 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
 		<legend><?php echo JText::_('PIZZABOX_DELIVERY_NAME_SELECT') ?></legend>
 		<input type="text" name="delivery_name" id="delivery_name" maxlength="50" />
 	</fieldset>
+
+    <?php if ($this->showAddress): ?>
 	<fieldset>
 		<legend><?php echo JText::_('PIZZABOX_DELIVERY_ADDRESS') ?></legend>
 		<div style="width: 45%; float: left;">
@@ -55,6 +57,9 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
 			<?php endforeach; ?>
 		</div>
 	</fieldset>
+    <?php else: ?>
+    <input type="hidden" name="old_address" value="0" />
+    <?php endif; ?>
 
 	<div class="buttons">
 		<a class="btn back" href="index.php?option=com_pizzabox&controller=delivery&task=selecttime"><?php echo JText::_('JPrev') ?></a>

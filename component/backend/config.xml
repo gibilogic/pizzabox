@@ -24,6 +24,10 @@
     <field name="delivery_times_interval" type="text" default="15" label="PIZZABOX_CONFIG_FIELD_DELIVERY_TIMES_INTERVAL_LABEL" description="PIZZABOX_CONFIG_FIELD_DELIVERY_TIMES_INTERVAL_DESC" />
     <field name="max_orders_per_interval" type="text" default="1" label="PIZZABOX_CONFIG_FIELD_MAX_ORDERS_PER_INTERVAL_LABEL" description="PIZZABOX_CONFIG_FIELD_MAX_ORDERS_PER_INTERVAL_DESC" />
     <field name="next_days_number" type="text" default="7" label="PIZZABOX_CONFIG_FIELD_NEXT_DAYS_NUMBER_LABEL" description="PIZZABOX_CONFIG_FIELD_NEXT_DAYS_NUMBER_DESC" />
+    <field name="show_address" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_SHOW_ADDRESS_LABEL" description="PIZZABOX_CONFIG_FIELD_SHOW_ADDRESS_DESC">
+      <option value="0">JNo</option>
+      <option value="1">JYes</option>
+    </field>
   </fieldset>
 	<fieldset name="currency" label="PIZZABOX_CONFIG_FIELDSET_CURRENCY_TITLE">
 		<field type="text" name="currency" default="EUR" label="PIZZABOX_CONFIG_FIELD_CURRENCY_CODE_LABEL" description="PIZZABOX_CONFIG_FIELD_CURRENCY_CODE_DESC" />

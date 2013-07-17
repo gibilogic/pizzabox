@@ -58,6 +58,7 @@ class PizzaboxViewDelivery extends JViewLegacy
             $this->assignRef('time', $time);
             $this->assignRef('user_id', $user_id);
             $this->assignRef('addresses', $addresses);
+            $this->showAddress = $this->params->get('show_address', 0) == 1;
         }
         else if ($tpl == 'delivery_time') {
             $times = $this->getTimesList($date);
