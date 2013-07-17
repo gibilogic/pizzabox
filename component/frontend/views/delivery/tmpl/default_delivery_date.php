@@ -46,7 +46,7 @@ $document->addScript( JURI::base() . "/components/com_pizzabox/assets/helper.js"
 	</div>
 </form>
 <form id="adminForm2" name="adminForm2">
-	<input type="submit" name="submit" class="btn btn-inverse back" value="<?php echo JText::_('PIZZABOX_LEAVE_ORDER') ?>" />
+	<input type="submit" class="btn btn-inverse back" value="<?php echo JText::_('PIZZABOX_LEAVE_ORDER') ?>" />
 	<input type="hidden" name="option" value="com_pizzabox" />
 	<input type="hidden" name="controller" value="delivery" />
 	<input type="hidden" name="task" value="leave" />

@@ -28,6 +28,11 @@ window.addEvent('domready', function() {
                 onSuccess: function(response) {
                     if (response === 'Ok') {
                         $$('tr.row-container-' + container).dispose();
+
+                        if ($$('#order_details tbody tr').length == 0)
+                        {
+                            document.adminForm2.submit();
+                        }
                     }
                 }
             }).send();
