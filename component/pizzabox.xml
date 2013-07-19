@@ -2,7 +2,7 @@
 <extension type="component" version="2.5.0" method="upgrade">
 	<name>PizzaBox</name>
 	<author>GiBiLogic</author>
-	<creationDate>2013-07-17</creationDate>
+	<creationDate>2013-07-19</creationDate>
 	<license>GNU/GPL v2 or later</license>
 	<authorEmail>info@gibilogic.com</authorEmail>
 	<authorUrl>http://www.gibilogic.com</authorUrl>
