@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @version			  $Id: views/delivery/tmpl/default_delivery_time.php 2012-09-18 09:11:00Z zanardi $
+ * @version			  frontend/views/delivery/tmpl/default_delivery_time.php 2013-07-20 07:56:00Z zanardi
  * @package			  GiBi PizzaBox
  * @author			  GiBiLogic
  * @authorUrl		  http://www.gibilogic.com
  * @authorEmail		info@gibilogic.com
- * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright		  Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
 
@@ -33,7 +33,6 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
         </div>
 
         <div class="buttons">
-            <a href="index.php?option=com_pizzabox&controller=delivery&task=leave&id=<?php echo $this->order_id ?>" class="btn btn-inverse back"><?php echo JText::_('PIZZABOX_LEAVE_ORDER') ?></a>
             <a class="btn back" href="index.php?option=com_pizzabox&controller=delivery&task=selectdate"><?php echo JText::_('JPrev') ?></a>
             <input class="btn btn-primary" type="submit" value="<?php echo JText::_('JNEXT') ?>" />
             <input type="hidden" name="task" value="" />
@@ -60,6 +59,7 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
     </div>
 
     <div class="buttons">
+        <a href="index.php?option=com_pizzabox&controller=delivery&task=leave&id=<?php echo $this->order_id ?>" class="btn btn-inverse back"><?php echo JText::_('PIZZABOX_LEAVE_ORDER') ?></a>
         <a class="btn back" href="index.php?option=com_pizzabox&controller=delivery&task=selectdate"><?php echo JText::_('JPrev') ?></a>
         <input class="btn btn-primary" type="submit" value="<?php echo JText::_('JNEXT') ?>" />
     </div>

@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @version			  $Id: views/delivery/tmpl/default_delivery_name.php 2012-11-06 10:10:00Z zanardi $
+ * @version			  frontend/views/delivery/tmpl/default_delivery_name.php 2013-07-20 07:57:00Z zanardi
  * @package			  GiBi PizzaBox
  * @author			  GiBiLogic
  * @authorUrl		  http://www.gibilogic.com
  * @authorEmail		info@gibilogic.com
- * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright		  Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
 
