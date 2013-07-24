@@ -17,6 +17,9 @@ var deleteContainerUrl = 'index.php?option=com_pizzabox&controller=delivery&task
 window.addEvent('domready', function() {
     $$('.btn_delete_container').addEvent('click', function(event) {
         var container = event.target.get('data-container');
+        if (!event.target.hasClass('btn_delete_container')) {
+            container = event.target.parentElement.get('data-container');
+        }
 
         if (confirm('<?php echo JText::_('PIZZABOX_CONFIRM_DELETE') ?>')) {
             var req = new Request({
@@ -29,10 +32,12 @@ window.addEvent('domready', function() {
                     if (response === 'Ok') {
                         $$('tr.row-container-' + container).dispose();
 
-                        if ($$('#order_details tbody tr').length == 0)
+                        if ($$('#order_details tbody tr').length == 0 && document.adminForm2)
                         {
                             document.adminForm2.submit();
                         }
+
+                        window.location.reload(true);
                     }
                 }
             }).send();
