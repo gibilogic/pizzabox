@@ -32,12 +32,12 @@ window.addEvent('domready', function() {
                     if (response === 'Ok') {
                         $$('tr.row-container-' + container).dispose();
 
-                        if ($$('#order_details tbody tr').length == 0 && document.adminForm2)
-                        {
-                            document.adminForm2.submit();
+                        if ($$('#order_details tbody tr').length == 0) {
+                            window.location = $$('a.btn.btn-inverse.back').get('href')[0];
                         }
-
-                        window.location.reload(true);
+                        else {
+                            window.location.reload(true);
+                        }
                     }
                 }
             }).send();
