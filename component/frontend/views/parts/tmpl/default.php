@@ -67,7 +67,7 @@ defined('_JEXEC') or die('The way is shut!');
 				<fieldset>
 					<legend><?php echo $part->name ?></legend>
 					<ul id="selected_part_<?php echo $part->id ?>" class="unstyled">
-						<li class="empty"><em>Nessun elemento selezionato</em></li>
+                        <li class="empty"><em><?php echo JText:: _('PIZZABOX_EMPTY_FLAVOUR') ?></em></li>
 					</ul>
 				</fieldset>
 				<?php endif; ?>
