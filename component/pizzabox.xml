@@ -47,6 +47,8 @@
 		<languages folder="backend/language">
 			<language tag="en-GB">en-GB/en-GB.com_pizzabox.ini</language>
 			<language tag="en-GB">en-GB/en-GB.com_pizzabox.sys.ini</language>
+			<language tag="es-ES">es-ES/es-ES.com_pizzabox.ini</language>
+			<language tag="es-ES">es-ES/es-ES.com_pizzabox.sys.ini</language>
 			<language tag="it-IT">it-IT/it-IT.com_pizzabox.ini</language>
 			<language tag="it-IT">it-IT/it-IT.com_pizzabox.sys.ini</language>
 		</languages>
