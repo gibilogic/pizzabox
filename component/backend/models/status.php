@@ -41,8 +41,8 @@ class PizzaboxModelStatus extends PizzaboxModelAbstract
         $query = 'SELECT * FROM `#__pizzabox_status` ';
         $where = '';
         if ($search) {
-            $search = $this->_db->quote(trim(strtolower($search)));
-            $where .= " WHERE `name` LIKE '%$search%' ";
+            $search = $this->_db->quote('%' . trim(strtolower($search)) . '%');
+            $where .= " WHERE `name` LIKE $search";
         }
 
         $query .= $where . ' ORDER BY ' . $order . ' ' . strtoupper($order_dir);

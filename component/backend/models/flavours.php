@@ -1,13 +1,14 @@
 <?php
 
 /**
- * @version		    backend/models/flavours.php 2013-07-07 19:34:00Z zanardi
- * @package		    GiBi PizzaBox
+ * @version       backend/models/flavours.php 2013-07-07 19:34:00Z zanardi
+ * @package       GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
- * @license		    GNU/GPL v2 or later
+ * @copyright     Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @license       GNU/GPL v2 or later
  */
+
 defined('_JEXEC') or die('The way is shut!');
 require_once('abstract.php');
 
@@ -16,7 +17,6 @@ require_once('abstract.php');
  */
 class PizzaboxModelFlavours extends PizzaboxModelAbstract
 {
-
     public function getHtmlList()
     {
         $db = & JFactory::getDBO();
@@ -33,11 +33,13 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
         $context = 'com_pizzabox.flavours.';
         $default_limit = $app->getCfg('list_limit');
 
-        if ($enable_limit) {
+        if ($enable_limit)
+        {
             $limit = $app->getUserStateFromRequest($context . 'limit', 'limit', $default_limit, 'int');
             $limitstart = $app->getUserStateFromRequest($context . 'limitstart', 'limitstart', 0, 'int');
         }
-        else {
+        else
+        {
             $limit = 0;
             $limitstart = 0;
         }
@@ -47,15 +49,17 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
 
         $query = 'SELECT * FROM `#__pizzabox_flavours` ';
         $where = '';
-        if ($search) {
-            $search = $this->_db->quote(trim(strtolower($search)));
-            $where .= " WHERE `name` LIKE '%$search%' ";
+        if ($search)
+        {
+            $search = $this->_db->quote('%' . trim(strtolower($search)) . '%');
+            $where .= " WHERE `name` LIKE $search ";
         }
 
         $query .= $where . ' ORDER BY ' . $order . ' ' . strtoupper($order_dir);
         $rows = $this->_getList($query, $limitstart, $limit);
 
-        if (!$this->_db->getErrorNum()) {
+        if (!$this->_db->getErrorNum())
+        {
 
             $result['limitstart'] = $limitstart;
             $result['limit'] = $limit;
@@ -65,7 +69,8 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
             $result['order'] = $order;
             $result['order_dir'] = $order_dir;
         }
-        else {
+        else
+        {
             JError::raiseWarning(200, $this->_db->getErrorMsg());
             return false;
         }
@@ -79,7 +84,8 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
         $cids = implode(',', $cid);
         $this->_db->setQuery('DELETE FROM `#__pizzabox_flavours` WHERE id IN (' . $cids . ')');
 
-        if (!$this->_db->query()) {
+        if (!$this->_db->query())
+        {
             JError::raiseError(500, $this->_db->getErrorMsg());
             return false;
         }
@@ -90,7 +96,8 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
     protected function _getList($query, $limitstart = 0, $limit = 0)
     {
         $results = parent::_getList($query, $limitstart, $limit);
-        foreach ($results as $result) {
+        foreach ($results as $result)
+        {
             $result->parts_list = json_decode($result->parts ? $result->parts : '[]');
         }
 

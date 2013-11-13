@@ -40,8 +40,8 @@ class PizzaboxModelParts extends PizzaboxModelAbstract
         $query = 'SELECT * FROM `#__pizzabox_parts` ';
         $where = array();
         if ($search) {
-            $search = $this->_db->quote(trim(strtolower($search)));
-            $where [] = "`name` LIKE '%$search%'";
+            $search = $this->_db->quote('%' . trim(strtolower($search)) . '%');
+            $where [] = "`name` LIKE $search";
         }
         if ($filter_containers) {
             $where [] = "`container_id` = '$filter_containers'";

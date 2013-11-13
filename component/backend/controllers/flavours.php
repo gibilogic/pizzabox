@@ -8,6 +8,7 @@
  * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
+
 defined('_JEXEC') or die('The way is shut!');
 require_once('abstract.php');
 
@@ -16,7 +17,10 @@ require_once('abstract.php');
  */
 class PizzaboxControllerFlavours extends PizzaboxControllerAbstract
 {
-
+    /**
+     * Constructor.
+     * @param array $default
+     */
     public function __construct($default = array())
     {
         parent::__construct($default);
@@ -24,6 +28,9 @@ class PizzaboxControllerFlavours extends PizzaboxControllerAbstract
         $this->_model_parts = & $this->getModel('parts');
     }
 
+    /**
+     * @see PizzaboxControllerAbstract:_display()
+     */
     protected function _display($tpl = null)
     {
         $view = & $this->getView($this->_controllerName, 'html');
@@ -31,5 +38,4 @@ class PizzaboxControllerFlavours extends PizzaboxControllerAbstract
         $view->setModel($this->_model_parts);
         $view->display($tpl);
     }
-
 }

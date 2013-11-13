@@ -88,8 +88,8 @@ class PizzaboxModelContainers extends JModelLegacy
         $where = array();
         $where [] = "`published` = '1'";
         if ($search) {
-            $search = $this->_db->quote(trim(strtolower($search)));
-            $where [] = "`name` LIKE '%$search%'";
+            $search = $this->_db->quote('%' . trim(strtolower($search)) . '%');
+            $where [] = "`name` LIKE $search";
         }
         if (count($where)) {
             $query .= ' WHERE ' . join(' AND ', $where);
