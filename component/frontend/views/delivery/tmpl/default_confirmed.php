@@ -21,6 +21,12 @@ if (!file_exists($paypalImage))
     $paypalImage = "http://www.paypal.com/en_GB/i/btn/x-click-but01.gif";
 }
 
+$langCode = explode('-', $lang->getTag());
+if (!is_array($langCode) || !count($langCode))
+{
+    $langCode = array('en');
+}
+
 ?>
 
 <h1><?php echo JText::_('PIZZABOX_CONFIRMED') ?></h1>
@@ -30,7 +36,7 @@ if (!file_exists($paypalImage))
 <!-- paypal section -->
 <?php if( $this->params->get('paypal_enabled') ): ?>
   <div id="paypal">
-    <form name="_xclick" action="https://www.paypal.com/it/cgi-bin/webscr" method="post">
+    <form name="_xclick" action="https://www.paypal.com/<?php echo $langCode[0] ?>/cgi-bin/webscr" method="post">
       <input  type="hidden" 
               name="cmd" 
               value="_xclick">
