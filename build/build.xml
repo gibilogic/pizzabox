@@ -17,9 +17,9 @@
 	<property name="dir.plugin" location="../plugin" />
 	<property name="dir.release" location="../release" />
 
-	<target name="Build ZIP package">
+	<target name="Build ZIP package" depends="Clean releases">
 		<echo message="Building the ZIP package..." />
-		<zip destfile="${dir.release}/${component.name}.zip" basedir="${dir.component}" whenempty="fail" />
+		<zip destfile="${dir.release}/${component.name}_${current.version}.zip" basedir="${dir.component}" whenempty="fail" />
 	</target>
 
 	<target name="Deploy (Local)">
