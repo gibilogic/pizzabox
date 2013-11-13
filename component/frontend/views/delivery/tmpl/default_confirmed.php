@@ -1,4 +1,5 @@
-<?php defined('_JEXEC') or die('The way is shut');
+<?php
+
 /**
  * @version			  $Id: views/delivery/tmpl/default_confirmed.php 2012-08-19 12:13:00Z zanardi $
  * @package			  GiBi PizzaBox
@@ -8,6 +9,18 @@
  * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
+
+defined('_JEXEC') or die('The way is shut');
+
+$lang = JFactory::getLanguage();
+$langTag = str_replace('-', '_', $lang->getTag());
+
+$paypalImage = "http://www.paypal.com/$langTag/i/btn/x-click-but01.gif";
+if (!file_exists($paypalImage))
+{
+    $paypalImage = "http://www.paypal.com/en_GB/i/btn/x-click-but01.gif";
+}
+
 ?>
 
 <h1><?php echo JText::_('PIZZABOX_CONFIRMED') ?></h1>
@@ -34,7 +47,7 @@
               name="amount" 
               value="<?php echo $this->order_total ?>">
       <input  type="image" 
-              src="http://www.paypal.com/it_IT/i/btn/x-click-but01.gif" 
+              src="http://www.paypal.com/<?php echo $langTag ?>/i/btn/x-click-but01.gif"
               border="0" 
               name="submit" 
               alt="<?php echo JText::_('PIZZABOX_PAYPAL') ?>">
