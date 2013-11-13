@@ -8,6 +8,7 @@
  * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
+
 defined('_JEXEC') or die('The way is shut!');
 jimport('joomla.application.component.model');
 
@@ -16,13 +17,15 @@ jimport('joomla.application.component.model');
  */
 class PizzaboxModelAbstract extends JModelLegacy
 {
-
     protected $_error = '';
     protected $_id = 0;
     protected $_pagination = null;
     protected $_total = null;
     protected $_lastId = 0;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -34,10 +37,12 @@ class PizzaboxModelAbstract extends JModelLegacy
         $limitstart = JRequest::getVar('limitstart', 0, '', 'int');
 
         // In case limit has been changed, adjust it
-        if ($limit != 0) {
+        if ($limit != 0)
+        {
             $limitstart = floor($limitstart / $limit) * $limit;
         }
-        else {
+        else
+        {
             $limitstart = 0;
         }
 
@@ -48,13 +53,15 @@ class PizzaboxModelAbstract extends JModelLegacy
 
     public function getId()
     {
-        if ($this->_lastId > 0) {
+        if ($this->_lastId > 0)
+        {
             return $this->_lastId;
         }
 
         $cid = $this->getCid();
 
-        if (empty($cid[0])) {
+        if (empty($cid[0]))
+        {
             return JRequest::getInt('id', 0);
         }
 
@@ -90,7 +97,8 @@ class PizzaboxModelAbstract extends JModelLegacy
 
     public function getPagination()
     {
-        if (empty($this->_pagination)) {
+        if (empty($this->_pagination))
+        {
             jimport('joomla.html.pagination');
             $this->_pagination = new JPagination($this->getTotal(), $this->getState('limitstart'), $this->getState('limit'));
         }
@@ -99,7 +107,8 @@ class PizzaboxModelAbstract extends JModelLegacy
 
     public function getTotal()
     {
-        if (empty($this->_total)) {
+        if (empty($this->_total))
+        {
             $query = $this->_buildQuery();
             $this->_total = $this->_getListCount($query);
         }
@@ -112,7 +121,8 @@ class PizzaboxModelAbstract extends JModelLegacy
         $table = $this->getTable();
         $query = "SELECT `price` FROM `" . $table->getTableName() . "` WHERE `id` = '" . $this->_lastId . "'";
         $this->_db->setQuery($query);
-        if ($result = $this->_db->loadResult()) {
+        if ($result = $this->_db->loadResult())
+        {
             $price = $result;
         }
         return $price;
@@ -133,7 +143,8 @@ class PizzaboxModelAbstract extends JModelLegacy
 
         $table = & $this->getTable();
 
-        if (!$table->publish($cid, $publish, $uid)) {
+        if (!$table->publish($cid, $publish, $uid))
+        {
             JError::raiseWarning(200, $table->getError());
             return false;
         }
@@ -146,7 +157,8 @@ class PizzaboxModelAbstract extends JModelLegacy
         $user = & JFactory::getUser();
         $row = & $this->getRow();
 
-        if ($row->isCheckedOut($user->get('id'), $row->checked_out)) {
+        if ($row->isCheckedOut($user->get('id'), $row->checked_out))
+        {
             $msg = 'Record locked';
             JError::raiseWarning(200, $msg);
             return false;
@@ -161,28 +173,34 @@ class PizzaboxModelAbstract extends JModelLegacy
     {
         $row = & $this->getRow();
 
-        if (!empty($row->id)) {
+        if (!empty($row->id))
+        {
             $isNew = false;
         }
-        else {
+        else
+        {
             $isNew = true;
         }
 
-        if (!$row->bind(JRequest::get('post'))) {
+        if (!$row->bind(JRequest::get('post')))
+        {
             JError::raiseWarning(200, $row->getError());
             return false;
         }
 
-        if ($isNew) {
+        if ($isNew)
+        {
             $row->ordering = $row->getNextOrder();
         }
 
-        if (!$row->check()) {
+        if (!$row->check())
+        {
             JError::raiseWarning(200, $row->getError());
             return false;
         }
 
-        if (!$row->store()) {
+        if (!$row->store())
+        {
             JError::raiseWarning(200, $row->getError());
             return false;
         }
@@ -197,17 +215,18 @@ class PizzaboxModelAbstract extends JModelLegacy
     {
         $item = $this->getItem();
         // abort if record not found
-        if ($item['row']->id == 0) {
+        if ($item['row']->id == 0)
+        {
             return false;
         }
         // now create a new record and save it
         $item['row']->id = 0;
         $item['row']->ordering = $item['row']->getNextOrder();
-        if (!$item['row']->store()) {
+        if (!$item['row']->store())
+        {
             return false;
         }
         return $item['row']->id;
     }
 
 }
-

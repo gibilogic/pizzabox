@@ -34,8 +34,12 @@ class PizzaboxModelAddresses extends PizzaboxModelAbstract
             $limitstart = 0;
         }
         $search = $app->getUserStateFromRequest($context . 'search', 'search', '', 'string');
-        $order = $this->_db->quote($app->getUserStateFromRequest($context . 'order', 'filter_order', 'ordering', 'cmd'));
-        $order_dir = $this->_db->quote($app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'asc', 'cmd'));
+        $order = $app->getUserStateFromRequest($context . 'order', 'filter_order', 'ordering', 'cmd');
+        $order_dir = $app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'asc', 'cmd');
+        if (!in_array($order_dir, array('asc', 'desc')))
+        {
+            $order_dir = 'asc';
+        }
 
         $query = 'SELECT * FROM `#__pizzabox_addresses` ';
         $where = array();
@@ -51,7 +55,7 @@ class PizzaboxModelAddresses extends PizzaboxModelAbstract
             $query .= " WHERE " . join(' AND ', $where);
         }
 
-        $query .= ' ORDER BY ' . $order . ' ' . strtoupper($order_dir);
+        $query .= ' ORDER BY `' . $order . '` ' . strtoupper($order_dir);
         $rows = $this->_getList($query, $limitstart, $limit);
 
         if (!$this->_db->getErrorNum()) {
