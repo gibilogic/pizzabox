@@ -158,6 +158,10 @@ class PizzaboxViewOrders extends JViewLegacy
 
             $lang = & JFactory::getLanguage();
             foreach ($statuses as $status) {
+                if (!$status->published)
+                {
+                    continue;
+                }
 
                 // If there an exact relevant string for a button, use it; else use a default string "Set status " + status name
                 if ($lang->hasKey('PIZZABOX_ORDERS_SET_' . strtr($status->name, ' ', '_'))) {
