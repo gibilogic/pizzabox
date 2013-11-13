@@ -32,21 +32,17 @@ class PizzaboxModelStatus extends PizzaboxModelAbstract
             $limit = 0;
             $limitstart = 0;
         }
-        $search = $app->getUserStateFromRequest($context . 'search', 'search', '', 'string');
-        $order = $app->getUserStateFromRequest($context . 'order', 'filter_order', 'ordering', 'cmd');
-        $order_dir = $app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'asc', 'cmd');
-        if (!in_array($order_dir, array('asc', 'desc')))
-        {
-            $order_dir = 'asc';
-        }
 
         $query = 'SELECT * FROM `#__pizzabox_status` ';
         $where = '';
+
+        $search = $app->getUserStateFromRequest($context . 'search', 'search', '', 'string');
         if ($search) {
             $search = $this->_db->quote('%' . trim(strtolower($search)) . '%');
             $where .= " WHERE `name` LIKE $search";
         }
 
+        list($order, $order_dir) = $this->getOrdering($context);
         $query .= $where . ' ORDER BY `' . $order . '` ' . strtoupper($order_dir);
 
         $this->_db->setQuery($query, $limitstart, $limit);

@@ -58,11 +58,9 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
             $limitstart = 0;
         }
 
-        $order = $this->_db->quote($app->getUserStateFromRequest($context . 'order', 'filter_order', 'id', 'cmd'));
-        $order_dir = $this->_db->quote($app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'desc', 'cmd'));
-
         $query = 'SELECT * FROM `#__pizzabox_orders` ';
         $where = array();
+
         if ($filter_user) {
             $where [] = "`user_id` = '$filter_user'";
         }
@@ -91,6 +89,7 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
             $query .= " WHERE " . join(' AND ', $where);
         }
 
+        list($order, $order_dir) = $this->getOrdering($context);
         $query .= ' ORDER BY ' . $order . ' ' . strtoupper($order_dir);
 
         $rows = $this->_getList($query, $limitstart, $limit);

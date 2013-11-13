@@ -229,4 +229,17 @@ class PizzaboxModelAbstract extends JModelLegacy
         return $item['row']->id;
     }
 
+    protected function getOrdering($context)
+    {
+        $app = JFactory::getApplication();
+
+        $order = $app->getUserStateFromRequest($context . 'order', 'filter_order', 'ordering', 'cmd');
+        $order_dir = $app->getUserStateFromRequest($context . 'order_dir', 'filter_order_Dir', 'asc', 'cmd');
+        if (!in_array($order_dir, array('asc', 'desc')))
+        {
+            $order_dir = 'asc';
+        }
+
+        return array($order, $order_dir);
+    }
 }
