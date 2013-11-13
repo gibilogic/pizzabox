@@ -37,10 +37,9 @@ class PizzaboxModelAddresses extends PizzaboxModelAbstract
         $query = 'SELECT * FROM `#__pizzabox_addresses` ';
         $where = array();
 
-        $search = $app->getUserStateFromRequest($context . 'search', 'search', '', 'string');
+        $search = trim(strtolower($app->getUserStateFromRequest($context . 'search', 'search', '', 'string')));
         if ($search) {
-            $search = $this->_db->quote('%' . trim(strtolower($search)) . '%');
-            $where [] = "`name` LIKE $search";
+            $where [] = "LOWER(`name`) LIKE " . $this->_db->quote('%' . $search . '%');
         }
         if ($filter_users) {
             $where [] = "`user_id` = '$filter_users'";

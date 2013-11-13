@@ -47,11 +47,9 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
         $query = 'SELECT * FROM `#__pizzabox_flavours` ';
         $where = '';
 
-        $search = $app->getUserStateFromRequest($context . 'search', 'search', '', 'string');
-        if ($search)
-        {
-            $search = $this->_db->quote('%' . trim(strtolower($search)) . '%');
-            $where .= " WHERE `name` LIKE $search ";
+        $search = trim(strtolower($app->getUserStateFromRequest($context . 'search', 'search', '', 'string')));
+        if ($search) {
+            $where .= "WHERE LOWER(`name`) LIKE " . $this->_db->quote('%' . $search . '%');
         }
 
         list($order, $order_dir) = $this->getOrdering($context);

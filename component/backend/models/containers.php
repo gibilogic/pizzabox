@@ -44,10 +44,9 @@ class PizzaboxModelContainers extends PizzaboxModelAbstract
         $query = 'SELECT * FROM `#__pizzabox_containers` ';
         $where = '';
 
-        $search = $app->getUserStateFromRequest($context . 'search', 'search', '', 'string');
+        $search = trim(strtolower($app->getUserStateFromRequest($context . 'search', 'search', '', 'string')));
         if ($search) {
-            $search = $this->_db->quote('%' . trim(strtolower($search)) . '%');
-            $where .= " WHERE `name` LIKE $search ";
+            $where .= "WHERE LOWER(`name`) LIKE " . $this->_db->quote('%' . $search . '%');
         }
 
         list($order, $order_dir) = $this->getOrdering($context);
