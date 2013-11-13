@@ -17,12 +17,12 @@
 	<property name="dir.plugin" location="../plugin" />
 	<property name="dir.release" location="../release" />
 
-	<target name="Build ZIP package" depends="Update build date">
+	<target name="Build ZIP package">
 		<echo message="Building the ZIP package..." />
 		<zip destfile="${dir.release}/${component.name}.zip" basedir="${dir.component}" whenempty="fail" />
 	</target>
 
-	<target name="Deploy (Local)" depends="Update build date">
+	<target name="Deploy (Local)">
 		<echo message="Deploying locally..." />
 		<!-- Component -->
 		<copy file="${dir.component}/${project.name}.xml" tofile="${path.deploy.local}/administrator/components/${component.name}/${project.name}.xml" overwrite="true" />
