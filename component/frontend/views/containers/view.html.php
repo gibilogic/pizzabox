@@ -1,14 +1,13 @@
 <?php
 
 /**
- * @version		    frontend/views/containers/view.html.php 2013-07-07 20:01:00Z zanardi
+ * @version		    frontend/views/containers/view.html.php 2013-11-23 22:51:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
  * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPLv2
  */
-
 defined('_JEXEC') or die('The way is shut');
 jimport('joomla.application.component.view');
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php');
@@ -18,16 +17,17 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php');
  */
 class PizzaboxViewContainers extends JViewLegacy
 {
-	public function display($tpl = null)
-	{
-		$this->containers = $this->getModel()->getListNotEmpty();
 
-		$this->loadHelper('pizzabox');
-		$this->helper = new PizzaboxHelper();
+    public function display($tpl = null)
+    {
+        $this->containers = $this->getModel()->getListNotEmpty();
+
+        $this->loadHelper('pizzabox');
+        $this->helper = new PizzaboxHelper();
 
         $order_id = JFactory::getSession()->get('com_pizzabox.order.id');
         $this->assignRef('order_id', $order_id);
-        
+
         $orderModel = new PizzaboxModelOrders();
         $orderModel->setId($order_id);
         $this->order = $orderModel->getItem();
@@ -49,19 +49,19 @@ class PizzaboxViewContainers extends JViewLegacy
         $this->assignRef('sublayout', $sublayout);
         $this->setLayout('default');
         parent::display($tpl);
-	}
+    }
 
     private function getElementImage($elements_type, $id)
     {
         $class_name = "PizzaboxModel" . $elements_type;
-        if (!class_exists($class_name))
-        {
+        if (!class_exists($class_name)) {
             require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/' . $elements_type . '.php' );
         }
-        
+
         $model = new $class_name();
         $model->setId($id);
         $element = $model->getItem();
         return ( $element['row']->image );
     }
+
 }

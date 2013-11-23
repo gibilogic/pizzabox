@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @version		    frontend/models/containers.php 2013-07-07 19:58:00Z zanardi
+ * @version		    frontend/models/containers.php 2013-11-23 22:51:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
  * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
-defined('_JEXEC') or die('The way is shut!');
+defined('_JEXEC') or die();
 jimport('joomla.application.component.model');
 
 /**
@@ -62,9 +62,13 @@ class PizzaboxModelContainers extends JModelLegacy
     public function getListNotEmpty()
     {
         $this->_db->setQuery('
-			SELECT * FROM #__pizzabox_containers c WHERE c.id IN (
-				SELECT DISTINCT cp.container_id FROM #__pizzabox_containers_parts cp
-			)'
+            SELECT * FROM #__pizzabox_containers c
+            WHERE c.published = 1
+            AND c.id IN (
+                SELECT DISTINCT cp.container_id FROM #__pizzabox_containers_parts cp
+            )
+            ORDER BY c.ordering
+            '
         );
         $result = $this->_db->loadObjectList('id');
 
