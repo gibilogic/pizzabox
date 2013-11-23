@@ -1,12 +1,10 @@
 <?php
-
 /**
- * @version			  $Id: views/containers/tmpl/default.php 2012-08-18 22:50:00Z zanardi $
+ * @version			  views/containers/tmpl/default.php 2013-11-24 23:03:00 UTC zanardi
  * @package			  GiBi PizzaBox
- * @author			  GiBiLogic
+ * @author			  GiBiLogic <info@gibilogic.com>
  * @authorUrl		  http://www.gibilogic.com
- * @authorEmail		info@gibilogic.com
- * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright		  (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
 
@@ -57,6 +55,7 @@ JHTML::script('helper.js', JURI::base() . '/components/com_pizzabox/assets/');
 <script type="text/javascript">
 window.addEvent('domready', function() {
 	$$('input[type=radio]').setStyle('display', 'none');
+  $$('input[type=submit]').setStyle('display', 'none');
 
 	$$('.thumbnails > li').addEvent('click', function() {
 		var containerId = this.get('data-container-id');
