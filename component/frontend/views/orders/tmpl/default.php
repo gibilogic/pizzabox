@@ -1,13 +1,14 @@
-<?php defined('_JEXEC') or die('The way is shut');
+<?php
 /**
- * @version			  $Id: views/orders/tmpl/default.php 2012-09-18 09:15:00Z zanardi $
+ * @version			  frontend/views/orders/tmpl/default.php 2013-11-24 17:36:00 UTC zanardi
  * @package			  GiBi PizzaBox
- * @author			  GiBiLogic
+ * @author			  GiBiLogic <info@gibilogic.com>
  * @authorUrl		  http://www.gibilogic.com
- * @authorEmail		info@gibilogic.com
- * @copyright		  Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
+ * @copyright		  (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
+defined('_JEXEC') or die();
+
 $this->loadHelper('pizzabox');
 $helper = new PizzaboxHelper();
 $rowsCount = count( $this->items['rows'] ) ;
@@ -109,7 +110,7 @@ $altrow = 1;
 
 		<tr class="row<?php echo $altrow ?>">
 
-			<td><?php echo JHTML::_('grid.checkedout', $row, $k ) ?></td>
+			<td><?php echo JHTML::_('grid.id', $k, $row->id ) ?></td>
 
 			<td width="20%">
 				<a href="#edit" onclick="return listItemTask('cb<?php echo $k ?>','edit')">
