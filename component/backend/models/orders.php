@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version		    backend/models/orders.php 2013-07-02 20:55:00Z zanardi
+ * @version		    backend/models/orders.php 2013-11-24 17:40:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
@@ -268,21 +268,30 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
     {
         if (!$new_id = parent::copy())
             return false;
-        $query = "SELECT * FROM `#__pizzabox_orders_parts` WHERE `order_id` = '" . $this->_lastId . "'";
+        $query = $this->_db->getQuery(true)
+                ->select('*')
+                ->from('`#__pizzabox_orders_parts`')
+                ->where('`order_id` = '.$this->_lastId);
         $this->_db->setQuery($query);
         $result = $this->_db->loadObjectList();
+
         if (count($result)) {
             foreach ($result as $row) {
                 $values [] = "(
-          '$new_id',
-          '$row->container_id',
-          '$row->part_id',
-          '$row->flavour_id',
-        )";
+                '$new_id',
+                '$row->container_number',
+                '$row->container_id',
+                '$row->container_name',
+                '$row->part_id',
+                '$row->part_name',
+                '$row->flavour_id',
+                '$row->flavour_name'
+                )";
             }
             $query = "INSERT INTO `#__pizzabox_orders_parts`" .
-                    " (`order_id`,`container_id`,`part_id`,`flavour_id`)" .
+                    " (`order_id`, `container_number`, `container_id`,`container_name`, `part_id`,`part_name`, `flavour_id`, `flavour_name`)" .
                     " VALUES " . join(',', $values);
+
             $this->_db->setQuery($query);
             $this->_db->query();
         }

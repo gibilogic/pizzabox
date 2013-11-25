@@ -1,17 +1,20 @@
 <?php
 
 /**
- * @version		    pizzabox.php 2013-07-02 20:45:00Z zanardi
+ * @version		    pizzabox.php 2013-11-24 18:07:00Z zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
  * @copyright	    (C) 2011-2013 GiBiLogic snc. All rights reserved.
  * @license		    GNU/GPL v2 or later
  */
-defined('_JEXEC') or die('The way is shut!');
+defined('_JEXEC') or die();
 
 jimport('joomla.application.component.helper');
 jimport('joomla.filesystem.file');
+jimport('joomla.log.log');
+JLog::addLogger(array('text_file' => 'com_pizzabox.log.php'),JLog::ALL,'com_pizzabox');
+
 
 // load requested controller if exists
 $controller = JRequest::getWord('controller');
