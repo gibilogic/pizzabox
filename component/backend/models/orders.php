@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version		    backend/models/orders.php 2013-11-24 17:40:00 UTC zanardi
+ * @version		    backend/models/orders.php 2013-11-25 08:27:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
@@ -26,16 +26,24 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
     public function getItems($enable_limit = true)
     {
         $result = array();
-        $app = & JFactory::getApplication();
+        $app = JFactory::getApplication();
         $context = 'com_pizzabox.orders.';
         $default_limit = $app->getCfg('list_limit');
 
-        $user = & JFactory::getUser();
+        $user = JFactory::getUser();
+
+        if ($user->guest) {
+            $result['total'] = 0;
+            $result['limit'] = 0;
+            $result['limitstart'] = 0;
+            $result['rows'] = array();
+            return $result;
+        }
+
         $is_admin = false;
         if (in_array(8, $user->groups)) {
             $is_admin = true;
         }
-
 
         if ($is_admin) {
             $filter_user = $app->getUserStateFromRequest($context . 'filter_user', 'filter_user', '', 'int');
@@ -96,7 +104,6 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
 
         if (!$this->_db->getErrorNum()) {
             $result['total'] = $this->_getListCount($query);
-            ;
             $result['limit'] = $limit;
             $result['limitstart'] = $limitstart;
             $result['rows'] = $rows;
