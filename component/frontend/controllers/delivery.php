@@ -31,7 +31,7 @@ class PizzaboxControllerDelivery extends JControllerLegacy
 
         $this->_model = & $this->getModel('delivery');
         $this->_model_address = & $this->getModel('addresses');
-        $this->_controllerUrl = 'index.php?option=com_pizzabox&controller=delivery';
+        $this->_controllerUrl = JRoute::_('index.php?option=com_pizzabox&controller=delivery', false);
     }
 
     public function display($tpl = 'delivery_date')
@@ -153,7 +153,7 @@ class PizzaboxControllerDelivery extends JControllerLegacy
         $session = JFactory::getSession();
         $session->clear('com_pizzabox.order.id');
 
-        $this->setRedirect(JRoute::_('index.php'));
+        $this->setRedirect(JRoute::_('index.php', false));
     }
 
     public function removerow()

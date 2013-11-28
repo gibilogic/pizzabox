@@ -15,11 +15,11 @@ JHTML::script('helper.js', JURI::base() . '/components/com_pizzabox/assets/');
 ?>
 <h1><?php echo JText::_('PIZZABOX_CONTAINER_SELECT') ?></h1>
 <div class="row-fluid">
-	<form action="index.php?option=com_pizzabox&controller=containers" method="post" name="containerForm" id="containerForm">
+	<form action="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=containers') ?>" method="post" name="containerForm" id="containerForm">
 		<ul class="pager">
             <?php if (count($this->parts) > 0): ?>
             <li class="prev">
-                <a href="index.php?option=com_pizzabox&controller=delivery" class="btn">
+                <a href="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=delivery') ?>" class="btn">
                     <?php echo $this->params->get('time_enabled', 1) ? JText::_('PIZZABOX_PROCEED_TO_DATETIME') : JText::_('PIZZABOX_PROCEED_TO_NAME') ?>
                 </a>
             </li>

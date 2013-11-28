@@ -14,10 +14,10 @@ defined('_JEXEC') or die('The way is shut!');
 
 ?>
 <h1><?php echo JText::_('PIZZABOX_FLAVOURS_SELECT') ?></h1>
-<form action="index.php?option=com_pizzabox&controller=parts" method="post" name="partForm" id="partForm">
+<form action="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=parts') ?>" method="post" name="partForm" id="partForm">
 	<ul class="pager">
 		<li class="prev">
-			<a class="btn back" href="index.php?option=com_pizzabox"><?php echo JText::_('JPREV') ?></a>
+			<a class="btn back" href="<?php echo JRoute::_('index.php?option=com_pizzabox') ?>"><?php echo JText::_('JPREV') ?></a>
 		</li>
 		<li class="next">
 			<input class="btn btn-primary submitrestart" type="submit" value="<?php echo JText::_('PIZZABOX_START_ANOTHER_CONTAINER') ?>" />

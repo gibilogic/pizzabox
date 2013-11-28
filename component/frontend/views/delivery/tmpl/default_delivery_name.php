@@ -25,7 +25,7 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
 </div>
 <?php endif ?>
 
-<form action="index.php?option=com_pizzabox&controller=delivery" method="post" name="deliveryForm" id="deliveryForm">
+<form action="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=delivery') ?>" method="post" name="deliveryForm" id="deliveryForm">
     <fieldset>
         <legend><?php echo JText::_('PIZZABOX_DELIVERY_NAME_SELECT' . ($this->isOrderNameMandatory ? '_MANDATORY' : '')) ?></legend>
         <input type="text" name="delivery_name" id="delivery_name" maxlength="50" <?php echo $this->isOrderNameMandatory ? 'required="required"' : '' ?>/><?php echo $this->isOrderNameMandatory ? '*' : '' ?>
@@ -63,8 +63,8 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
     <?php endif; ?>
 
     <div class="buttons">
-        <a href="index.php?option=com_pizzabox&controller=delivery&task=leave&id=<?php echo $this->order_id ?>" class="btn btn-inverse back"><?php echo JText::_('PIZZABOX_LEAVE_ORDER') ?></a>
-        <a class="btn back" href="index.php?option=com_pizzabox&controller=delivery&task=selecttime"><?php echo JText::_('JPrev') ?></a>
+        <a href="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=delivery&task=leave&id=' . $this->order_id) ?>" class="btn btn-inverse back"><?php echo JText::_('PIZZABOX_LEAVE_ORDER') ?></a>
+        <a class="btn back" href="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=delivery&task=selecttime') ?>"><?php echo JText::_('JPrev') ?></a>
         <input class="btn btn-primary" type="submit" value="<?php echo JText::_('JSAVE') ?>" />
         <input type="hidden" name="task" value="save" />
         <input type="hidden" name="element" value="delivery_name" />

@@ -23,7 +23,7 @@ $altrow = 1;
 	</style>
 <?php endif ?>
 
-<form action="index.php?option=com_pizzabox&controller=orders" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=orders') ?>" method="post" name="adminForm" id="adminForm">
 
 <div class="adminheading">
 	<?php if ( $this->is_admin ) : ?>

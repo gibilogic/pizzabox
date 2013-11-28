@@ -30,8 +30,8 @@ class PizzaboxControllerContainers extends JControllerLegacy
         parent::__construct($default);
 
         $this->_model = & $this->getModel('containers');
-        $this->_controllerUrl = 'index.php?option=com_pizzabox&controller=containers';
-        $this->_partsControllerUrl = 'index.php?option=com_pizzabox&controller=parts';
+        $this->_controllerUrl = JRoute::_('index.php?option=com_pizzabox&controller=containers', false);
+        $this->_partsControllerUrl = JRoute::_('index.php?option=com_pizzabox&controller=parts', false);
     }
 
     public function display($tpl = null)

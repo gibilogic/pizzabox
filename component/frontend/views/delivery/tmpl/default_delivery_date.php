@@ -17,7 +17,7 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
 
 ?>
 <h1><?php echo JText::_('PIZZABOX_DELIVERY_DATE_SELECT') ?></h1>
-<form action="index.php?option=com_pizzabox&controller=delivery" method="post" id="deliveryForm" name="deliveryForm">
+<form action="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=delivery') ?>" method="post" id="deliveryForm" name="deliveryForm">
     <div class="buttons">
         <input type="submit" class="btn btn-primary" value="<?php echo JText::_('JNEXT') ?>" />
         <input type="hidden" name="option" value="com_pizzabox" />
@@ -46,7 +46,7 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
         <?php endforeach ?>
     </div>
     <div class="buttons">
-        <a href="index.php?option=com_pizzabox&controller=delivery&task=leave&id=<?php echo $this->order_id ?>" class="btn btn-inverse back"><?php echo JText::_('PIZZABOX_LEAVE_ORDER') ?></a>
+        <a href="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=delivery&task=leave&id=' . $this->order_id) ?>" class="btn btn-inverse back"><?php echo JText::_('PIZZABOX_LEAVE_ORDER') ?></a>
         <input type="submit" class="btn btn-primary" value="<?php echo JText::_('JNEXT') ?>" />
     </div>
 </form>

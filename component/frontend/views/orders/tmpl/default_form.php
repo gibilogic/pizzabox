@@ -26,7 +26,7 @@ function submitbutton( pressbutton, section ) {
 
 </script>
 
-<form action="index.php?option=com_pizzabox&controller=orders" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_pizzabox&controller=orders') ?>" method="post" name="adminForm" id="adminForm">
 	<table class="adminForm pizzabox">
 		<tr>
 			<td><?php echo JText::_('JGRID_HEADING_ID')?></td>

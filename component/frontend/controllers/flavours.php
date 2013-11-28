@@ -28,7 +28,7 @@ class PizzaboxControllerFlavours extends JControllerLegacy
 
         require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/flavours.php' );
         $this->_model = & $this->getModel('flavours');
-        $this->_controllerUrl = 'index.php?option=com_pizzabox&controller=flavours';
+        $this->_controllerUrl = JRoute::_('index.php?option=com_pizzabox&controller=flavours', false);
     }
 
     public function display($tpl = null)

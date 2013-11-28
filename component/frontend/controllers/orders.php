@@ -38,8 +38,8 @@ class PizzaboxControllerOrders extends JControllerLegacy
 
         require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php' );
         $this->_model = new PizzaboxModelOrders();
-        $this->_controllerUrl = 'index.php?option=com_pizzabox&controller=orders';
-        $this->_deliveryControllerUrl = 'index.php?option=com_pizzabox&controller=delivery';
+        $this->_controllerUrl = JRoute::_('index.php?option=com_pizzabox&controller=orders', false);
+        $this->_deliveryControllerUrl = JRoute::_('index.php?option=com_pizzabox&controller=delivery', false);
     }
 
     public function display($tpl = null)
