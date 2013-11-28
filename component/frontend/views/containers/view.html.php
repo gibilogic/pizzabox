@@ -24,6 +24,7 @@ class PizzaboxViewContainers extends JViewLegacy
 
         $this->loadHelper('pizzabox');
         $this->helper = new PizzaboxHelper();
+        $this->params =& JComponentHelper::getParams('com_pizzabox');
 
         $order_id = JFactory::getSession()->get('com_pizzabox.order.id');
         $this->assignRef('order_id', $order_id);

@@ -17,6 +17,11 @@ JHTML::script('helper.js', JURI::base() . '/components/com_pizzabox/assets/');
 <div class="row-fluid">
 	<form action="index.php?option=com_pizzabox&controller=containers" method="post" name="containerForm" id="containerForm">
 		<ul class="pager">
+            <li class="prev">
+                <a href="index.php?option=com_pizzabox&controller=delivery" class="btn">
+                    <?php echo $this->params->get('time_enabled', 1) ? JText::_('PIZZABOX_PROCEED_TO_DATETIME') : JText::_('PIZZABOX_PROCEED_TO_NAME') ?>
+                </a>
+            </li>
 			<li class="next">
 				<input type="submit" class="btn btn-primary" value="<?php echo JText::_('JNEXT') ?>" />
 			</li>
