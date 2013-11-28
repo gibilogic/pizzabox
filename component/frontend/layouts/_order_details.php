@@ -33,7 +33,12 @@ window.addEvent('domready', function() {
                         $$('tr.row-container-' + container).dispose();
 
                         if ($$('#order_details tbody tr').length == 0) {
-                            window.location = $$('a.btn.btn-inverse.back').get('href')[0];
+                            if ($$('a.btn.btn-inverse.back').length > 0) {
+                                window.location = $$('a.btn.btn-inverse.back').get('href')[0];
+                            }
+                            else {
+                                window.location.reload(true);
+                            }
                         }
                         else {
                             window.location.reload(true);
