@@ -19,11 +19,18 @@ class PizzaboxModelDelivery extends JModelLegacy
 
     public function save()
     {
+        $params =& JComponentHelper::getParams('com_pizzabox');
+
         $session = & JFactory::getSession();
         $order_id = $session->get('com_pizzabox.order.id');
         $delivery_date = $session->get('com_pizzabox.delivery.date');
         $delivery_time = $session->get('com_pizzabox.delivery.time');
         $delivery_name = JRequest::getVar('delivery_name');
+        if ($params->get('order_name_mandatory', 0) == 1 && empty($delivery_name)) {
+            return false;
+        }
+        $delivery_name = $this->_db->quote($delivery_name);
+
         $date = new DateTime();
         $date = $date->format('Y-m-d H:i:s');
 
@@ -42,7 +49,7 @@ class PizzaboxModelDelivery extends JModelLegacy
         $query = "UPDATE `#__pizzabox_orders` SET " .
                 "`datetime` = '$date', " .
                 "`delivery` = '$delivery_date $delivery_time', " .
-                "`name` = '$delivery_name', " .
+                "`name` = $delivery_name, " .
                 "`status_id` = '1' " .
                 "WHERE `id` = '" . $order_id . "' ";
         $this->_db->setQuery($query);

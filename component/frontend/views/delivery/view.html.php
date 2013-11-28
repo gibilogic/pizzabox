@@ -28,6 +28,7 @@ class PizzaboxViewDelivery extends JViewLegacy
         $this->loadHelper('pizzabox');
         $this->helper = new PizzaboxHelper();
         $this->params = & JComponentHelper::getParams('com_pizzabox');
+        $this->isOrderNameMandatory = $this->params->get('order_name_mandatory', 0) == 1;
 
         $session = & JFactory::getSession();
         $date = $session->get('com_pizzabox.delivery.date');

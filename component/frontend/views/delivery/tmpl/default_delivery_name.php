@@ -16,7 +16,7 @@ $document = & JFactory::getDocument();
 $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js");
 
 ?>
-<h1><?php echo JText::_('PIZZABOX_DELIVERY_NAME_SELECT') ?></h1>
+<h1><?php echo JText::_('PIZZABOX_DELIVERY_NAME_SELECT' . ($this->isOrderNameMandatory ? '_MANDATORY' : '')) ?></h1>
 <?php if ($this->time) : ?>
 <div class="delivery_date">
     <p class="info">
@@ -27,8 +27,8 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
 
 <form action="index.php?option=com_pizzabox&controller=delivery" method="post" name="deliveryForm" id="deliveryForm">
     <fieldset>
-        <legend><?php echo JText::_('PIZZABOX_DELIVERY_NAME_SELECT') ?></legend>
-        <input type="text" name="delivery_name" id="delivery_name" maxlength="50" />
+        <legend><?php echo JText::_('PIZZABOX_DELIVERY_NAME_SELECT' . ($this->isOrderNameMandatory ? '_MANDATORY' : '')) ?></legend>
+        <input type="text" name="delivery_name" id="delivery_name" maxlength="50" <?php echo $this->isOrderNameMandatory ? 'required="required"' : '' ?>/><?php echo $this->isOrderNameMandatory ? '*' : '' ?>
     </fieldset>
 
     <?php if ($this->showAddress): ?>
