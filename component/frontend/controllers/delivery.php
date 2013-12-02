@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version		    frontend/controllers/delivery.php 2013-07-07 1954:00Z zanardi
+ * @version		    frontend/controllers/delivery.php 2013-12-02 20:09:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
@@ -108,7 +108,7 @@ class PizzaboxControllerDelivery extends JControllerLegacy
     {
         $params = & JComponentHelper::getParams('com_pizzabox');
         if ($params->get('email_notification', 0) == 1) {
-            $session = & JFactory::getSession();
+            $session = JFactory::getSession();
             $order_id = $session->get('com_pizzabox.order.id');
             require_once( JPATH_COMPONENT_SITE . '/helpers/pizzabox.php');
             $this->helper = new PizzaboxHelper();

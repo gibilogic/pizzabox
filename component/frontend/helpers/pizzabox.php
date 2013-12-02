@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version			  frontend/helpers/pizzabox.php 2013-07-07 19:56:00Z zanardi
+ * @version			  frontend/helpers/pizzabox.php 2013-12-02 20:09:00 UTC zanardi
  * @package			  GiBi PizzaBox
  * @author			  GiBiLogic <info@gibilogic.com>
  * @authorUrl		  http://www.gibilogic.com
@@ -66,7 +66,7 @@ class PizzaboxHelper
         }
 
         // Subject and body
-        $link = JRoute::_("index.php?option=com_pizzabox&controller=orders&task=edit&id=$order_id");
+        $link = JURI::root() . JRoute::_("index.php?option=com_pizzabox&controller=orders&task=edit&id=$order_id");
         $mailer->setSubject(JText::_('PIZZABOX_EMAIL_NOTIFICATION_SUBJECT'));
         $mailer->setBody('<html><body><p>' . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY') . " <a href=\"$link\">" . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY_ORDER_DETAIL') . "</a></p></body></html>");
 
