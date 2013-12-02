@@ -66,9 +66,9 @@ class PizzaboxHelper
         }
 
         // Subject and body
-        $link = JURI::root() . "/index.php?option=com_pizzabox&controller=orders&task=edit&id=$order_id";
+        $link = JRoute::_("index.php?option=com_pizzabox&controller=orders&task=edit&id=$order_id");
         $mailer->setSubject(JText::_('PIZZABOX_EMAIL_NOTIFICATION_SUBJECT'));
-        $mailer->setBody('<html><body>' . JText::sprintf('PIZZABOX_EMAIL_NOTIFICATION_BODY', $link) . '</body></html>');
+        $mailer->setBody('<html><body><p>' . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY') . " <a href=\"$link\">" . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY_ORDER_DETAIL') . "</a></p></body></html>");
 
         // Send message
         $mailer->IsHTML(true);
