@@ -9,7 +9,7 @@
  * @license			  GNU/GPL v2 or later
  */
 
-defined('_JEXEC') or die('The way is shut');
+defined('_JEXEC') or die();
 
 /**
  * PizzaboxHelper

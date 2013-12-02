@@ -54,8 +54,12 @@ $helper = new PizzaboxHelper();
             <td><?php echo $helper->formatPrice($this->row->order_total) ?></th>
         </tr>
         <tr>
-            <td><label for"status"><?php echo JText::_('PIZZABOX_STATUS') ?></label></td>
+            <td><label for="status"><?php echo JText::_('PIZZABOX_STATUS') ?></label></td>
             <td><?php echo $this->lists['status'] ?></td>
+        </tr>
+        <tr>
+            <td><label for="notes"><?php echo JText::_('PIZZABOX_NOTES') ?></label></td>
+            <td><textarea name="notes"><?php echo $this->row->notes ?></textarea></td>
         </tr>
     </table>
 

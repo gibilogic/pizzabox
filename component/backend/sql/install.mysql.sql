@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `#__pizzabox_orders` (
   `datetime`          DATETIME,
   `delivery`          DATETIME,
   `name`              VARCHAR(50),
+  `notes`             TEXT,
   `ordering`          INT(11) DEFAULT '0',
   `checked_out`       INT(11) DEFAULT '0',
   `checked_out_time`  DATETIME DEFAULT '0000-00-00 00:00:00',
