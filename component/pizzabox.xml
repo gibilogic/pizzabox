@@ -2,11 +2,11 @@
 <extension type="component" version="2.5.0" method="upgrade">
 	<name>PizzaBox</name>
 	<author>GiBiLogic</author>
-	<creationDate>2013-11-13</creationDate>
+	<creationDate>2013-12-02</creationDate>
 	<license>GNU/GPL v2 or later</license>
 	<authorEmail>info@gibilogic.com</authorEmail>
 	<authorUrl>http://www.gibilogic.com</authorUrl>
-	<version>3.2.2</version>
+	<version>3.3.0</version>
 	<description><![CDATA[
     <img src="http://extensions.gibilogic.com/images/gibilogicextensions-150x150.png" alt="" style="float: left;margin: 0 10px 10px 0" />
     <h1>GiBi PizzaBox</h1>
