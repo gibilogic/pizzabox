@@ -17,7 +17,7 @@ $document->addScript(JURI::base() . "/components/com_pizzabox/assets/helper.js")
 
 ?>
 <h1><?php echo JText::_('PIZZABOX_DELIVERY_TIME_SELECT') ?></h1>
-<form action="index.php?option=com_pizzabox&controller=delivery" method="post" name="deliveryForm" id="deliveryForm">
+<form action="<?php echo JRoute::_("index.php?option=com_pizzabox&controller=delivery") ?>" method="post" name="deliveryForm" id="deliveryForm">
     <div class="delivery_time">
         <div class="delivery_date">
             <p class="info">
