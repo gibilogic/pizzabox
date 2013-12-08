@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @version		    frontend/views/orders/view.html.php 2013-07-07 20:01:00Z zanardi
+ * @version		    frontend/views/orders/view.html.php 2013-12-08 12:55:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
  * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license		    GNU/GPLv2
  */
-defined('_JEXEC') or die('The way is shut');
+defined('_JEXEC') or die();
 jimport('joomla.application.component.view');
 
 /**
@@ -118,7 +118,7 @@ class PizzaboxViewOrders extends JViewLegacy
         }
 
         // get status list
-        $statuses = $this->getList('status');
+        $statuses = $this->getList('status', false);
 
         $list = array();
         $list[] = JHTML::_('select.option', '', '-- ' . JText::_('PIZZABOX_STATUS_SELECT') . ' --', 'id', 'name');
@@ -206,7 +206,7 @@ class PizzaboxViewOrders extends JViewLegacy
         $model->setId($item['row']->id);
         $item['row']->order_total = $model->getTotal();
 
-        $status = $this->getList('status');
+        $status = $this->getList('status', false);
 
         $list = array();
         $list[] = JHTML::_('select.option', '', '-- ' . JText::_('PIZZABOX_STATUS_SELECT') . ' --', 'id', 'name');
@@ -223,12 +223,12 @@ class PizzaboxViewOrders extends JViewLegacy
         return true;
     }
 
-    public function getList($elements_type)
+    public function getList($elements_type, $enable_limit = true)
     {
         require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/' . $elements_type . '.php' );
         $class_name = "PizzaboxModel" . $elements_type;
         $model = new $class_name();
-        $elements = $model->getItems();
+        $elements = $model->getItems($enable_limit);
         return ( $elements['rows'] );
     }
 
