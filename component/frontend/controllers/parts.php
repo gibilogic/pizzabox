@@ -54,7 +54,7 @@ class PizzaboxControllerParts extends JControllerLegacy
             return false;
         }
 
-        $view = & $this->getView('parts', 'html');
+        $view = $this->getView('parts', 'html');
         $view->setModel($this->_model, true);
         $view->display($tpl);
     }

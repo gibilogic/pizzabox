@@ -1,15 +1,15 @@
 <?php
 
 /**
- * @version		    frontend/views/parts/view.html.php 2013-07-07 20:01:00Z zanardi
+ * @version		    frontend/views/parts/view.html.php 2013-12-08 12:10:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
- * @license		    GNU/GPLv2
+ * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @license		    GNU/GPLv2 or later
  */
 
-defined('_JEXEC') or die('The way is shut');
+defined('_JEXEC') or die();
 jimport('joomla.application.component.view');
 require_once(JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php');
 
@@ -19,14 +19,14 @@ require_once(JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php');
 class PizzaboxViewParts extends JViewLegacy
 {
 
-    var $pagination = null;
-    var $user = null;
+    public $pagination = null;
+    public $user = null;
 
     function display($tpl = null)
     {
         jimport('joomla.html.pagination');
         JHTML::_('behavior.tooltip');
-        $app = & JFactory::getApplication();
+        $app = JFactory::getApplication();
         $this->user = & JFactory::getUser();
         $context = 'com_pizzabox.parts.';
 
@@ -40,7 +40,7 @@ class PizzaboxViewParts extends JViewLegacy
         $app->setUserState($context . 'order', 'ordering');
         $app->setUserState($context . 'order_dir', 'asc');
 
-        $session = & JFactory::getSession();
+        $session = JFactory::getSession();
         $container_id = $session->get('com_pizzabox.container.id');
         $this->ranges = json_encode($this->getModel()->getMinMaxByContainer($container_id));
 
@@ -59,7 +59,7 @@ class PizzaboxViewParts extends JViewLegacy
         $this->assign($items);
         $this->container_id = $container_id;
 
-        $lists['flavours'] = $this->getList('flavours', false);
+        $lists['flavours'] = $this->getList('flavours', false, true);
 
         $params = & JComponentHelper::getParams('com_pizzabox');
         $this->assignRef('params', $params);
@@ -105,12 +105,12 @@ class PizzaboxViewParts extends JViewLegacy
         return ( $model->getHtmlList() );
     }
 
-    function getList($elements_type, $enable_limit = true)
+    function getList($elements_type, $enable_limit = true, $published_only = false)
     {
         require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/' . $elements_type . '.php' );
         $class_name = "PizzaboxModel" . $elements_type;
         $model = new $class_name();
-        $elements = $model->getItems($enable_limit);
+        $elements = $model->getItems($enable_limit, $published_only);
         return ( $elements['rows'] );
     }
 

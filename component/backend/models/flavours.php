@@ -1,11 +1,11 @@
 <?php
 
 /**
- * @version       backend/models/flavours.php 2013-07-07 19:34:00Z zanardi
+ * @version       backend/models/flavours.php 2013-12-08 11:55:00 UTC zanardi
  * @package       GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright     Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
+ * @copyright     (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license       GNU/GPL v2 or later
  */
 
@@ -26,10 +26,10 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
         return $html_list;
     }
 
-    public function getItems($enable_limit = true)
+    public function getItems($enable_limit = true, $published_only = false)
     {
         $result = array();
-        $app = & JFactory::getApplication();
+        $app = JFactory::getApplication();
         $context = 'com_pizzabox.flavours.';
         $default_limit = $app->getCfg('list_limit');
 
@@ -42,18 +42,20 @@ class PizzaboxModelFlavours extends PizzaboxModelAbstract
         {
             $limit = 0;
             $limitstart = 0;
-        }        
+        }
 
-        $query = 'SELECT * FROM `#__pizzabox_flavours` ';
-        $where = '';
+        $query = $this->_db->getQuery(true)->select("*")->from("`#__pizzabox_flavours`");
 
         $search = trim(strtolower($app->getUserStateFromRequest($context . 'search', 'search', '', 'string')));
         if ($search) {
-            $where .= "WHERE LOWER(`name`) LIKE " . $this->_db->quote('%' . $search . '%');
+            $query->where("LOWER(`name`) LIKE " . $this->_db->quote('%' . $search . '%'));
+        }
+        if ($published_only) {
+            $query->where("`published` = 1");
         }
 
         list($order, $order_dir) = $this->getOrdering($context);
-        $query .= $where . ' ORDER BY `' . $order . '` ' . strtoupper($order_dir);
+        $query->order('`' . $order . '` ' . strtoupper($order_dir));
 
         $rows = $this->_getList($query, $limitstart, $limit);
         if (!$this->_db->getErrorNum())
