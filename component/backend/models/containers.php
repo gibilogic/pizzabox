@@ -99,8 +99,21 @@ class PizzaboxModelContainers extends PizzaboxModelAbstract
         return $list ? $list : array();
     }
 
+    /**
+     * Save container/parts association
+     *
+     * @param in t $container_id
+     * @param array $parts_ids
+     * @param array $parts_minimums
+     * @param array $parts_maximums
+     * @return bool
+     */
     public function addParts($container_id, $parts_ids, $parts_minimums, $parts_maximums)
     {
+        if (!count($parts_ids)) {
+            return true;
+        }
+        
         $query = "INSERT INTO #__pizzabox_containers_parts (container_id, part_id, minimum, maximum) VALUES";
         foreach ($parts_ids as $key => $value) {
             $query .= sprintf(' (%d, %d, %d, %d),', $container_id, $value, $parts_minimums[$key], $parts_maximums[$key]);
@@ -111,15 +124,22 @@ class PizzaboxModelContainers extends PizzaboxModelAbstract
         return $this->_db->execute();
     }
 
+    /**
+     * Delete all previous container/parts associations which are not present
+     * in the new saved data
+     *
+     * @param int $container_id
+     * @param array $parts_ids
+     * @return bool
+     */
     public function cleanParts($container_id, $parts_ids)
     {
-        if (count($parts_ids) == 0)
-        {
-            return true;
-        }
+        $query = "DELETE FROM #__pizzabox_containers_parts WHERE container_id = $container_id";
 
-        $string_ids = implode(',', $parts_ids);
-        $query = "DELETE FROM #__pizzabox_containers_parts WHERE container_id = $container_id AND part_id NOT IN ($string_ids)";
+        if (count($parts_ids))
+        {
+            $query .= " AND part_id NOT IN (".implode(',', $parts_ids).")";
+        }
 
         $this->_db->setQuery($query);
 

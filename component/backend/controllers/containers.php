@@ -52,10 +52,9 @@ class PizzaboxControllerContainers extends PizzaboxControllerAbstract
 
     private function saveParts($container_id)
     {
-        $parts_ids = JRequest::getVar('parts_ids');
-        $parts_minimums = JRequest::getVar('parts_minimums');
-        $parts_maximums = JRequest::getVar('parts_maximums');
-
+        $parts_ids = JRequest::getVar('parts_ids',array());
+        $parts_minimums = JRequest::getVar('parts_minimums',array());
+        $parts_maximums = JRequest::getVar('parts_maximums',array());
         $this->_model->cleanParts($container_id, $parts_ids);
         $this->_model->addParts($container_id, $parts_ids, $parts_minimums, $parts_maximums);
     }
