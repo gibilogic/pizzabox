@@ -86,7 +86,7 @@ class PizzaboxHelper
                 $results[$row->container_number] = array(
                     'id' => $row->container_id,
                     'name' => $row->container_name,
-                    'image' => $row->container_image,
+                    'image' => empty($row->container_image) ? null : $row->container_image,
                     'rowspan' => 0,
                     'parts' => array()
                 );
@@ -97,7 +97,7 @@ class PizzaboxHelper
                 $results[$row->container_number]['parts'][$row->part_id] = array(
                     'id' => $row->part_id,
                     'name' => $row->part_name,
-                    'image' => $row->part_image,
+                    'image' => empty($row->part_image) ? null : $row->part_image,
                     'flavours' => array()
                 );
             }
@@ -108,7 +108,7 @@ class PizzaboxHelper
                 $results[$row->container_number]['parts'][$row->part_id]['flavours'][$row->flavour_id] = array(
                     'id' => $row->flavour_id,
                     'name' => $row->flavour_name,
-                    'image' => $row->flavour_image,
+                    'image' => empty($row->flavour_image) ? null : $row->flavour_image,
                     'count' => 0
                 );
             }
