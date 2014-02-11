@@ -221,7 +221,7 @@ class PizzaboxModelOrders extends PizzaboxModelAbstract
                 $containers_model->setId($part->container_id);
                 $total += $containers_model->getPrice();
             }
-            $parts_model->setId($part->id);
+            $parts_model->setId($part->part_id);
             $total += $parts_model->getPrice();
             $flavours_model->setId($part->flavour_id);
             $total += $flavours_model->getPrice();
