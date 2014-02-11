@@ -88,55 +88,51 @@ window.addEvent('domready', function() {
         </tr>
     </thead>
     <tbody>
-        <?php $container_number = 0 ?>
-        <?php $class = 'row1' ?>
-        <?php foreach ($this->parts as $part): ?>
-            <?php
-            if ($part->container_number != $container_number)
-            {
-                $container_number = $part->container_number;
-                $class = ( $class == 'row1' ? '' : 'row1' );
-            }
-            else
-            {
-                $part->container_name = '';
-                $part->container_image = '';
-            }
-            ?>
-            <tr class="<?php echo $class ?> row-container-<?php echo $container_number ?>">
-                <?php if ($this->tpl != 'confirmed'): ?>
-                <td>
-                    <?php if ($part->container_name != ''): ?>
-                        <button class="btn btn-danger btn_delete_container" data-container="<?php echo $container_number ?>">
-                            <i class="icon-remove icon-white"></i>
-                        </button>
-                    <?php endif; ?>
-                </td>
+        <?php foreach ($this->orderData as $containerNumber => $container): ?>
+        <tr class="<?php echo ($containerNumber % 2 != 0 ? 'row1' : '') ?> row-container-<?php echo $containerNumber ?>">
+            <?php if ($this->tpl != 'confirmed'): ?>
+            <td rowspan="<?php echo $container['rowspan'] ?>" style="vertical-align:top;">
+                <button class="btn btn-danger btn_delete_container" data-container="<?php echo $containerNumber ?>">
+                    <i class="icon-remove icon-white"></i>
+                </button>
+            </td>
+            <?php endif; ?>
+            <td rowspan="<?php echo $container['rowspan'] ?>" style="vertical-align:top;">
+                <?php if (!empty($container['image'])): ?>
+                <span class="image"><img src="<?php echo $container['image'] ?>" alt="<?php echo $container['name'] ?>" width="100" /></span>
                 <?php endif; ?>
-                <td class="">
-                    <?php if ($part->container_image) : ?>
-                        <span class="image"><img src="<?php echo $part->container_image ?>" alt="Container image" width="100" /></span>
-                    <?php endif ?>
-                    <?php echo $part->container_name ?>
-                </td>
-                <td class="">
-                    <?php if ($part->part_image) : ?>
-                        <span class="image"><img src="<?php echo $part->part_image ?>" alt="Part image" width="100" /></span>
-                    <?php endif ?>
-                    <?php echo $part->part_name ?>
-                </td>
-                <td class="">
-                    <?php if ($part->flavour_image) : ?>
-                        <span class="image"><img src="<?php echo $part->flavour_image ?>" alt="Flavour image" width="100" /></span>
-                    <?php endif ?>
-                    <?php echo $part->flavour_name ?>
-                </td>
-            </tr>
-        <?php endforeach ?>
+                <?php echo $container['name'] ?>
+            </td>
+
+            <?php foreach($container['parts'] as $part): ?>
+            <td rowspan="<?php echo count($part['flavours']) ?>" style="vertical-align:top;">
+                <?php if (!empty($part['image'])): ?>
+                <span class="image"><img src="<?php echo $part['image'] ?>" alt="<?php echo $part['name'] ?>" width="100" /></span>
+                <?php endif; ?>
+                <?php echo $part['name'] ?>
+            </td>
+            <?php foreach($part['flavours'] as $flavour): ?>
+            <td>
+                <?php if (!empty($flavour['image'])): ?>
+                <span class="image"><img src="<?php echo $flavour['image'] ?>" alt="<?php echo $flavour['name'] ?>" width="100" /></span>
+                <?php endif; ?>
+                <?php echo $flavour['name'] ?>
+                <?php if ($flavour['count'] > 1): ?>
+                &nbsp;x<?php echo $flavour['count'] ?>
+                <?php endif; ?>
+            </td>
+            </tr><tr class="<?php echo ($containerNumber % 2 != 0 ? 'row1' : '') ?> row-container-<?php echo $containerNumber ?>">
+            <?php endforeach; ?>
+            <?php endforeach; ?>
+        </tr>
+        <?php endforeach; ?>
+
         <?php if (count($this->parts) == 0): ?>
-            <tr>
-                <td colspan="4" style="text-align:center;"><em><?php echo JText::_('PIZZABOX_EMPTY_ORDER') ?></em></td>
-            </tr>
+        <tr>
+            <td colspan="4" style="text-align:center;">
+                <em><?php echo JText::_('PIZZABOX_EMPTY_ORDER') ?></em>
+            </td>
+        </tr>
         <?php endif; ?>
     </tbody>
 </table>

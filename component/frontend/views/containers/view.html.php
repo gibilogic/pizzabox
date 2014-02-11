@@ -40,6 +40,7 @@ class PizzaboxViewContainers extends JViewLegacy
         }
 
         $this->assignRef('parts', $parts);
+        $this->assignRef('orderData', $this->helper->convertOrderRows($parts));
         $this->assignRef('tpl', $tpl);
         $this->order_total = $orderModel->getTotal();
 

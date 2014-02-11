@@ -75,12 +75,56 @@ class PizzaboxHelper
         $mailer->send();
     }
 
+    public function convertOrderRows($rows)
+    {
+        $results = array();
+
+        foreach ($rows as $row)
+        {
+            if (!array_key_exists($row->container_number, $results))
+            {
+                $results[$row->container_number] = array(
+                    'id' => $row->container_id,
+                    'name' => $row->container_name,
+                    'image' => $row->container_image,
+                    'rowspan' => 0,
+                    'parts' => array()
+                );
+            }
+
+            if (!array_key_exists($row->part_id, $results[$row->container_number]['parts']))
+            {
+                $results[$row->container_number]['parts'][$row->part_id] = array(
+                    'id' => $row->part_id,
+                    'name' => $row->part_name,
+                    'image' => $row->part_image,
+                    'flavours' => array()
+                );
+            }
+
+            if (!array_key_exists($row->flavour_id, $results[$row->container_number]['parts'][$row->part_id]['flavours']))
+            {
+                $results[$row->container_number]['rowspan'] += 1;
+                $results[$row->container_number]['parts'][$row->part_id]['flavours'][$row->flavour_id] = array(
+                    'id' => $row->flavour_id,
+                    'name' => $row->flavour_name,
+                    'image' => $row->flavour_image,
+                    'count' => 0
+                );
+            }
+
+            $results[$row->container_number]['parts'][$row->part_id]['flavours'][$row->flavour_id]['count'] += 1;
+        }
+
+        return $results;
+    }
+
     protected function _getSystemEmailAddresses()
     {
         $recipients = array();
         $query = "SELECT `name`, `email` " .
-          "FROM `#__users` " .
-          "WHERE `sendEmail` = '1'";
+            "FROM `#__users` " .
+            "WHERE `sendEmail` = '1'";
         $db = & JFactory::getDBO();
         $db->setQuery($query);
         if ($result = $db->loadObjectList())
@@ -88,4 +132,5 @@ class PizzaboxHelper
             $recipients = $result;
         }
     }
+
 }
