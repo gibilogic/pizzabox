@@ -1,16 +1,15 @@
 <?php
 
 /**
- * @version		    $Id: views/parts/tmpl/default.php 2012-08-19 09:50:00Z zanardi $
+ * @version		    frontend/views/parts/tmpl/default.php 2014-02-15 11:03:00 UTC zanardi
  * @package		    GiBi PizzaBox
- * @author        GiBiLogic snc
- * @authorEmail   info@gibilogic.com
+ * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2012 GiBiLogic. All rights reserved.
- * @license		    GNU/GPL v2 or later
+ * @copyright	    (C) 2011-2014 GiBiLogic snc. All rights reserved.
+ * @license		    GNU/GPL v3 or later
  */
 
-defined('_JEXEC') or die('The way is shut!');
+defined('_JEXEC') or die();
 
 ?>
 <h1><?php echo JText::_('PIZZABOX_FLAVOURS_SELECT') ?></h1>
@@ -32,10 +31,11 @@ defined('_JEXEC') or die('The way is shut!');
 			<h2>
 				<?php echo $part->name ?><?php echo $part->price > 0 ? ', +' . $this->helper->formatPrice($part->price) : '' ?>
 				<?php if ($part->minimum == $part->maximum): ?>
-				&nbsp;(select <?php echo $part->minimum ?>)</h2>
+            <?php echo JText::sprintf('PIZZABOX_FLAVOURS_SELECT_NUMBER', $part->minimum) ?>
 				<?php else: ?>
-				&nbsp;(select from <?php echo $part->minimum ?> to <?php echo $part->maximum ?>)</h2>
+            <?php echo JText::sprintf('PIZZABOX_FLAVOURS_SELECT_FROM_TO', $part->minimum, $part->maximum) ?>
 				<?php endif; ?>
+      </h2>
 			<ul class="thumbnails thumbnails-flavours">
 				<?php foreach ($this->lists['flavours'] as $flavour): ?>
 				<?php if (false !== strrpos($flavour->parts, '"' . $part->id . '"')): ?>
