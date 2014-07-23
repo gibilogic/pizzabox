@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @version			  frontend/helpers/pizzabox.php 2013-12-02 20:09:00 UTC zanardi
+ * @version			  frontend/helpers/pizzabox.php 2014-07-23 09:36:00 UTC zanardi
  * @package			  GiBi PizzaBox
  * @author			  GiBiLogic <info@gibilogic.com>
  * @authorUrl		  http://www.gibilogic.com
@@ -40,6 +40,8 @@ class PizzaboxHelper
 
     public function emailNotification($order_id)
     {
+        $this->params = JComponentHelper::getParams('com_pizzabox');
+
         require_once( JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php');
         $model = new PizzaboxModelOrders();
         $model->setId($order_id);
@@ -52,18 +54,12 @@ class PizzaboxHelper
         $mailer->setSender($config->get('mailfrom', 'pizzabox@gibilogic.com'));
 
         // Recipient(s)
-        $recipient_email = $this->params->get('email_address', '');
-        if ($recipient_email)
+        foreach ($this->getAdminRecipients() as $email => $name)
         {
-            $mailer->addRecipient($recipient_email);
+            $mailer->addRecipient($email, $name);
         }
-        else
-        {
-            foreach ($this->_getSystemEmailAddresses() as $recipient)
-            {
-                $mailer->addRecipient($recipient->email, $recipient->name);
-            }
-        }
+        $user = JFactory::getUser();
+        $mailer->addRecipient($user->email, $user->name);
 
         // Subject and body
         $link = JURI::root() . JRoute::_("index.php?option=com_pizzabox&controller=orders&task=edit&id=$order_id");
@@ -73,6 +69,32 @@ class PizzaboxHelper
         // Send message
         $mailer->IsHTML(true);
         $mailer->send();
+    }
+
+    /**
+     * Get all admin recipients which should receive the notification
+     */
+    private function getAdminRecipients()
+    {
+        if ( ! $this->params->get('email_notification', 0))
+        {
+            return array();
+        }
+
+        $recipients = array();
+        if ($this->params->get('email_address', ''))
+        {
+            $recipients[$this->params->get('email_address')] = $this->params->get('email_address');
+        }
+        else
+        {
+            foreach ($this->_getSystemEmailAddresses() as $recipient)
+            {
+                $recipients[$recipient->email] = $recipient->name;
+            }
+        }
+
+        return $recipients;
     }
 
     public function convertOrderRows($rows)

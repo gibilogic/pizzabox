@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @version		    frontend/controllers/delivery.php 2013-12-02 20:09:00 UTC zanardi
+ * @version		    frontend/controllers/delivery.php 2014-07-23 09:29:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    (C) 2011-2013 GiBiLogic. All rights reserved.
- * @license		    GNU/GPL v2 or later
+ * @copyright	    (C) 2011-2014 GiBiLogic. All rights reserved.
+ * @license		    GNU/GPL v3 or later
  */
-defined('_JEXEC') or die('The way is shut!');
+defined('_JEXEC') or die();
 
 jimport('joomla.application.component.controller');
 
@@ -104,16 +104,27 @@ class PizzaboxControllerDelivery extends JControllerLegacy
         }
     }
 
+    /**
+     * If notification is enabled for admins or users (or both), call the
+     * notification helper
+     *
+     * @return bool
+     */
     public function emailNotification()
     {
-        $params = & JComponentHelper::getParams('com_pizzabox');
-        if ($params->get('email_notification', 0) == 1) {
-            $session = JFactory::getSession();
-            $order_id = $session->get('com_pizzabox.order.id');
-            require_once( JPATH_COMPONENT_SITE . '/helpers/pizzabox.php');
-            $this->helper = new PizzaboxHelper();
-            $this->helper->emailNotification($order_id);
+        $params = JComponentHelper::getParams('com_pizzabox');
+        if ( ! ($params->get('email_notification', 0) || $params->get('user_email_notification', 0)))
+        {
+            return false;
         }
+        $order_id = JFactory::getSession()->get('com_pizzabox.order.id');
+        if( ! $order_id)
+        {
+            return false;
+        }
+        require_once JPATH_COMPONENT_SITE . '/helpers/pizzabox.php';
+        $this->helper = new PizzaboxHelper();
+        $this->helper->emailNotification($order_id);
     }
 
     public function selectdate()

@@ -1,64 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-  <fieldset name="component" label="PIZZABOX_CONFIG_FIELDSET_COMPONENT_TITLE">
-    <field name="order_name_mandatory" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_ORDER_NAME_MANDATORY" description="PIZZABOX_CONFIG_FIELD_ORDER_NAME_MANDATORY_DESC">
-      <option value="0">JNo</option>
-      <option value="1">JYes</option>
-    </field>
-    <field name="email_notification" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_EMAIL_NOTIFICATION_LABEL" description="PIZZABOX_CONFIG_FIELD_EMAIL_NOTIFICATION_DESC">
-      <option value="0">JNo</option>
-      <option value="1">JYes</option> 
-    </field>
-    <field name="email_address" type="text" default="" label="PIZZABOX_CONFIG_FIELD_EMAIL_ADDRESS_LABEL" description="PIZZABOX_CONFIG_FIELD_EMAIL_ADDRESS_DESC" />
-  </fieldset>
-  <fieldset name="delivery" label="PIZZABOX_CONFIG_FIELDSET_DELIVERY_TITLE">
-    <field name="time_enabled" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_TIME_ENABLED_LABEL" description="PIZZABOX_CONFIG_FIELD_TIME_ENABLED_DESC">
-      <option value="0">JNo</option>
-      <option value="1">JYes</option>
-    </field>
-    <field name="delay_mode" type="radio" default="S" label="PIZZABOX_CONFIG_FIELD_DELAY_MODE_LABEL" description="PIZZABOX_CONFIG_FIELD_DELAY_MODE_DESC">
-      <option value="S">PIZZABOX_CONFIG_FIELD_DELAY_MODE_OPTION_SESSION</option>
-      <option value="D">PIZZABOX_CONFIG_FIELD_DELAY_MODE_OPTION_DELAY</option>
-    </field>
-    <field name="min_delivery_delay" type="text" default="1" label="PIZZABOX_CONFIG_FIELD_MIN_DELIVERY_DELAY_LABEL" description="PIZZABOX_CONFIG_FIELD_MIN_DELIVERY_DELAY_DESC" />
-    <field name="delivery_start" type="text" default="09:00" label="PIZZABOX_CONFIG_FIELD_DELIVERY_START_LABEL" description="PIZZABOX_CONFIG_FIELD_DELIVERY_START_DESC" />
-    <field name="delivery_end" type="text" default="18:00" label="PIZZABOX_CONFIG_FIELD_DELIVERY_END_LABEL" description="PIZZABOX_CONFIG_FIELD_DELIVERY_END_DESC" />
-    <field name="second_delivery_start" type="text" default="" label="PIZZABOX_CONFIG_FIELD_SECOND_DELIVERY_START_LABEL" description="PIZZABOX_CONFIG_FIELD_SECOND_DELIVERY_START_DESC" />
-    <field name="second_delivery_end" type="text" default="" label="PIZZABOX_CONFIG_FIELD_SECOND_DELIVERY_END_LABEL" description="PIZZABOX_CONFIG_FIELD_SECOND_DELIVERY_END_LABEL" />
-    <field name="delivery_times_interval" type="text" default="15" label="PIZZABOX_CONFIG_FIELD_DELIVERY_TIMES_INTERVAL_LABEL" description="PIZZABOX_CONFIG_FIELD_DELIVERY_TIMES_INTERVAL_DESC" />
-    <field name="max_orders_per_interval" type="text" default="1" label="PIZZABOX_CONFIG_FIELD_MAX_ORDERS_PER_INTERVAL_LABEL" description="PIZZABOX_CONFIG_FIELD_MAX_ORDERS_PER_INTERVAL_DESC" />
-    <field name="next_days_number" type="text" default="7" label="PIZZABOX_CONFIG_FIELD_NEXT_DAYS_NUMBER_LABEL" description="PIZZABOX_CONFIG_FIELD_NEXT_DAYS_NUMBER_DESC" />
-    <field name="show_address" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_SHOW_ADDRESS_LABEL" description="PIZZABOX_CONFIG_FIELD_SHOW_ADDRESS_DESC">
-      <option value="0">JNo</option>
-      <option value="1">JYes</option>
-    </field>
-  </fieldset>
-	<fieldset name="currency" label="PIZZABOX_CONFIG_FIELDSET_CURRENCY_TITLE">
-		<field type="text" name="currency" default="EUR" label="PIZZABOX_CONFIG_FIELD_CURRENCY_CODE_LABEL" description="PIZZABOX_CONFIG_FIELD_CURRENCY_CODE_DESC" />
-		<field type="text" name="currency_symbol" default="€" label="PIZZABOX_CONFIG_FIELD_CURRENCY_SYMBOL_LABEL" description="PIZZABOX_CONFIG_FIELD_CURRENCY_SYMBOL_DESC" />
-		<field name="currency_symbol_position" type="list" default="before" label="PIZZABOX_CONFIG_FIELD_CURRENCY_POS_LABEL" description="PIZZABOX_CONFIG_FIELD_CURRENCY_POS_DESC">
-			<option value="before">PIZZABOX_CONFIG_FIELD_CURRENCY_POS_OPTION_BEFORE</option>
-			<option value="after">PIZZABOX_CONFIG_FIELD_CURRENCY_POS_OPTION_AFTER</option>
-		</field>
-	</fieldset>
-	<fieldset name="paypal" label="PIZZABOX_CONFIG_FIELDSET_PAYPAL_TITLE">
-		<field name="paypal_enabled" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_PAYPAL_ENABLED_LABEL" description="PIZZABOX_CONFIG_FIELD_PAYPAL_ENABLED_DESC">
-			<option value="0">JNo</option>
-			<option value="1">JYes</option>
-		</field>
-    <field name="paypal_business" type="text" default="me@mybusiness.com" label="PIZZABOX_CONFIG_FIELD_PAYPAL_BUSINESS_LABEL" description="PIZZABOX_CONFIG_FIELD_PAYPAL_BUSINESS_DESC" />
-    <field name="paypal_item_name_prefix" type="text" default="PizzaBox Order Number " label="PIZZABOX_CONFIG_FIELD_PAYPAL_ITEM_NAME_PREFIX_LABEL" description="PIZZABOX_CONFIG_FIELD_PAYPAL_ITEM_NAME_PREFIX_DESC" />
-	</fieldset>  
-  <fieldset name="display" label="PIZZABOX_CONFIG_FIELDSET_DISPLAY_TITLE">
-    <field name="include_basic_css" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_INCLUDE_BASIC_CSS_LABEL" description="PIZZABOX_CONFIG_FIELD_INCLUDE_BASIC_CSS_DESC">
-      <option value="0">JNo</option>
-      <option value="1">JYes</option>
-    </field>
-  </fieldset>
-  <fieldset name="access" label="PIZZABOX_CONFIG_FIELDSET_ACCESS_TITLE">
-    <field name="registered_users_only" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_REGISTERED_USERS_ONLY_LABEL" description="PIZZABOX_CONFIG_FIELD_REGISTERED_USERS_ONLY_DESC">
-      <option value="0">JNo</option>
-      <option value="1">JYes</option>
-    </field>
-  </fieldset>
+    <fieldset name="component" label="PIZZABOX_CONFIG_FIELDSET_COMPONENT_TITLE">
+        <field name="order_name_mandatory" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_ORDER_NAME_MANDATORY" description="PIZZABOX_CONFIG_FIELD_ORDER_NAME_MANDATORY_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+        <field name="email_notification" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_EMAIL_NOTIFICATION_LABEL" description="PIZZABOX_CONFIG_FIELD_EMAIL_NOTIFICATION_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+        <field name="email_address" type="text" default="" label="PIZZABOX_CONFIG_FIELD_EMAIL_ADDRESS_LABEL" description="PIZZABOX_CONFIG_FIELD_EMAIL_ADDRESS_DESC" />
+        <field name="user:email_notification" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_USER_EMAIL_NOTIFICATION_LABEL" description="PIZZABOX_CONFIG_FIELD_USER_EMAIL_NOTIFICATION_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+    </fieldset>
+    <fieldset name="delivery" label="PIZZABOX_CONFIG_FIELDSET_DELIVERY_TITLE">
+        <field name="time_enabled" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_TIME_ENABLED_LABEL" description="PIZZABOX_CONFIG_FIELD_TIME_ENABLED_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+        <field name="delay_mode" type="radio" default="S" label="PIZZABOX_CONFIG_FIELD_DELAY_MODE_LABEL" description="PIZZABOX_CONFIG_FIELD_DELAY_MODE_DESC">
+            <option value="S">PIZZABOX_CONFIG_FIELD_DELAY_MODE_OPTION_SESSION</option>
+            <option value="D">PIZZABOX_CONFIG_FIELD_DELAY_MODE_OPTION_DELAY</option>
+        </field>
+        <field name="min_delivery_delay" type="text" default="1" label="PIZZABOX_CONFIG_FIELD_MIN_DELIVERY_DELAY_LABEL" description="PIZZABOX_CONFIG_FIELD_MIN_DELIVERY_DELAY_DESC" />
+        <field name="delivery_start" type="text" default="09:00" label="PIZZABOX_CONFIG_FIELD_DELIVERY_START_LABEL" description="PIZZABOX_CONFIG_FIELD_DELIVERY_START_DESC" />
+        <field name="delivery_end" type="text" default="18:00" label="PIZZABOX_CONFIG_FIELD_DELIVERY_END_LABEL" description="PIZZABOX_CONFIG_FIELD_DELIVERY_END_DESC" />
+        <field name="second_delivery_start" type="text" default="" label="PIZZABOX_CONFIG_FIELD_SECOND_DELIVERY_START_LABEL" description="PIZZABOX_CONFIG_FIELD_SECOND_DELIVERY_START_DESC" />
+        <field name="second_delivery_end" type="text" default="" label="PIZZABOX_CONFIG_FIELD_SECOND_DELIVERY_END_LABEL" description="PIZZABOX_CONFIG_FIELD_SECOND_DELIVERY_END_LABEL" />
+        <field name="delivery_times_interval" type="text" default="15" label="PIZZABOX_CONFIG_FIELD_DELIVERY_TIMES_INTERVAL_LABEL" description="PIZZABOX_CONFIG_FIELD_DELIVERY_TIMES_INTERVAL_DESC" />
+        <field name="max_orders_per_interval" type="text" default="1" label="PIZZABOX_CONFIG_FIELD_MAX_ORDERS_PER_INTERVAL_LABEL" description="PIZZABOX_CONFIG_FIELD_MAX_ORDERS_PER_INTERVAL_DESC" />
+        <field name="next_days_number" type="text" default="7" label="PIZZABOX_CONFIG_FIELD_NEXT_DAYS_NUMBER_LABEL" description="PIZZABOX_CONFIG_FIELD_NEXT_DAYS_NUMBER_DESC" />
+        <field name="show_address" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_SHOW_ADDRESS_LABEL" description="PIZZABOX_CONFIG_FIELD_SHOW_ADDRESS_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+    </fieldset>
+    <fieldset name="currency" label="PIZZABOX_CONFIG_FIELDSET_CURRENCY_TITLE">
+        <field type="text" name="currency" default="EUR" label="PIZZABOX_CONFIG_FIELD_CURRENCY_CODE_LABEL" description="PIZZABOX_CONFIG_FIELD_CURRENCY_CODE_DESC" />
+        <field type="text" name="currency_symbol" default="€" label="PIZZABOX_CONFIG_FIELD_CURRENCY_SYMBOL_LABEL" description="PIZZABOX_CONFIG_FIELD_CURRENCY_SYMBOL_DESC" />
+        <field name="currency_symbol_position" type="list" default="before" label="PIZZABOX_CONFIG_FIELD_CURRENCY_POS_LABEL" description="PIZZABOX_CONFIG_FIELD_CURRENCY_POS_DESC">
+            <option value="before">PIZZABOX_CONFIG_FIELD_CURRENCY_POS_OPTION_BEFORE</option>
+            <option value="after">PIZZABOX_CONFIG_FIELD_CURRENCY_POS_OPTION_AFTER</option>
+        </field>
+    </fieldset>
+    <fieldset name="paypal" label="PIZZABOX_CONFIG_FIELDSET_PAYPAL_TITLE">
+        <field name="paypal_enabled" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_PAYPAL_ENABLED_LABEL" description="PIZZABOX_CONFIG_FIELD_PAYPAL_ENABLED_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+        <field name="paypal_business" type="text" default="me@mybusiness.com" label="PIZZABOX_CONFIG_FIELD_PAYPAL_BUSINESS_LABEL" description="PIZZABOX_CONFIG_FIELD_PAYPAL_BUSINESS_DESC" />
+        <field name="paypal_item_name_prefix" type="text" default="PizzaBox Order Number " label="PIZZABOX_CONFIG_FIELD_PAYPAL_ITEM_NAME_PREFIX_LABEL" description="PIZZABOX_CONFIG_FIELD_PAYPAL_ITEM_NAME_PREFIX_DESC" />
+    </fieldset>
+    <fieldset name="display" label="PIZZABOX_CONFIG_FIELDSET_DISPLAY_TITLE">
+        <field name="include_basic_css" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_INCLUDE_BASIC_CSS_LABEL" description="PIZZABOX_CONFIG_FIELD_INCLUDE_BASIC_CSS_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+    </fieldset>
+    <fieldset name="access" label="PIZZABOX_CONFIG_FIELDSET_ACCESS_TITLE">
+        <field name="registered_users_only" type="radio" default="1" label="PIZZABOX_CONFIG_FIELD_REGISTERED_USERS_ONLY_LABEL" description="PIZZABOX_CONFIG_FIELD_REGISTERED_USERS_ONLY_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+    </fieldset>
 </config>
