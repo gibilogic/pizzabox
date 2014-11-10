@@ -1,14 +1,14 @@
 <?php
 
 /**
- * @version		    backend/models/status.php 2013-07-07 19:33:00Z zanardi
+ * @version		    backend/models/status.php 2014-11-10 17:40:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
- * @license		    GNU/GPL v2 or later
+ * @copyright	    (C) 2011-2014 GiBiLogic. All rights reserved.
+ * @license		    GNU/GPL v3 or later
  */
-defined('_JEXEC') or die('The way is shut!');
+defined('_JEXEC') or die();
 require_once('abstract.php');
 
 /**
@@ -16,11 +16,12 @@ require_once('abstract.php');
  */
 class PizzaboxModelStatus extends PizzaboxModelAbstract
 {
+    private $valid_ordering_values = array("id", "name", "desc", "ordering");
 
     public function getItems($enable_limit = true)
     {
         $result = array();
-        $app = & JFactory::getApplication();
+        $app = JFactory::getApplication();
         $context = 'com_pizzabox.status.';
         $default_limit = $app->getCfg('list_limit');
 
@@ -42,6 +43,10 @@ class PizzaboxModelStatus extends PizzaboxModelAbstract
         }
 
         list($order, $order_dir) = $this->getOrdering($context);
+        if ( ! in_array($order, $this->valid_ordering_values))
+        {
+            $order = 'ordering';
+        }
         $query .= $where . ' ORDER BY `' . $order . '` ' . strtoupper($order_dir);
 
         $this->_db->setQuery($query, $limitstart, $limit);

@@ -211,8 +211,8 @@ class PizzaboxViewOrders extends JViewLegacy
     {
         JRequest::setVar('hidemainmenu', 1);
 
-        $item = & $this->get('item');
-        $user = & JFactory::getUser();
+        $item = $this->get('item');
+        $user = JFactory::getUser();
         if ((!in_array(8, $user->groups) ) && ( $user->id != $item['row']->user_id ))
         {
             return false;
