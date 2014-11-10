@@ -10,7 +10,11 @@
             <option value="1">JYes</option>
         </field>
         <field name="email_address" type="text" default="" label="PIZZABOX_CONFIG_FIELD_EMAIL_ADDRESS_LABEL" description="PIZZABOX_CONFIG_FIELD_EMAIL_ADDRESS_DESC" />
-        <field name="user:email_notification" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_USER_EMAIL_NOTIFICATION_LABEL" description="PIZZABOX_CONFIG_FIELD_USER_EMAIL_NOTIFICATION_DESC">
+        <field name="user_email_notification" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_USER_EMAIL_NOTIFICATION_LABEL" description="PIZZABOX_CONFIG_FIELD_USER_EMAIL_NOTIFICATION_DESC">
+            <option value="0">JNo</option>
+            <option value="1">JYes</option>
+        </field>
+        <field name="email_includes_order" type="radio" default="0" label="PIZZABOX_CONFIG_FIELD_EMAIL_INCLUDES_ORDER_LABEL" description="PIZZABOX_CONFIG_FIELD_EMAIL_INCLUDES_ORDER_DESC">
             <option value="0">JNo</option>
             <option value="1">JYes</option>
         </field>

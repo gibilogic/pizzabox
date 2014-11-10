@@ -8,14 +8,15 @@
  * @copyright		  Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
  * @license			  GNU/GPL v2 or later
  */
-
 defined('_JEXEC') or die();
+require_once(JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php');
 
 /**
  * PizzaboxHelper
  */
 class PizzaboxHelper
 {
+
     public function __construct()
     {
         $this->params = & JComponentHelper::getParams('com_pizzabox');
@@ -62,9 +63,8 @@ class PizzaboxHelper
         $mailer->addRecipient($user->email, $user->name);
 
         // Subject and body
-        $link = JURI::root() . JRoute::_("index.php?option=com_pizzabox&controller=orders&task=edit&id=$order_id");
         $mailer->setSubject(JText::_('PIZZABOX_EMAIL_NOTIFICATION_SUBJECT'));
-        $mailer->setBody('<html><body><p>' . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY') . " <a href=\"$link\">" . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY_ORDER_DETAIL') . "</a></p></body></html>");
+        $mailer->setBody('<html><body><p>' . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY') . $this->buildOrderBody($order_id) . "</p></body></html>");
 
         // Send message
         $mailer->IsHTML(true);
@@ -72,11 +72,48 @@ class PizzaboxHelper
     }
 
     /**
+     * Build the order body to include in email notification
+     *
+     * @param int $order_id
+     * @return string
+     */
+    private function buildOrderBody($order_id)
+    {
+        if (!$this->params->get("email_includes_order", 0))
+        {
+            $link = JURI::root() . JRoute::_("index.php?option=com_pizzabox&controller=orders&task=edit&id=$order_id");
+            return "<a href=\"$link\">" . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY_ORDER_DETAIL') . "</a>";
+        }
+
+        $orderModel = new PizzaboxModelOrders();
+        $orderModel->setId($order_id);
+        $this->order = $orderModel->getItem();
+        $parts = $orderModel->getParts();
+
+        foreach ($parts as &$part)
+        {
+            $part->container_image = JURI::root() . $this->getElementImage('containers', $part->container_id);
+            $part->part_image = JURI::root() . $this->getElementImage('parts', $part->part_id);
+            $part->flavour_image = JURI::root() . $this->getElementImage('flavours', $part->flavour_id);
+        }
+
+        $this->order_total = $orderModel->getTotal();
+        $this->parts = $parts;
+        $this->orderData = $this->convertOrderRows($parts);
+        $this->tpl = "confirmed";
+        $this->helper = new PizzaboxHelper();
+
+        ob_start();
+        include JPATH_COMPONENT_SITE . '/layouts/_order_details.php';
+        return "<div>".ob_get_clean()."</div>";
+    }
+
+    /**
      * Get all admin recipients which should receive the notification
      */
     private function getAdminRecipients()
     {
-        if ( ! $this->params->get('email_notification', 0))
+        if (!$this->params->get('email_notification', 0))
         {
             return array();
         }
@@ -145,14 +182,35 @@ class PizzaboxHelper
     {
         $recipients = array();
         $query = "SELECT `name`, `email` " .
-            "FROM `#__users` " .
-            "WHERE `sendEmail` = '1'";
+                "FROM `#__users` " .
+                "WHERE `sendEmail` = '1'";
         $db = & JFactory::getDBO();
         $db->setQuery($query);
         if ($result = $db->loadObjectList())
         {
             $recipients = $result;
         }
+    }
+
+    /**
+     * Get image for a given element type and id
+     *
+     * @param string $elements_type
+     * @param int $id
+     * @return string
+     */
+    private function getElementImage($elements_type, $id)
+    {
+        $class_name = "PizzaboxModel" . $elements_type;
+        if (!class_exists($class_name))
+        {
+            require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/' . $elements_type . '.php' );
+        }
+
+        $model = new $class_name();
+        $model->setId($id);
+        $element = $model->getItem();
+        return ( $element['row']->image );
     }
 
 }
