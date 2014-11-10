@@ -154,13 +154,15 @@ class PizzaboxModelAbstract extends JModelLegacy
 
     public function checkout()
     {
-        $user = & JFactory::getUser();
-        $row = & $this->getRow();
+        $user = JFactory::getUser();
+        if ($user->guest)
+        {
+            return false;
+        }
 
+        $row = $this->getRow();
         if ($row->isCheckedOut($user->get('id'), $row->checked_out))
         {
-            $msg = 'Record locked';
-            JError::raiseWarning(200, $msg);
             return false;
         }
 

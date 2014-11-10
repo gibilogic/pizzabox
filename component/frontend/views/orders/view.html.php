@@ -1,18 +1,18 @@
 <?php
 
 /**
- * @version		    frontend/views/orders/view.html.php 2013-12-08 12:55:00 UTC zanardi
+ * @version		    frontend/views/orders/view.html.php 2014-11-10 17:03:00 UTC zanardi
  * @package		    GiBi PizzaBox
  * @author        GiBiLogic <info@gibilogic.com>
  * @authorUrl     http://www.gibilogic.com
- * @copyright	    Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
- * @license		    GNU/GPLv2
+ * @copyright	    (C) 2011-2014 GiBiLogic. All rights reserved.
+ * @license		    GNU/GPL v3 or later
  */
 defined('_JEXEC') or die();
 jimport('joomla.application.component.view');
 
 /**
- * PizzaboxViewOrders
+ * PizzaboxViewOrders class
  */
 class PizzaboxViewOrders extends JViewLegacy
 {
@@ -20,12 +20,18 @@ class PizzaboxViewOrders extends JViewLegacy
     public $pagination = null;
     public $user = null;
 
+    /**
+     *
+     * @param string $tpl
+     */
     public function display($tpl = null)
     {
-        $this->user = & JFactory::getUser();
-        switch ($tpl) {
+        $this->user = JFactory::getUser();
+        switch ($tpl)
+        {
             case 'form':
-                if (!$this->editItem()) {
+                if (!$this->editItem())
+                {
                     JResponse::setHeader('HTTP/1.0 403', true);
                     JError::raiseWarning(403, JText::_('Access denied'));
                     return;
@@ -54,15 +60,18 @@ class PizzaboxViewOrders extends JViewLegacy
 
         $is_admin = false;
         $user = & JFactory::getUser();
-        if (in_array(8, $user->groups)) {
+        if (in_array(8, $user->groups))
+        {
             $is_admin = true;
         }
 
         // get filter and search status
-        if ($is_admin) {
+        if ($is_admin)
+        {
             $filters['user'] = $app->getUserStateFromRequest($context . 'filter_user', 'filter_user', '', 'int');
         }
-        else {
+        else
+        {
             $filters['user'] = $user->id;
         }
         $filters['status'] = $app->getUserStateFromRequest($context . 'filter_status', 'filter_status', '', 'int');
@@ -70,11 +79,13 @@ class PizzaboxViewOrders extends JViewLegacy
         $filters['order_date_to'] = $app->getUserStateFromRequest($context . 'filter_order_date_to', 'filter_order_date_to', '', 'string');
         $filters['delivery_date_from'] = $app->getUserStateFromRequest($context . 'filter_delivery_date_from', 'filter_delivery_date_from', '', 'string');
         $filters['delivery_date_to'] = $app->getUserStateFromRequest($context . 'filter_delivery_date_to', 'filter_delivery_date_to', '', 'string');
-        if ($is_admin) {
+        if ($is_admin)
+        {
             $filters['order'] = $app->getUserStateFromRequest($context . 'filter_order', 'filter_order', 'delivery', 'cmd');
             $filters['order_Dir'] = $app->getUserStateFromRequest($context . 'filter_order_Dir', 'filter_order_Dir', 'asc', 'word');
         }
-        else {
+        else
+        {
             $filters['order'] = $app->getUserStateFromRequest($context . 'filter_order', 'filter_order', 'id', 'cmd');
             $filters['order_Dir'] = $app->getUserStateFromRequest($context . 'filter_order_Dir', 'filter_order_Dir', 'desc', 'word');
         }
@@ -82,7 +93,8 @@ class PizzaboxViewOrders extends JViewLegacy
         $search = JString::strtolower($search);
 
         // sanitize $filter_order
-        if (!in_array($filters['order'], array('ordering', 'id', 'delivery'))) {
+        if (!in_array($filters['order'], array('ordering', 'id', 'delivery')))
+        {
             $filters['order'] = 'ordering';
         }
 
@@ -106,14 +118,16 @@ class PizzaboxViewOrders extends JViewLegacy
         // get users list
         $users = $model->getUsersList();
 
-        if ($is_admin) {
+        if ($is_admin)
+        {
             $list = array();
             $list[] = JHTML::_('select.option', '', '-- ' . JText::_('user') . ' --', 'id', 'name');
             $list = array_merge($list, $users);
             $lists['users'] = $list;
             $filters['user'] = JHTML::_('select.genericlist', $list, 'filter_user', $javascript, 'id', 'name', $filters['user']);
         }
-        else {
+        else
+        {
             $filters['user'] = '';
         }
 
@@ -127,23 +141,28 @@ class PizzaboxViewOrders extends JViewLegacy
         $filters['status'] = JHTML::_('select.genericlist', $list, 'filter_status', $javascript, 'id', 'name', $filters['status']);
         $lists['status'] = JHTML::_('select.genericlist', $list, 'new_status', '', 'id', 'name', '');
 
-        foreach ($items['rows'] as &$item) {
+        foreach ($items['rows'] as &$item)
+        {
             $model->setId($item->id);
 
-            if ($item->user_id) {
+            if ($item->user_id)
+            {
                 $item->user = $users[$item->user_id]->name;
             }
-            else {
+            else
+            {
                 $item->user = '';
             }
 
             $item->order_total = $model->getTotal();
 
-            if ($item->status_id && isset($statuses[$item->status_id])) {
+            if ($item->status_id && isset($statuses[$item->status_id]))
+            {
                 $item->status = $statuses[$item->status_id]->name;
                 $item->lock = $statuses[$item->status_id]->lock;
             }
-            else {
+            else
+            {
                 $item->status = '';
                 $item->lock = 0;
             }
@@ -152,22 +171,26 @@ class PizzaboxViewOrders extends JViewLegacy
         }
 
         // ADMIN TOOLBAR
-        if ($is_admin) {
+        if ($is_admin)
+        {
             $bar = new JToolBar('containersToolbar');
             $bar->appendButton('Custom', '<a class="toolbar" href="javascript:window.print()">' . JText::_('PIZZABOX_ORDERS_PRINT') . '</a>', 'print');
 
             $lang = & JFactory::getLanguage();
-            foreach ($statuses as $status) {
+            foreach ($statuses as $status)
+            {
                 if (!$status->published)
                 {
                     continue;
                 }
 
                 // If there an exact relevant string for a button, use it; else use a default string "Set status " + status name
-                if ($lang->hasKey('PIZZABOX_ORDERS_SET_' . strtr($status->name, ' ', '_'))) {
+                if ($lang->hasKey('PIZZABOX_ORDERS_SET_' . strtr($status->name, ' ', '_')))
+                {
                     $button_label = JText::_('PIZZABOX_ORDERS_SET_' . strtr($status->name, ' ', '_'));
                 }
-                else {
+                else
+                {
                     $button_label = JText::_('PIZZABOX_ORDERS_SET') . $status->name;
                 }
 
@@ -190,12 +213,14 @@ class PizzaboxViewOrders extends JViewLegacy
 
         $item = & $this->get('item');
         $user = & JFactory::getUser();
-        if ((!in_array(8, $user->groups) ) && ( $user->id != $item['row']->user_id )) {
+        if ((!in_array(8, $user->groups) ) && ( $user->id != $item['row']->user_id ))
+        {
             return false;
         }
 
         $item['row']->isAdmin = false;
-        if (in_array(8, $user->groups)) {
+        if (in_array(8, $user->groups))
+        {
             $item['row']->isAdmin = true;
         }
 
