@@ -1,15 +1,14 @@
 <?php
-
 /**
- * @version			  frontend/helpers/pizzabox.php 2014-07-23 09:36:00 UTC zanardi
+ * @version			  frontend/helpers/pizzabox.php 2015-06-22 16:39:00 UTC zanardi
  * @package			  GiBi PizzaBox
  * @author			  GiBiLogic <info@gibilogic.com>
  * @authorUrl		  http://www.gibilogic.com
- * @copyright		  Copyright (C) 2011-2013 GiBiLogic. All rights reserved.
- * @license			  GNU/GPL v2 or later
+ * @copyright		  Copyright (C) 2011-2015 GiBiLogic. All rights reserved.
+ * @license			  GNU/GPL v3 or later
  */
 defined('_JEXEC') or die();
-require_once(JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php');
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/models/orders.php';
 
 /**
  * PizzaboxHelper
@@ -19,22 +18,18 @@ class PizzaboxHelper
 
     public function __construct()
     {
-        $this->params = & JComponentHelper::getParams('com_pizzabox');
+        $this->params = JComponentHelper::getParams('com_pizzabox');
     }
 
     public function formatPrice($price)
     {
-        if (!is_numeric($price))
-        {
+        if (!is_numeric($price)) {
             return '';
         }
 
-        if ($this->params->get('currency_symbol_position', 'before') == 'before')
-        {
+        if ($this->params->get('currency_symbol_position', 'before') == 'before') {
             return $this->params->get('currency_symbol') . " " . sprintf("%.2f", $price);
-        }
-        else
-        {
+        } else {
             return sprintf("%.2f", $price) . " " . $this->params->get('currency_symbol');
         }
     }
@@ -55,8 +50,7 @@ class PizzaboxHelper
         $mailer->setSender($config->get('mailfrom', 'pizzabox@gibilogic.com'));
 
         // Recipient(s)
-        foreach ($this->getAdminRecipients() as $email => $name)
-        {
+        foreach ($this->getAdminRecipients() as $email => $name) {
             $mailer->addRecipient($email, $name);
         }
         $user = JFactory::getUser();
@@ -64,7 +58,9 @@ class PizzaboxHelper
 
         // Subject and body
         $mailer->setSubject(JText::_('PIZZABOX_EMAIL_NOTIFICATION_SUBJECT'));
-        $mailer->setBody('<html><body><p>' . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY') . $this->buildOrderBody($order_id) . "</p></body></html>");
+        $body = '<html><body><p>' . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY') . $this->buildOrderBody($order_id) . "</p></body></html>";
+        $mailer->setBody($body);
+        $mailer->AltBody = JMailHelper::cleanText(strip_tags($body));
 
         // Send message
         $mailer->IsHTML(true);
@@ -79,8 +75,7 @@ class PizzaboxHelper
      */
     private function buildOrderBody($order_id)
     {
-        if (!$this->params->get("email_includes_order", 0))
-        {
+        if (!$this->params->get("email_includes_order", 0)) {
             $link = JURI::root() . JRoute::_("index.php?option=com_pizzabox&controller=orders&task=edit&id=$order_id");
             return "<a href=\"$link\">" . JText::_('PIZZABOX_EMAIL_NOTIFICATION_BODY_ORDER_DETAIL') . "</a>";
         }
@@ -90,8 +85,7 @@ class PizzaboxHelper
         $this->order = $orderModel->getItem();
         $parts = $orderModel->getParts();
 
-        foreach ($parts as &$part)
-        {
+        foreach ($parts as &$part) {
             $part->container_image = JURI::root() . $this->getElementImage('containers', $part->container_id);
             $part->part_image = JURI::root() . $this->getElementImage('parts', $part->part_id);
             $part->flavour_image = JURI::root() . $this->getElementImage('flavours', $part->flavour_id);
@@ -104,8 +98,8 @@ class PizzaboxHelper
         $this->helper = new PizzaboxHelper();
 
         ob_start();
-        include JPATH_COMPONENT_SITE . '/layouts/_order_details.php';
-        return "<div>".ob_get_clean()."</div>";
+        include JPATH_COMPONENT_SITE . '/layouts/_mail_order_details.php';
+        return "<div>" . ob_get_clean() . "</div>";
     }
 
     /**
@@ -113,20 +107,15 @@ class PizzaboxHelper
      */
     private function getAdminRecipients()
     {
-        if (!$this->params->get('email_notification', 0))
-        {
+        if (!$this->params->get('email_notification', 0)) {
             return array();
         }
 
         $recipients = array();
-        if ($this->params->get('email_address', ''))
-        {
+        if ($this->params->get('email_address', '')) {
             $recipients[$this->params->get('email_address')] = $this->params->get('email_address');
-        }
-        else
-        {
-            foreach ($this->_getSystemEmailAddresses() as $recipient)
-            {
+        } else {
+            foreach ($this->_getSystemEmailAddresses() as $recipient) {
                 $recipients[$recipient->email] = $recipient->name;
             }
         }
@@ -138,10 +127,8 @@ class PizzaboxHelper
     {
         $results = array();
 
-        foreach ($rows as $row)
-        {
-            if (!array_key_exists($row->container_number, $results))
-            {
+        foreach ($rows as $row) {
+            if (!array_key_exists($row->container_number, $results)) {
                 $results[$row->container_number] = array(
                     'id' => $row->container_id,
                     'name' => $row->container_name,
@@ -151,8 +138,7 @@ class PizzaboxHelper
                 );
             }
 
-            if (!array_key_exists($row->part_id, $results[$row->container_number]['parts']))
-            {
+            if (!array_key_exists($row->part_id, $results[$row->container_number]['parts'])) {
                 $results[$row->container_number]['parts'][$row->part_id] = array(
                     'id' => $row->part_id,
                     'name' => $row->part_name,
@@ -161,8 +147,7 @@ class PizzaboxHelper
                 );
             }
 
-            if (!array_key_exists($row->flavour_id, $results[$row->container_number]['parts'][$row->part_id]['flavours']))
-            {
+            if (!array_key_exists($row->flavour_id, $results[$row->container_number]['parts'][$row->part_id]['flavours'])) {
                 $results[$row->container_number]['rowspan'] += 1;
                 $results[$row->container_number]['parts'][$row->part_id]['flavours'][$row->flavour_id] = array(
                     'id' => $row->flavour_id,
@@ -182,12 +167,11 @@ class PizzaboxHelper
     {
         $recipients = array();
         $query = "SELECT `name`, `email` " .
-                "FROM `#__users` " .
-                "WHERE `sendEmail` = '1'";
+            "FROM `#__users` " .
+            "WHERE `sendEmail` = '1'";
         $db = & JFactory::getDBO();
         $db->setQuery($query);
-        if ($result = $db->loadObjectList())
-        {
+        if ($result = $db->loadObjectList()) {
             $recipients = $result;
         }
     }
@@ -202,8 +186,7 @@ class PizzaboxHelper
     private function getElementImage($elements_type, $id)
     {
         $class_name = "PizzaboxModel" . $elements_type;
-        if (!class_exists($class_name))
-        {
+        if (!class_exists($class_name)) {
             require_once ( JPATH_COMPONENT_ADMINISTRATOR . '/models/' . $elements_type . '.php' );
         }
 
@@ -212,5 +195,4 @@ class PizzaboxHelper
         $element = $model->getItem();
         return ( $element['row']->image );
     }
-
 }
